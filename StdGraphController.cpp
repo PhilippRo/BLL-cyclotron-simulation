@@ -53,15 +53,15 @@ void StdGraphController::setPoints(std::vector<BLL::Point>* p){
 
 BLL::Point StdGraphController::max(){
 	mtx.lock();
-	if(points->size() == 0){
-		mtx.unlock();
+        auto points = *this->points;
+        mtx.unlock();
+	if(points.size() == 0){
 		return Point(Double(1,0), Double(1,0));
 	}
-	Point p = * std::max_element(points->begin(), points->end(),[](Point a,Point b){
+	Point p = * std::max_element(points.begin(), points.end(),[](Point a,Point b){
 		return a.getY() < b.getY();
 	});
-	auto lp = points->at(points->size() - 1);
-	mtx.unlock();
+	auto lp = points.at(points.size() - 1);
 	return Point(lp.getX(), p.getY());
 }
 
