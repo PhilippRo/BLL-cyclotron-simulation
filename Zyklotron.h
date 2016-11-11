@@ -24,10 +24,6 @@
 #ifndef ZYKLOTRON_H_
 #define ZYKLOTRON_H_
 
-
-//must be (m/(Double(1,0)-(v*v/Double::c()/Double::c())).sqrt())
-#define MASS_REL(v,m) (m/(Double(1,0)-(v*v/Double::c()/Double::c())).sqrt())
-
 #include <Point.h>
 #include <Channel.h>
 #include <queue>
