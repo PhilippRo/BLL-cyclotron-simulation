@@ -21,13 +21,6 @@
 
 namespace BLL {
 
-typedef struct mainloopAppl{
-public:
-	void operator()(){
-		BLL::Window::instance().mainloop();
-	}
-} mainloopAppl;
-
 Application::Application() {
 	// TODO Auto-generated constructor stub
 
