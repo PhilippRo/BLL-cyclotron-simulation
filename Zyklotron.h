@@ -35,17 +35,32 @@
 namespace BLL {
 
 namespace ZyklotronParts{
+        /*!
+            Das ZykSet <br /> 
+            ist eine Menge von Messdaten, die zwischen dem Berechnungsthread und dem 
+            dem ManagementThread ausgetauscht werden
+            
+        */
 	class ZykSet{
 		//POD attributes meant to be public
 		public:
+                        /// der Zeitpunkt, wenn die Datenmenge valide ist, in Sekunden
 			Double time;
+                        /// Geschwindigkeit in Metern pro Sekunde
 			Double v;
+                        /// zurückgelegte Strecke in Metern
 			Double s;
+                        /// kinetische Energie in Joule
 			Double ke;
-			Double me;
+			/// aktuelle Masse in Kilogramm (Basiseinheit) 
+                        Double me;
+                        /// gesamt Energie in Joule
 			Double re;
+                        /// Radius in Metern
 			Double r;
+                        /// Umlaufzeit in Sekunden
 			Double roundtime;
+                        /// beschleunigte Zeit im Kondesator
 			Double timeInCondensator;
 	};
 }
