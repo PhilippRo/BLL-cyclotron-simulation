@@ -36,7 +36,8 @@ namespace BLL {
 
 namespace ZyklotronParts{
         /*!
-            Das ZykSet <br /> 
+            \brief Das ZykSet
+ 
             ist eine Menge von Messdaten, die zwischen dem Berechnungsthread und dem 
             dem ManagementThread ausgetauscht werden
             
