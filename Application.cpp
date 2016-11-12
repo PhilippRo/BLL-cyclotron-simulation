@@ -31,7 +31,8 @@ Application::~Application() {
 }
 
 void Application::operator ()(){
-	//BLL::Window::instance().addGraph<StdGraphController>("Beschleunigung [m/ s^2]");
+	// Beispiel eines Zyklotrons (ohne Parameter)
+
 	std::vector <std::string> str;
 	str.push_back("Geschwindigkeit [m/s] (rel)");
 	str.push_back("Umlaufzeit [s] (rel)");
@@ -39,7 +40,6 @@ void Application::operator ()(){
 	str.push_back("kinetische Energie [N] (rel)");
 	str.push_back("gesamte Energie [N] (rel)");
 	str.push_back("Masse [kg] (rel)");
-	//str.push_back("Umlaufzeit [s] (rel)");
 
 	std::vector <std::string> strc;
 	strc.push_back("Geschwindigkeit [m/s] (cla)");
@@ -48,8 +48,7 @@ void Application::operator ()(){
 	strc.push_back("kinetische Energie [N] (cla)");
 	strc.push_back("gesamte Energie [N] (cla)");
 	strc.push_back("Masse [kg] (cla)");
-	//strc.push_back("Umlaufzeit [s] (cla)");
-
+	
 	ZyklotronController::instance().addZyklotron(str);
 	ZyklotronController::instance().addZyklotron(strc);
 	
@@ -77,13 +76,9 @@ void Application::operator ()(){
 		Double(9.1, -31.0), Double(1.0,-1.0),
 		Double(9, -11.0), 0.01, false);
 
-//	new boost::thread([](){ZyklotronController::instance().getZyklotron(0).run();});
-
-//	new boost::thread([](){ZyklotronController::instance().getZyklotron(1).run();});
 	ZyklotronController::instance().run();
 
 	Window::instance().mainloop();
-	//thr.join();
 
 }
 
@@ -99,6 +94,7 @@ void Application::operator()(int argc, char** argv){
 	for(int i = 0; 9*(i+1) <argc ; i++ ){
 		std::string name(argv[2 + (i*9)]);
 		std::vector <std::string> str;
+                //Titel der Graphen
 		str.push_back(name + " Geschwindigkeit [m/s]");
 		str.push_back(name + " Umlaufzeit [s]");
 		str.push_back(name + " Beschleunigte Zeit [s]");
@@ -107,8 +103,11 @@ void Application::operator()(int argc, char** argv){
 		str.push_back(name + " Masse [kg]");
 
 		std::string typeStr(argv[1 + (i*9)]);
+                //Zykltron wird erstellt
 		ZyklotronController::instance().addZyklotron(str);
+                //dem aktuellen Zyklotron werden die Graphnamen gegeben
 		ZyklotronController::instance().getZyklotron(i).setGraphNames(str);
+                //der Zyklotron wird mit den entsprechenden Werten konfiguriert
 		ZyklotronController::instance().getZyklotron(i).configure(
 			Double(std::string(argv[3 + (i*9)])),
 			Double(std::string(argv[4 + (i*9)])),
