@@ -23,6 +23,7 @@ private:
 	std::list<T> qu;
 	boost::mutex writemutex;
 	int capaticity = 10000;
+        int size = 0;
 public:
 	std::string name = "";
 	Channel() {
@@ -38,14 +39,13 @@ public:
 	T read(){
 		bool empty = true;
 		do{
-			writemutex.lock();
-			empty = qu.size() == 0;
-			writemutex.unlock();
+			empty = size == 0;
 		}while(empty);
 		writemutex.lock();
 		T ret;
 		ret = qu.front();
 		qu.pop_front();
+                size--;
 		writemutex.unlock();
 		return ret;
 	}
@@ -53,12 +53,11 @@ public:
 	void write(T content){
 		bool full = true;
 		do{
-			writemutex.lock();
-			full = qu.size() > capaticity;
-			writemutex.unlock();
+			full = size > capaticity;
 		}while(full);
 		writemutex.lock();
 		qu.push_back(content);
+                size++;
 		writemutex.unlock();
 	}
 
