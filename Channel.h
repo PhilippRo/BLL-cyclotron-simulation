@@ -8,55 +8,87 @@
 #ifndef CHANNEL_H_
 #define CHANNEL_H_
 
-// # in a macro is a stringyfication
-#define SET_UP_CHANNEL_NAME(a) a.name=#a;
-
 #include <list>
 #include <boost/thread.hpp>
 #include <boost/thread/mutex.hpp>
 
 namespace BLL {
 
+/**
+\brief Channel ist ein Kommunikationsmedium für Zwischenthreadkommunikation
+
+Channel basiert auf einer Standartliste, die mit Mutexen so geschützt wird, dass
+sich werder der RAM füllt noch doppelter gleichzeitiger Zugriff auf die Liste 
+stattfinden kann.
+
+T stellt dabei den Inhalt des Channels da.
+
+*/
 template<class T>
 class Channel {
 private:
+        /// Inhalt       
 	std::list<T> qu;
+
+        /// Mutex zur Kontrolle des Channels
 	boost::mutex writemutex;
+
+        /// Maximale Anzahl an Einträgen
 	int capaticity = 10000;
+
+        /// aktuelle Größe
         int size = 0;
+
 public:
-	std::string name = "";
-	Channel() {
-		// TODO Auto-generated constructor stub
+        ///Standartkonstruktor
+	Channel() {}
 
-	}
+        ///Standartdestruktor
+	~Channel() {}
 
-	~Channel() {
-		// TODO Auto-generated destructor stub
-	}
+	/**
+           \brief Gibt ein Element des Channels zurück
+ 
+           Sollte der Channel leer sein, wird so lange gewartet, bis 
+           wieder ein Element im Channel ist
 
-	//implement templated functions in headers comp problems
+           \return aktuelles Element
+        */
 	T read(){
+                //warted, bis ein Element im Channel ist
 		bool empty = true;
 		do{
 			empty = size == 0;
 		}while(empty);
+                //hole Objekt
 		writemutex.lock();
 		T ret;
 		ret = qu.front();
 		qu.pop_front();
+                //reduziere size 
                 size--;
 		writemutex.unlock();
 		return ret;
 	}
 
+        /**
+           \brief schreibt ein Objekt in den Channel
+
+           Sollte der Channel voll sein warted die Methode, bis ein
+	   Element aus dem Channel entfernt wird.
+
+           \param content das zu schreibende Objekt
+        */
 	void write(T content){
+                //warte, bis Channel nicht mehr vollständig gefüllt ist
 		bool full = true;
 		do{
 			full = size > capaticity;
 		}while(full);
+                //schreibe Objeckt
 		writemutex.lock();
 		qu.push_back(content);
+                //erhöhe size
                 size++;
 		writemutex.unlock();
 	}

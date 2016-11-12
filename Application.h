@@ -12,7 +12,9 @@
 
 namespace BLL {
 
-/**\brief Die Application 
+/**
+   \brief Die Application 
+   
    Klasse ist eine Klasse, die die Programmlogik in objektorientiert darstellt
    Application started und konfiguriert die anderen Programmteile.
 */
