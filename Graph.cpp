@@ -19,7 +19,6 @@ BLL::Graph::Graph(int x, int y, int width, int height
 	this->height = height;
 	this->xOffset = xOffset;
 	this->yOffset = yOffset;
-	gCont = 0;
 }
 
 BLL::Graph::Graph()
@@ -29,7 +28,8 @@ BLL::Graph::Graph()
 	this->width = 0;
 	this->height = 0;
 	this->xOffset = 0;
-	gCont = 0;
+        this->gCont = 0;
+	this->initGraphController<BLL::StdGraphController>();
 }
 
 BLL::Graph::~Graph() {
@@ -38,8 +38,9 @@ BLL::Graph::~Graph() {
 
 void BLL::Graph::operator<<(BLL::Point p){
 	if(! isStdGraphSetUp){
-		isStdGraphSetUp = true;
-	}
+	    std::cout << "error: Graph is not configured" << std::endl;
+            return;
+        }
 	(*gCont) << (p);
 }
 
