@@ -12,14 +12,36 @@
 
 namespace BLL {
 
+/** 
+    \brief Repräsentiert einen Punkt im Graphen
+*/
 class Point {
 public:
+        ///Standartkonstruktor
 	Point();
+        /**
+          \brief Konstruktor
+
+          \param paraX X-Koordinate des Punktes
+          \param paraY Y-Koordinate des Punktes
+        */
 	Point(Double paraX, Double paraY);
 	virtual ~Point();
 
+
+        /**
+          Getter für die X-Koordinate
+
+          \return der X-Wert des Punktes
+        */
 	Double getX();
-	Double getY();
+	
+        /**
+          Getter für die Y-Koordinate
+
+          \return der Y-Wert des Punktes
+        */
+        Double getY();
 
 protected:
 	Double x;
