@@ -19,6 +19,11 @@
 namespace BLL {
 using namespace std;
 
+/**
+\brief Window ist ein Fenster mit Geometriemanager für Widgets
+
+Das Hauptwidget für Window ist Graph
+*/
 class Window{
 
 protected:

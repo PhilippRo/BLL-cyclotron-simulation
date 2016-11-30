@@ -12,15 +12,40 @@
 
 namespace BLL {
 
+
+/**
+  \brief Basisklasse als Inhalt für das Window
+
+  Die Klasse Graph erbt von dieser Klasse. Der Sinn dieser Klasse
+  besteht in potentiellen Erweiterungen des Funktionsumpfangs des Windows.
+
+*/
 class Widget {
 public:
+
+        ///Standartkonstruktor
 	Widget();
+
+        ///Desktruktor sollte überschrieben werden
 	virtual ~Widget();
 
+        ///Methode, die in Window::instance().win rendert
 	virtual void render() = 0;
 
-	int x,y,width,height, xOffset, yOffset;
+        ///X-Startpostion des Widgets
+	int x;
+        ///Y-Startpostion des Widgets
+        int y;
+        ///Breite des Widgets
+        int width;
+        ///Hoehe des Widgets
+        int height;
+        ///Horizontialer Rand von Widgetrand zum eigentlichen Inhalt
+        int xOffset;
+        ///Horizontialer Rand von Widgetrand zum eigentlichen Inhalt
+        int yOffset;
 
+	///Ein interens Identifikationstoken
 	std::string name;
 
 };
