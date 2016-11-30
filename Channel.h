@@ -11,6 +11,8 @@
 #include <list>
 #include <boost/thread.hpp>
 #include <boost/thread/mutex.hpp>
+#include <boost/thread/condition_variable.hpp>
+
 
 namespace BLL {
 
@@ -33,6 +35,9 @@ private:
         /// Mutex zur Kontrolle des Channels
 	boost::mutex writemutex;
 
+        /// Bedingungen wenn der Channel warten muss
+        boost::condition_variable read_cond;
+        
         /// Maximale Anzahl an Einträgen
 	int capaticity = 10000;
 
@@ -55,19 +60,18 @@ public:
            \return aktuelles Element
         */
 	T read(){
+                boost::mutex::scoped_lock lock(writemutex);
                 //warted, bis ein Element im Channel ist
-		bool empty = true;
-		do{
-			empty = size == 0;
-		}while(empty);
+		if(size == 0){
+                    read_cond.wait(lock);
+                }
                 //hole Objekt
-		writemutex.lock();
 		T ret;
 		ret = qu.front();
 		qu.pop_front();
                 //reduziere size 
                 size--;
-		writemutex.unlock();
+                read_cond.notify_all();
 		return ret;
 	}
 
@@ -80,17 +84,16 @@ public:
            \param content das zu schreibende Objekt
         */
 	void write(T content){
+		boost::mutex::scoped_lock lock(writemutex);
                 //warte, bis Channel nicht mehr vollständig gefüllt ist
-		bool full = true;
-		do{
-			full = size > capaticity;
-		}while(full);
+		if(size > capaticity){
+			read_cond.wait(lock);
+		}
                 //schreibe Objeckt
-		writemutex.lock();
 		qu.push_back(content);
                 //erhöhe size
                 size++;
-		writemutex.unlock();
+		read_cond.notify_all();
 	}
 
 };
