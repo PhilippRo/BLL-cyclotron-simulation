@@ -81,6 +81,7 @@ private :
 
 	BLL::Channel<ZyklotronParts::ZykSet>* chan;
 	boost::thread *calcThread;
+	boost::thread *thisThread;
 
 	std::vector <std::string> names;
 

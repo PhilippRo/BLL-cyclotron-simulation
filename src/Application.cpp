@@ -21,14 +21,9 @@
 
 namespace BLL {
 
-Application::Application() {
-	// TODO Auto-generated constructor stub
+Application::Application() {}
 
-}
-
-Application::~Application() {
-	// TODO Auto-generated destructor stub
-}
+Application::~Application() {}
 
 void Application::operator ()(){
 	// Beispiel eines Zyklotrons (ohne Parameter)
@@ -80,6 +75,8 @@ void Application::operator ()(){
 
 	Window::instance().mainloop();
 
+	ZyklotronController::instance().shut_down();
+
 }
 
 void Application::operator()(int argc, char** argv){
@@ -124,6 +121,8 @@ void Application::operator()(int argc, char** argv){
 	Window::instance().create();
 	ZyklotronController::instance().run();
 	Window::instance().mainloop();
+
+	ZyklotronController::instance().shut_down();
 }
 
 } /* namespace BLL */

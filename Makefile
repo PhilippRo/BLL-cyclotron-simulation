@@ -10,7 +10,7 @@ OBJS = $(SRCS:./src/%.cpp=./$(BIN)/%.o)
 
 INCLUDES = -Iinclude
 LIBS = -lsfml-system -lsfml-window -lsfml-graphics -lboost_system -lboost_thread
-DEBUG = -pg
+DEBUG = -pg -g
 
 CXX_FLAGS = $(INCLUDES) $(DEBUG) -std=c++11 -fpermissive
 

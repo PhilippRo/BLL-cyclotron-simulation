@@ -5,14 +5,16 @@ namespace BLL{
 
 ZyklotronController::ZyklotronController(){}
 
-ZyklotronController::~ZyklotronController(){
-	for(int i = 0; i < thrds.size(); i++){
-		thrds[i]->interrupt();
-		delete thrds[i];
-	}
+void ZyklotronController::shut_down(){
 	for(int i = 0; i < zyks.size(); i++){
-		delete zyks[i];
+		if(zyks[i] != 0){}
+			delete zyks[i];
 	}
+
+}
+
+ZyklotronController::~ZyklotronController(){
+
 }
 
 void ZyklotronController::addZyklotron(std::vector<std::string> strs){
@@ -31,9 +33,7 @@ void ZyklotronController::run(){
 		return;
 	}
 	for(int i = 0; i < zyks.size(); i++){
-		thrds.push_back(new boost::thread([=](){
-			zyks[i]->run();
-		}));
+		zyks[i]->run();
 	}
 }
 	/* if true set GraphsNames of Zyk 1,2 3:

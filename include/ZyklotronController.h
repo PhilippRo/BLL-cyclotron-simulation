@@ -21,7 +21,6 @@ protected:
 	
 	std::vector<std::vector<std::string>> names;
 
-	std::vector<boost::thread*> thrds;
 public:
 	static ZyklotronController& instance(){
 		static ZyklotronController staticThis;
@@ -39,6 +38,8 @@ public:
 
 	*/
 	void insertGraphs(bool order);
+
+	void shut_down();
 };
 
 }
