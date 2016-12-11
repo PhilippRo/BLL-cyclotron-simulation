@@ -13,7 +13,7 @@ namespace BLL {
 
 Double::Double()
 	: value(0.0)
-	, power(0.0){
+	, power(0){
 }
 	
 Double::Double(std::string n){
@@ -35,46 +35,48 @@ Double::Double(std::string n){
 	power = std::stod(p);
 }
 
-Double::Double(double val, double pow)
+Double::Double(double val, int pow)
 	: value(val)
 	, power(pow) {
 }
 
-Double::~Double() {
-	// TODO Auto-generated destructor stub
-}
-
 Double Double::operator*(Double d){
-	Double ret;
-	ret.value = value * d.value;
-	ret.power = power + d.power;
-	return ret.adapt();
+	return Double(
+		value * d.value,
+		power + d.power);
 }
 
 Double BLL::Double::operator/(Double d){
-	Double ret;
-	ret.value = value / d.value;
-	ret.power = power - d.power;
-	return ret.adapt();
+	Double ret(
+		value / d.value,
+		power - d.power);
+	return ret;
 }
 
 Double Double::operator+(Double d){
-	Double ret;
-	ret.value = value + (d.value * pow(10, d.power - power));
-	ret.power = power;
-	return ret.adapt();
+	Double ret(
+		value + d.value*std::pow(10, d.power - power),
+		power);
+	return ret;
 }
 
 Double Double::operator-(Double d){
 	Double ret;
-	ret.value = value - (d.value * pow(10, d.power - power));
+	ret.value = value - (d.value * std::pow(10, d.power - power));
 	ret.power = power;
 	return ret.adapt();
 }
 
+
+//TODO Rewrite
 Double BLL::Double::operator%(BLL::Double d){
-	int prec = 100000000;
-	return Double((double)((int)(value*prec)%(int)(std::pow(d.value, d.power - power)*prec)), power - prec).adapt(); 
+	Double temp = *this - d; 
+	Double ret{0.0,0};
+	while(temp.toStd() > 0.0){
+		ret = temp;
+		temp = ret - d;
+	} 
+	return ret;
 }
 
 bool BLL::Double::operator <(BLL::Double d){
@@ -89,12 +91,12 @@ bool BLL::Double::operator==(Double d){
 }
 
 double Double::toStd(){
-	return value * pow(10, power);
+	return value * std::pow(10, power);
 }
 
 std::string Double::toString(){
 	std::stringstream ret;
-	ret.precision(2);
+	ret.precision(5);
 	ret << value;
 	ret << " e";
 	ret << power;
@@ -104,20 +106,31 @@ std::string Double::toString(){
 
 Double Double::sqrt(){
 	Double d;
-	d.value = std::sqrt(value);
-	d.power = power / 2;
+	if((power & 1) == 0){
+		d.value = std::sqrt(value);
+		d.power = power >> 1;
+	}else{
+		d.value = std::sqrt(value * 10.0);
+		d.power = (power + 1) >> 1;
+	}
 	return d.adapt();
 }
 
 Double Double::adapt(){
 	if(value != 0.0){
-		while(std::abs(value) > 10.0){
-			value /= 10;
-			power ++;
+		bool neg = value < 0 ? true : false;
+		
+ 		auto abso = neg ? -1*value : value; 
+		
+		while(abso > 1000.0){
+			value /= 1000;
+			abso  /= 1000;
+			power+=3;
 		}
-		while(std::abs(value) < 0.1){
-			value *= 10;
-			power --;
+		while( abso < 0.001){
+			value *= 1000;
+			abso  *= 1000;	
+			power-=3;
 		}
 	}
 	return (*this);

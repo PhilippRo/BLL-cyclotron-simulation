@@ -37,9 +37,6 @@ BLL::Graph::~Graph() {
 }
 
 void BLL::Graph::operator<<(BLL::Point p){
-        if(this == 0)
-		return;
-
 	if(! isStdGraphSetUp){
 	    std::cout << "error: Graph is not configured" << std::endl;
             return;

@@ -94,8 +94,10 @@ public:
 		
 		//hole Objekt
 		T ret;
-		ret = qu.front();
-		qu.pop_front();
+		if(qu.size() != 0){
+			ret = qu.front();
+			qu.pop_front();
+		}
                 //reduziere size 
                 size--;
                 read_cond.notify_all();

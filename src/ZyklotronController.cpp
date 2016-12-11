@@ -7,7 +7,7 @@ ZyklotronController::ZyklotronController(){}
 
 void ZyklotronController::shut_down(){
 	for(int i = 0; i < zyks.size(); i++){
-		if(zyks[i] != 0){}
+		if(zyks[i] != 0)
 			delete zyks[i];
 	}
 

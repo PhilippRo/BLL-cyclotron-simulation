@@ -59,17 +59,17 @@ void Application::operator ()(){
 	
 	ZyklotronController::instance().getZyklotron(0).configure(
 		// q u d v0 m0 b f
-		Double(1.6, -19.0),Double(1.0,-1.0),
-		Double(1.0, -2.0),Double(1.0, -1.0),
-		Double(9.1, -31.0), Double(1.0,-1.0),
-		Double(9, -11.0), 0.01, true);
+		Double(1.6, -19),Double(1.0,-1),
+		Double(1.0, -2),Double(1.0, -1),
+		Double(9.1, -31), Double(1.0,-1),
+		Double(9, -11), 0.01, true);
 
 	ZyklotronController::instance().getZyklotron(1).configure(
 		// q u d v0 m0 b f
-		Double(1.6, -19.0),Double(1.0,-1.0),
-		Double(1.0, -2.0),Double(1.0, -1.0),
-		Double(9.1, -31.0), Double(1.0,-1.0),
-		Double(9, -11.0), 0.01, false);
+		Double(1.6, -19),Double(1.0,-1),
+		Double(1.0, -2),Double(1.0, -1),
+		Double(9.1, -31), Double(1.0,-1),
+		Double(9, -11), 0.01, false);
 
 	ZyklotronController::instance().run();
 

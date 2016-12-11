@@ -39,7 +39,7 @@ public:
             \param val das f von f * (10^n)
             \param pow das n von f * (10^n)
         */
-	Double(double val, double pow);
+	Double(double val, int pow);
 
         /**
             \brief Erstellt Double aus String
@@ -52,9 +52,6 @@ public:
 
         */
 	Double(std::string n);
-
-        ///Standartdestruktor
-	virtual ~Double();
 
         /**
             \brief Lichtgeschwindigkeit (ca 3 * 10^8)
@@ -166,7 +163,7 @@ public:
 	Double adapt();
 
 	double value;
-	double power = 1;
+	int    power = 1;
 };
 
 } /* namespace BLL */

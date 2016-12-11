@@ -40,7 +40,7 @@ Zyklotron::~Zyklotron() {
 		if(thisThread !=0)
 			delete thisThread;
 	}
-	if(chan = 0)
+	if(chan == 0)
 		delete chan;
 }
 
