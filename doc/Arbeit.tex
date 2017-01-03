@@ -1,0 +1,168 @@
+\documentclass[14pt, a4paper]{report}
+
+\usepackage{ngerman}
+
+\begin{document}
+
+\title{Besondere Lernleistung \\ Simulation eines Zyklotrons }
+\author{Philipp Rosendahl \\ philipp.rosendahl@gmx.de \\ Mallinckrodt-Gymnasium Dortmund}
+\date{23.12.2016}
+\maketitle
+
+\tableofcontents
+
+\chapter{Vorwort}
+\section{Warum sollte man ein Zyklotron simulieren?}
+Teilchenbeschleuniger erm"oglichen es Forschern einen tiefen Einblick in die
+Materie zu erhalten. Man sollte sich daher mit ihnen besch"aftigen, da sie die
+experimentelle Grundlage der Teilchenphysik dastellen. Dennoch sind sie sehr
+teuer und als Sch"uler oder Laie ist es nur schwierig möglich, einen
+Teilchenbeschleuniger zu benutzen. \\
+Man sollte Zyklotrons simulieren, da man Fehler vorhersagen kann, ohne die Ressourcen
+f"ur einen Testlauf aufbringen zu m"ussen. Als Nichtforscher kann man, Dank Simulationen, einen Einblick in Teilgebiete aktueller Forschung erhalten und risikofrei experimentieren.
+\section{Motivation}
+Ich möchte diese besondere Lernleistung erbringen, da ich es interessant finde 
+zu abstrahieren, Modelle zu entwickeln und diese am PC umzusetzten. 
+Teilchenbeschleuniger sind relativ komplex und genie"sen ein gro"ses Interesse
+in der "Offentlichkeit, was sie für eine Simulation attraktiv macht. Au"serdem
+k"onnte die Simulation im Rahmen des Physikunterrichtes eingesetzt werden, da dort 
+ein preiwertes und risikofreies Experimentieren erwünscht ist.
+\section{Danksagung}
+Ich möchte mich bei allen bedanken, die mich unterst"utzt und ermutigt haben, eine
+besondere Lernleistung zu erbringen: Bei Herrn Dr. Unkelbach und Herrn H"orsken, 
+die mich betreut haben, bei Herrn Dr. Wiele, Herrn Broelemann und Herrn Wambach, 
+die mich auf die Möglichkeit einer besonderen Lenrleistung hingeweisen und mir im
+Rahmen von mathematischen Akademien fachlich Exkurse ermöglicht haben und nicht 
+zuletzt bei dem Mallinckrodt-Gymnasium, im Speziellem bei Herrn Weishaupt und Herrn
+Freudenreich, das mich ausgebildet hat und mir die Möglichkeit gibt diese Arbeit zu
+erbringen. Und zuletzt bei meinen Eltern, die mir ihren Möglichkeiten entsprechend
+geholfen haben.
+
+\part{Physikalische Grundlagen}
+\chapter{Bedeutung eines Zyklotrons}
+\section{Aufbau von Teilchenbeschleunigern}
+Man differenziert zwischen drei Arten von Teilchenbeschleunigern \footnotemark
+\footnotetext{vergleiche Physikbuch \_ Seite ?}
+\begin{enumerate}
+\item
+Der \textbf{Linearbeschleuniger} besteht aus Beschleunigungskondensatoren, die linear
+t oder gradlienig hintereinander angeordnet sind, durch die
+Teilchen auf eine hohe Geschwindigkeit gebracht werden. Damit ist jeweils ein hoher
+Konfigurationsaufwand verbunden, da viel wie z.B der Abstand zwischen allen
+Kondensatorplatten oder gegebenenfalls die Frequenz an den Kondensatorplatten 
+eingestellt werden muss.
+\item
+Das \textbf{Zyklotron} besteht aus 2 Halbkreisen zwischen denen ein Kondensator ist.
+Es werden 2 Arten von Feldern benutzt. Eimal die magnetischen, mit denen die 
+Teilchen auf einer Kreisbahen\footnote{mit der Lorenzkraft}
+gehalten werden, und die elektrischen, 
+mit denen die Teilchen w"ahrend des "Ubergangs zwischen den Halbkreisen in dem 
+Kondensator beschleunigt werden. Ein Zyklotron hat einen geringen 
+Konfigurationsaufwand, da nur 3 nach der klassischen Vorstellung konstante Gr"o"sen
+einzustellen sind: Die Masse, die Frequenz und das Magnetfeld an den Hablkreisen. 
+\item
+Der \textbf{Synchrotron} ist im Prinzip wie ein Zyklotron aufgebaut mit dem 
+Unterschied, dass das Magnetfeld anpassbar ist. Experimente haben gezeigt, dass die
+Masse nach Einsteins Relativit"atstheorie keine konstante Größe ist. Daher muss 
+dann w"ahrend der Beschleunigung das Magnetfeld angepasst werden.
+\end{enumerate}
+
+\section{Das Zyklotron im Vergleich zu anderen}
+Zyklotrons sind die einfachsten Teichenbeschleuniger. Die anderen 
+Teilchenbeschleunigern, doch die sind meistens deutlich schwieriger zu benutzten. 
+Ein Nachteil des Zyklotrons ist zum Beispiel, das ein Synchrotron die Teilchen auf 
+höhere Geschwindigkeiten beschleunigen kann. Damit eignet sich ein Zyklotron für 
+Massenspektrometrien und andere Experimente, bei denen man nur wenig am 
+Beschleuniger anpassen möchte und relativ geringe Geschwindigkeiten ausreichen. 
+Bei einem Linearbeschleunigern müssen zum Beispiel, anders als beim Zyklotron, von 
+Teilchenart zu Teilchenart, mehrere Beschleunigungskondensatoren an ihrem 
+Plattenabstand eingestellt werden, wobei man von Kondensator zu Kondensator andere
+Abst"ande braucht. Ein Synchrotron braucht eine dauerhafte Anpassung eines 
+Magenetfeldes, was ein Zyklotron nicht benötigt
+
+\chapter{Funktion eines Zyklotrons}
+\section{Das elektrische Feld}
+\section{Das magnetische Feld}
+\section{Mit elektrischen und magentischen Feldern Ionen beschleunigen}
+
+
+\chapter{relativistische Mechanik im Zyklotron}
+\section{Einsteins Konstante}
+\section{Experimenteller Befund: Das klassische Modell schl"agt fehl}
+\section{Neues Modell unter Ber"ucksichtigung der relativistischen Mechanik}
+
+\chapter{verwendetes Modell}
+\section{Betrachtung der Teilchen}
+\section{Betrachtung der Felder}
+\section{Beschleunigung im E-Feld}
+Interpretation der Kraft als Ableitung des Impulses
+\begin{equation}
+\dot{p} = f 
+\end{equation}
+Aus der Unkelbachschen Formelsammlung l"asst sich folgender Zusammenhang ableiten:
+\begin{eqnarray}
+\frac{d}{dt} (\frac{m_0 * v}{\sqrt{1 - (\frac{v}{c}})^2}) && = \frac{U * Q}{d} \\
+\frac{d}{dt} (\frac{v}{\sqrt{1 - (\frac{v}{c})^2}}) && = \frac{U * Q}{d * m_0} \\
+\int_{t_0}^t \frac{d}{dt} (\frac{v}{\sqrt{1 - (\frac{v}{c})^2}}) 
+    && = \int_{t_0}^t \frac{U * Q}{d * m_0} \\
+\end{eqnarray}
+\begin{center}
+$ \frac{U * Q}{d * m_0} $ wird als $ a $ interpretiert
+\end{center}
+\begin{eqnarray}
+\frac{v}{\sqrt{1 - (\frac{v}{c})^2}} && = a * t + v_0 \\
+\frac{v^2}{1 - (\frac{v}{c})^2} && = (a * t + v_0 )^2 \\
+v^2  && = (a * t + v_0)^2 - (\frac{v}{c})^2 * (a * t + v_0)^2\\
+v^2 + (\frac{v}{c})^2 * (a * t + v_0)^2 && = (a * t + v_0)^2 \\
+v^2 * (1 + \frac{(a * t + v_0)^2}{c^2}) &&  = (a * t + v_0)^2 \\
+v^2 && = \frac{(a * t + v_0)^2}{1 + (\frac{a * t + v_0}{c})^2} \\ 
+v && = \frac{a * t + v_0}{\sqrt{1 + (\frac{a * t + v_0}{c})^2}}
+\end{eqnarray}
+\section{klassische Mechanische Zusammenh"ange im Zyklotron}
+
+
+
+
+
+\part{Umsetzung am PC}
+\chapter{Die technische Herausvorderung}
+\section{Geschwindigkeit und Rechenaufwand}
+\section{Genauigkeitsproblem bei Flie"skommazahlen}
+
+\chapter{Die Wahlt der Werkzeuge}
+\section{Sprachen}
+\section{Bibliotheken}
+\section{Buildsysteme}
+
+\chapter{Design Grundlagen in C++}
+\section{Klassen und Strukturen}
+\section{Templates}
+\section{Operator"uerladung}
+\section{Singletonobjekte}
+
+\chapter{Multitasking}
+\section{Warum Multithreading ?}
+\section{Wer viel gleich macht, macht fehler.}
+\section{Synchronisierung}
+\section{Kommunikation zwischen Threads}
+
+\chapter{Desing der Simulation}
+\section{Application}
+\section{Window} 
+\section{Graphen und GraphController}
+\section{Zyklotron und ZyklotronController}
+\section{Starten der Simulation}
+
+\chapter{Umsetzung}
+\section{Lösung des Genauigkeitsproblem bei Flie"skommazahlen}
+\section{Channel f"ur die Kommunikation zwischen Threads}
+\section{Geometrie im Fenster}
+\section{Wie wird ein Graph gerendert}
+\section{Starten der Simulation}
+\section{Stoppen der Simulation}
+
+\appendix
+\chapter{Klassendokumentation}
+\newpage
+
+\end{document}

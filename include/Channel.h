@@ -29,6 +29,10 @@ T stellt dabei den Inhalt des Channels da.
 template<class T>
 class Channel {
 private:
+
+        /// Channelaktivität
+        bool active;
+
         /// Inhalt       
 	std::list<T> qu;
 
@@ -46,10 +50,27 @@ private:
 
 public:
         ///Standartkonstruktor
-	Channel() {}
+	Channel() {
+		active = true;
+        }
 
         ///Standartdestruktor
-	~Channel() {}
+	~Channel() {	
+		deactivate();
+	}
+
+	/**
+		\brief deaktiviert den Channel
+
+		macht den Channel unnutzbar.
+	*/
+	void deactivate(){
+		boost::mutex::scoped_lock lock(writemutex);
+
+		active = false;
+
+		read_cond.notify_all();	
+	}
 
 	/**
            \brief Gibt ein Element des Channels zurück
@@ -60,15 +81,23 @@ public:
            \return aktuelles Element
         */
 	T read(){
-                boost::mutex::scoped_lock lock(writemutex);
+	        boost::mutex::scoped_lock lock(writemutex);
+
+		//return, wenn nötig
+		if(!active)
+			return T();
+       
                 //warted, bis ein Element im Channel ist
-		if(size == 0){
+		if(size == 0 && active ){
                     read_cond.wait(lock);
                 }
-                //hole Objekt
+		
+		//hole Objekt
 		T ret;
-		ret = qu.front();
-		qu.pop_front();
+		if(qu.size() != 0){
+			ret = qu.front();
+			qu.pop_front();
+		}
                 //reduziere size 
                 size--;
                 read_cond.notify_all();
@@ -85,8 +114,12 @@ public:
         */
 	void write(T content){
 		boost::mutex::scoped_lock lock(writemutex);
-                //warte, bis Channel nicht mehr vollständig gefüllt ist
-		if(size > capaticity){
+ 		
+		if(!active)
+			return;
+
+               //warte, bis Channel nicht mehr vollständig gefüllt ist
+		if(size > capaticity && active){
 			read_cond.wait(lock);
 		}
                 //schreibe Objeckt
@@ -97,6 +130,7 @@ public:
 	}
 
 };
+
 
 } /* namespace BLL */
 

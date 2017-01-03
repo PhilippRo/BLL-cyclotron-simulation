@@ -29,11 +29,19 @@ Zyklotron::Zyklotron() {
 }
 
 Zyklotron::~Zyklotron() {
+	chan->deactivate();
 	if(calcThread != 0){
 		calcThread->interrupt();
-		delete calcThread;
+		if( calcThread != 0)
+			delete calcThread;
 	}
-	delete chan;
+	if(thisThread != 0){
+		thisThread->interrupt();
+		if(thisThread !=0)
+			delete thisThread;
+	}
+	if(chan == 0)
+		delete chan;
 }
 
 void Zyklotron::configure(Double paraQ, Double paraU, Double paraD, Double paraV0, 
@@ -60,23 +68,28 @@ void Zyklotron::configure(Double paraQ, Double paraU, Double paraD, Double paraV
 void Zyklotron::run(){
 	if(!configured) throw "Zyklotron was not configured [Zyklotron.cpp run]";
 	calcThread = new boost::thread(boost::bind(&BLL::Zyklotron::calc, this));
-	sf::Clock cl;
-	while(true){
-		ZyklotronParts::ZykSet res = chan->read();
-		int i = 0;
-		while((float)cl.getElapsedTime().asSeconds()*timeScale<res.time.toStd())
-		{
-			//std::cout << "waiting" << std::endl;
-			i++;
+	thisThread = new boost::thread([&](){
+		sf::Clock cl;
+		while(true){
+			if(!chan)
+				return;
+
+			ZyklotronParts::ZykSet res = chan->read();
+			int i = 0;
+			while((float)cl.getElapsedTime().asSeconds()*timeScale<res.time.toStd())
+			{
+				//std::cout << "waiting" << std::endl;
+				i++;
 		
+			}
+			(*BLL::Window::instance().getGraph(names[0])) << Point(res.time, res.v);
+			(*BLL::Window::instance().getGraph(names[1])) << Point(res.time, res.roundtime);
+			(*BLL::Window::instance().getGraph(names[2])) << Point(res.time, res.timeInCondensator);
+			(*BLL::Window::instance().getGraph(names[3]))<< Point(res.time, res.ke);
+			(*BLL::Window::instance().getGraph(names[4])) << Point(res.time, res.re);
+			(*BLL::Window::instance().getGraph(names[5])) << Point(res.time, res.me);
 		}
-		(*BLL::Window::instance().getGraph(names[0])) << Point(res.time, res.v);
-		(*BLL::Window::instance().getGraph(names[1])) << Point(res.time, res.roundtime);
-		(*BLL::Window::instance().getGraph(names[2])) << Point(res.time, res.timeInCondensator);
-		(*BLL::Window::instance().getGraph(names[3]))<< Point(res.time, res.ke);
-		(*BLL::Window::instance().getGraph(names[4])) << Point(res.time, res.re);
-		(*BLL::Window::instance().getGraph(names[5])) << Point(res.time, res.me);
-	}
+	});
 }
 
 void Zyklotron::calc(){
@@ -131,6 +144,10 @@ void Zyklotron::calc(){
 			res.time = it.time + res.roundtime + timePosAccel+timeNegAccel;			
 			it = res;
 			i++;
+
+			if(!chan)
+				return;
+
 			chan->write(res);
 		}
 	}

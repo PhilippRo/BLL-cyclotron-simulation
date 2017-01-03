@@ -21,14 +21,9 @@
 
 namespace BLL {
 
-Application::Application() {
-	// TODO Auto-generated constructor stub
+Application::Application() {}
 
-}
-
-Application::~Application() {
-	// TODO Auto-generated destructor stub
-}
+Application::~Application() {}
 
 void Application::operator ()(){
 	// Beispiel eines Zyklotrons (ohne Parameter)
@@ -64,21 +59,23 @@ void Application::operator ()(){
 	
 	ZyklotronController::instance().getZyklotron(0).configure(
 		// q u d v0 m0 b f
-		Double(1.6, -19.0),Double(1.0,-1.0),
-		Double(1.0, -2.0),Double(1.0, -1.0),
-		Double(9.1, -31.0), Double(1.0,-1.0),
-		Double(9, -11.0), 0.01, true);
+		Double(1.6, -19),Double(1.0,-1),
+		Double(1.0, -2),Double(1.0, -1),
+		Double(9.1, -31), Double(1.0,-1),
+		Double(9, -11), 0.01, true);
 
 	ZyklotronController::instance().getZyklotron(1).configure(
 		// q u d v0 m0 b f
-		Double(1.6, -19.0),Double(1.0,-1.0),
-		Double(1.0, -2.0),Double(1.0, -1.0),
-		Double(9.1, -31.0), Double(1.0,-1.0),
-		Double(9, -11.0), 0.01, false);
+		Double(1.6, -19),Double(1.0,-1),
+		Double(1.0, -2),Double(1.0, -1),
+		Double(9.1, -31), Double(1.0,-1),
+		Double(9, -11), 0.01, false);
 
 	ZyklotronController::instance().run();
 
 	Window::instance().mainloop();
+
+	ZyklotronController::instance().shut_down();
 
 }
 
@@ -124,6 +121,8 @@ void Application::operator()(int argc, char** argv){
 	Window::instance().create();
 	ZyklotronController::instance().run();
 	Window::instance().mainloop();
+
+	ZyklotronController::instance().shut_down();
 }
 
 } /* namespace BLL */
