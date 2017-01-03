@@ -47,7 +47,7 @@ public class BllGui extends JFrame{
         TopBox.setLayout(topLay);
         nZyks = new SpinnerNumberModel();
         nZyks.setMinimum(1);
-        nZyks.setMaximum(4);
+        nZyks.setMaximum(10);
         nZyks.setValue(1);
         timeScaleLabel = new JLabel("Zeitmaßstab 1:");
         timeScale = new JTextField();
@@ -91,6 +91,7 @@ public class BllGui extends JFrame{
                 for(int i = 0; i < zyks.size(); i++){
                     strs = strs + " " + zyks.get(i).getCallable();
                 }
+                System.out.println("starting main with " + strs);
                 try {
                    Process myProcess = Runtime.getRuntime().exec("./main " + strs
                         +" -timeScale " + timeScale.getText());
