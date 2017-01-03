@@ -22,7 +22,7 @@ using namespace std;
 /**
 \brief Window ist ein Fenster mit Geometriemanager für Widgets
 
-Das Hauptwidget für Window ist Graph
+Das Hauptwidget für Window ist Graph und es ist ein Singletonobjekt.
 */
 class Window{
 private:
