@@ -1,8 +1,11 @@
 CXX = g++
 DOXYGEN = doxygen
+LATEX = pdflatex
 
 BIN = bin
-DOC = doc
+DOC = doc/BLL4
+Arbeit = Arbeit.tex
+DOC_DIR = doc
 EXEC = main
 DOXYFILE = Doxyfile
 SRCS = $(shell find -name "*.cpp")
@@ -27,7 +30,8 @@ clean:
 Doc: dirs
 	@echo
 	@echo building documentation
-	@$(DOXYGEN) $(DOXYFILE) >> /dev/null
+	$(DOXYGEN) $(DOXYFILE) >> /dev/null
+	$(LATEX) $(DOC_DIR)/$(Arbeit) -output-directory=$(DOC_DIR)
 	@echo
 
 Bin: dirs $(OBJS)
