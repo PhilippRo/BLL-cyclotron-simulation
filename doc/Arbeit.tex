@@ -2,6 +2,8 @@
 
 \usepackage{ngerman}
 
+\setlength{\parindent}{0em}
+
 \begin{document}
 
 \title{Besondere Lernleistung \\ Simulation eines Zyklotrons }
@@ -51,7 +53,7 @@ Teilchen auf eine hohe Geschwindigkeit gebracht werden. Damit ist jeweils ein ho
 Konfigurationsaufwand verbunden, da viel wie z.B der Abstand zwischen allen
 Kondensatorplatten oder gegebenenfalls die Frequenz an den Kondensatorplatten 
 eingestellt werden muss.
-\item
+\item \label{ZyklotronBeschreibungAufbau}
 Das \textbf{Zyklotron} besteht aus 2 Halbkreisen zwischen denen ein Kondensator ist.
 Es werden 2 Arten von Feldern benutzt. Eimal die magnetischen, mit denen die 
 Teilchen auf einer Kreisbahen\footnote{mit der Lorenzkraft}
@@ -60,13 +62,18 @@ mit denen die Teilchen w"ahrend des "Ubergangs zwischen den Halbkreisen in dem
 Kondensator beschleunigt werden. Ein Zyklotron hat einen geringen 
 Konfigurationsaufwand, da nur 3 nach der klassischen Vorstellung konstante Gr"o"sen
 einzustellen sind: Die Masse, die Frequenz und das Magnetfeld an den Hablkreisen. 
+Haben die Teilchen einen gewissen Radius erreicht, werden sie mittels eines Kondesators
+aus dem Zyklotron gelenkt.
 \item
 Der \textbf{Synchrotron} ist im Prinzip wie ein Zyklotron aufgebaut mit dem 
-Unterschied, dass das Magnetfeld anpassbar ist. Experimente haben gezeigt, dass die
+Unterschied, dass das Magnetfeld anpassbar ist und in kreisf"ormig angeordneten Rohren 
+beschleunigt wird. Experimente haben gezeigt, dass die
 Masse nach Einsteins Relativit"atstheorie keine konstante Größe ist. Daher muss 
-dann w"ahrend der Beschleunigung das Magnetfeld angepasst werden.
+dann w"ahrend der Beschleunigung das Magnetfeld und die Frequenz an den 
+Beschleunigunskondensatoren angepasst werden. \label{synchrotron}
 \end{enumerate}
 
+\newpage
 \section{Das Zyklotron im Vergleich zu anderen}
 Zyklotrons sind die einfachsten Teichenbeschleuniger. Die anderen 
 Teilchenbeschleunigern, doch die sind meistens deutlich schwieriger zu benutzten. 
@@ -82,14 +89,126 @@ Magenetfeldes, was ein Zyklotron nicht benötigt
 
 \chapter{Funktion eines Zyklotrons}
 \section{Das elektrische Feld}
-\section{Das magnetische Feld}
-\section{Mit elektrischen und magentischen Feldern Ionen beschleunigen}
+Das elektrische Feld ist ein mathematisches Modell, mitdem man die Kräfte zwischen
+Ladungen modelliert. Die Feldlinien verdeutlichen dabei die Bewegung von positiver 
+Ladung im elektrischen Feld. \footnote{vergleiche Metzler Physik Seite 182}
+Sie gehen also von positiver Ladung zur negativen. Dabei verdeutlicht der Abstand zweier
+Feldlinien die St"arke des Feldes. F"ur ein Zyklotron betrachten wir nur an"ahernd
+homogene elektische Felder, wie sie in einem Kondensator vorkommen. Das besondere an 
+einem homogenen Feld ist, dass die Feldstärke an jedem Punkt des Feldes gleich stark 
+ist. Bei einem Zyklotron stehen die Feldlinien orthogonal auf den Kondensatorplatten
+des Beschleunigungskondesnsators, da dessen Platten parrallel zueinander stehen.
+F"ur das Feld im Kondesator und auch im Beschleunigungskondesator eines Zyklotrons
+sind folgende Beziehungen f"ur diese Simulation wichtig:
+\footnote{vgl. Das Gro"se Tafelwerk interaktiv Seite 107}
+\begin{eqnarray}
+\vec{E} = \frac{\vec{F}}{Q} \\
+E = \frac{U}{d}
+\end{eqnarray}
 
+\section{Das magnetische Feld}
+Das magnetische Feld ist, wie das elektrische Feld, auch ein mathematisches Modell.
+Allerdings beschreibt dieses nur Wechselwirkungen zwischen bewegten Ladungen. Jede
+bewegte Ladung erzeugt ein magnetisches Feld und ein sich "anderndes Magnetfeld 
+setzt Ladung in Bewegung. \footnote{elektromagnetische Induktion}
+Ein Magnetfeld wirkt auch auf bewegete Ladung. Diese Lorenzkraft l"asst sich als
+Rechtssystem definieren:
+\begin{eqnarray} \label{E-Feld-Gleichungen}
+ \vec{F_L} && = Q\vec{v} \times \vec{B} \footnotemark \\
+ F_L && = Q * v * B (wenn ~ \vec{v} \perp \vec{B}) \footnotemark
+\end{eqnarray}
+\footnotetext{vgl. Metzlers Physik Seite 229}
+\footnotetext{vgl. das Gro"se Tafelwerk interaktiv Seite 109}
+
+ 
+\section{Mit elektrischen und magentischen Feldern geladene Teilchen beschleunigen}
+In einem Zyklotron werden geladene Teilchen mithilfe elektrischer und magnetischer 
+Felder beschleunigt. Dieses ist nur m"oglich, da die Teilchen mit einer
+Startgeschwindigkeit $v_0$, die von einem Vorbeschleuniger ( meist 
+Linerarbeschleuniger) erzeugt wird, in das Zyklotron eintreten. Wie in Kapitel 2 
+gezeigt 
+\marginpar{siehe S. \pageref{ZyklotronBeschreibungAufbau}}
+sind für ein Zyklotron 2 Beschleunigungsarten wichtig: erstens eine lineare und 
+zweitens eine radiale. Für die lineare Beschleunigung also f"ur die Erh"ohung des 
+Betrages der Geschwindikeit benutzt man ein elektisches Feld. Die Feldlinien im 
+Kondensator sind an"ahernd parrallel zu der Bewegungsrichtung des geladenen Teilchens. 
+Also kann angenommen werden, dass die gesamte Kraft auf den Betrag der Geschwindigkeit 
+des geladenen Teilchens wirkt. Das magnetische Feld wird dazu verwendet das geladene
+Teilchen auf einer Kreisbahn zu bewegen. Da die Lorenzkraft ein Rechtsystem aus der
+Geschwindigkeit, dem Magnetfeld und der Kraft bildet, kann man das Magnetfeld so
+in das Zyklotron legen, dass die Lorentkraft als Zentripitalkraft $F_L = F_Z$ wirkt.
+Um das zu erreichen, steht das Magnetfeld immer im rechten Winkel auf der Kreisbahn
+des geladenen Teilchens.
+
+Nach der klassischen Vorstellung ist ist die Umlaufzeit eines geladenen Teilchens 
+unabhängig von dessen Geschwindigkeit:
+\begin{eqnarray}
+  F_L  		&& = F_Z  \footnotemark \\
+  Q * v * B 	&& = \frac{m * v^2}{r} \\
+  r		&& = \frac{m * v}{Q * B} \\
+  r		&& = \frac{m * 2 * \pi * r}{Q * B * T} \\
+  T		&& = \frac{m * 2 * \pi }{Q * B} \label{klassische_Umlaufzeit}
+\end{eqnarray}
+\footnotetext{vgl. Das Gro"se Tafelwerk interaktiv Seite 93}
+Alle Werte von denen die Umlaufzeit $T$ abh"angt sind, nach der klassischen Vorstellung
+konstant. Daraus folgt, dass das geladene Teilchen immer dann den Kondensator passiert,
+wenn die Spannung auf Beschleunigungs steht, da sich die Frequenz am Kondensator ohne
+Probleme auf $\frac{1}{T}$ einstellent l"asst. So kann man, nach dem klassischen Modell
+ein geladenes Teilchen im Prinzip unbegrenzt hoch beschleunigung, bis es aus dem
+Zyklotron entfernt wird. \label{klassische_Erwartung}
 
 \chapter{relativistische Mechanik im Zyklotron}
-\section{Einsteins Konstante}
+\section{Grundlage: Relativit"atstheorie}
+Neben der klassichen Vorstellung exsistiert allerdings noch eine andere, die 
+Relativit"atstheorie. Einigen Ph"anome, wie zum Beispiel die des Michelson-Experimentes,
+lassen sich mit der klassischen Vorstellung nicht erkl"aren. Einstein nahm an, dass 
+die Gesetze der Physik in jedem Bezugssystem gleicherma"sen gelten m"ussen. 
+Wenn man sich allerdings mit $c$ bewegt, erscheint ein Lichtstrahl als ruhend. 
+Die Lichtgeschwindigkeit ist eine Naturkonstante und sollte daher unter keinen 
+Umst"anden abweichen. Deshalb postulierte Einstein, dass in jedem Initialsystem die 
+Naturkonstanten, wie die Lichtgeschwindigkeit, gleich seien m"ussten. Daraus folgt auch
+das alle Initialsysteme bei Beobachtungen und Regeln gleichberechtigt sind. Das hei"st,
+das man in einem Raumschiff, dass mit an"ahernd $c$ fliegt, die selben Beobachtungen 
+macht, wie auf der Erde.
+\footnote{vgl. Metzler Physik Seite 345}
+
+So l"asst sich sagen: Aus dem Bezugssystem $S$ betrachtet hat 
+ein Objekt im Bezugssystem $S'$ andere Eigenschaften, zum Beispiel eine ver"anderte 
+Masse $m_v$, da sich von $S$ aus $S'$ mit einer Geschwindigkeit $v$ bewegt. 
+Allerdings funktioniert das auch umgekehrt. Steht der Betrachter im Bezugssystem $S'$ 
+hat das selbe Objekt die Ruhemasse $m_0$, während sich ein anderes Objekt im System $S$ 
+in den Eigenschaften ver"andert hat. Zusammengefasst: Einige Werte, die in der 
+klassischen Vorstellung konstant sind, h"angen eigentlich von der Geschwindigkeit 
+relativ zum eigenen Bezugssystem ab.
+
+Einige von Einstein abgeleiteten Beziehungen sind 
+\footnote{vgl. das Gro"se Tafelwerk interaktiv Seite 116 }:
+\begin{eqnarray}
+\beta && = \frac{v}{c} \\
+\Delta t' && = \Delta t * \sqrt{1 - \beta^2} ~ (Zeitdilatation) \\
+\Delta x' && = \Delta x * \sqrt{1 - \beta^2} ~ (L"angenkontraktion) \\
+m && = \frac{m_0}{\sqrt{1 - \beta^2}} \label{var_m} \\
+W_{ges} && = m * c^2 
+\end{eqnarray}
+
 \section{Experimenteller Befund: Das klassische Modell schl"agt fehl}
-\section{Neues Modell unter Ber"ucksichtigung der relativistischen Mechanik}
+Gegen die Erwartgungen im klassischen Modell 
+\marginpar{Siehe Seite \pageref{klassische_Erwartung} \ref{klassische_Erwartung}}
+lassen sich die Teilchen nicht unbegrenzt beschleunigen. Im klassischen Modell
+gilt die Beziehung $T = \frac{m * 2 * \pi }{Q * B}$ \ref{klassische_Umlaufzeit}. 
+Man ging davon aus, dass sich $T$ nicht ver"andert, aber die Masse eines Teilchens
+ist keine konstante Gr"o"se \marginpar{vgl. \ref{var_m}}. Die Masse steigt eines
+Teilchens steigt mit steigender Geschwindigkeit. Man sagt, dass da Zyklotron aus dem 
+Takt kommt, da nach einer kurzen Beschleunigung, die am Anfang eingestelle, Frequenz
+nicht mehr zu der neuen Umlaufzeit $T$ passt, da $T$ gr"o"ser wird. Nun passiert es,
+dass das geldene Teilchen im Kondensator zwar noch beschleunigt wird, aber wenn sich die
+Spannung im Kondensator "andert immer noch in ihm befindet und dann wieder abgebremst
+wird. Im Extremfall wird der Kondesator genau dann umgepolt, wenn das Teilchen gerade
+in der Mitte des Beschleunigungskondensators ist. Dann wird die Geschwindigkeit gar 
+nicht erh"oht, da es genau so lange postiv wie negativ beschleunigt wird 
+\footnote{Bremsen wird als negative Beschleunigung betrachtet}.
+Aufgrund dieses Befundes wurde das Synchrotron entwickelt 
+\marginpar{vgl. Synchrotron Seite \pageref{synchrotron}}
 
 \chapter{verwendetes Modell}
 \section{Betrachtung der Teilchen}
@@ -142,8 +261,8 @@ v && = \frac{a * t + v_0}{\sqrt{1 + (\frac{a * t + v_0}{c})^2}}
 
 \chapter{Multitasking}
 \section{Warum Multithreading ?}
-\section{Wer viel gleich macht, macht fehler.}
-\section{Synchronisierung}
+\section{Wer viel gleichzeitug macht, macht fehler.}
+\section{Synchronisation}
 \section{Kommunikation zwischen Threads}
 
 \chapter{Desing der Simulation}
@@ -154,12 +273,14 @@ v && = \frac{a * t + v_0}{\sqrt{1 + (\frac{a * t + v_0}{c})^2}}
 \section{Starten der Simulation}
 
 \chapter{Umsetzung}
-\section{Lösung des Genauigkeitsproblem bei Flie"skommazahlen}
+\section{L"osung des Genauigkeitsproblem bei Flie"skommazahlen}
 \section{Channel f"ur die Kommunikation zwischen Threads}
 \section{Geometrie im Fenster}
 \section{Wie wird ein Graph gerendert}
 \section{Starten der Simulation}
 \section{Stoppen der Simulation}
+
+\chapter{Quellen}
 
 \appendix
 \chapter{Klassendokumentation}
