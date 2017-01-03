@@ -17,7 +17,7 @@ namespace BLL {
 */
 class Point {
 public:
-        ///Standartkonstruktor
+        ///Standardkonstruktor
 	Point();
         /**
           \brief Konstruktor
@@ -44,7 +44,9 @@ public:
         Double getY();
 
 protected:
+	///Der X-Wert
 	Double x;
+	///Der Y-Wert
 	Double y;
 };
 

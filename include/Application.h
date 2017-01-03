@@ -13,23 +13,24 @@
 namespace BLL {
 
 /**
-   \brief Die Application 
+   \brief Die Application
    
-   Klasse ist eine Klasse, die die Programmlogik in objektorientiert darstellt
-   Application started und konfiguriert die anderen Programmteile.
+   Die Application-Klasse ist eine Klasse, die die Programmlogik in 
+   objektorientierter Form darstellt.
+   Außerdem started und konfiguriert sie die anderen Programmteile.
 */
 class Application {
 public:
+	///Standardkonstruktor
 	Application();
 	virtual ~Application();
 
 	///\brief führt die Programmlogik ohne Parameter aus
-        ///Standartbeispiel einer Simulation
-        ///wird aufgerufen, wenn Programm ohne Parameter aufgerufen wird
+        ///Deshalb wird eine einfache Beispielsimulation gestartet und es werden 
+	///Hinweise zur Benutzung ausgegeben
 	void operator()();
 
-        /** \brief führt die Programmlogik mit den Parametern der Mainfunkion aus 
-                   übergibt die Konsolenparameter an die Programmlogik 
+        /** \brief führt die Programmlogik mit Parametern aus
              
             \param argc sollte argc der Mainfunktion sein
             \param argv sollte argv der Mainfunktion sein

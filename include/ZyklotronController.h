@@ -13,7 +13,7 @@ namespace BLL{
 
 
 /**
-	\brief Verwaltet die Zyklotrons
+	\brief Verwaltet die simulierten Zyklotrons
 
 	Der ZyklotronController verwaltet, started und beendet die Zyklotrons. Er ist
 	ein Singletonobjekt.
@@ -70,6 +70,7 @@ public:
 		Die Simulation mit in dieser Methode gestartet. Das Window muss 
 		eingerichtet sein, dass heißt Window::instance().create() muss
 		aufgerufen worden sein, sowie Zyklotron::instance().insertGraphs()
+		(vor Window::instance().create() & vgl. Application code).
 	*/
 	void run();
 
@@ -79,7 +80,7 @@ public:
 		Diese Methode fügt in Window für jedes Zyklotron die entsprechen Graphen
 		ein.
 
-		\param order 	legt die Reihnfolge der Graphen fest. Wenn es true ist,
+		\param order 	legt die Reihenfolge der Graphen fest. Wenn es true ist,
 				werden zuerst alle ersten Graphen eines jeden Zyklotrons
 				eingesetzt, sonst werden alle Graphen des ersten 
 				Zyklotrons im Window eingerichtet.
@@ -90,7 +91,7 @@ public:
 	/**
 		\brief fährt die Simlation herunter
 
-		löscht jedes Zykltron und ruft damit den Destructor derselbigen auf.
+		löscht jedes Zykltron und ruft damit den Destructor desselbigen auf.
 	*/
 	void shut_down();
 };

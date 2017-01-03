@@ -19,11 +19,11 @@ namespace BLL {
 /**
 \brief Channel ist ein Kommunikationsmedium für Zwischenthreadkommunikation
 
-Channel basiert auf einer Standartliste, die mit Mutexen so geschützt wird, dass
+Der Channel basiert auf einer Standardliste, die mit Mutexen so geschützt wird, dass
 sich werder der RAM füllt noch doppelter gleichzeitiger Zugriff auf die Liste 
 stattfinden kann.
 
-T stellt dabei den Inhalt des Channels da.
+\tparam T stellt dabei den Inhalt des Channels da.
 
 */
 template<class T>
@@ -49,12 +49,12 @@ private:
         int size = 0;
 
 public:
-        ///Standartkonstruktor
+        ///Standardkonstruktor
 	Channel() {
 		active = true;
         }
 
-        ///Standartdestruktor
+        ///Standarddestruktor
 	~Channel() {	
 		deactivate();
 	}
@@ -108,8 +108,7 @@ public:
            \brief schreibt ein Objekt in den Channel
 
            Sollte der Channel voll sein warted die Methode, bis ein
-	   Element aus dem Channel entfernt wird.
-
+	   Element aus dem Channel entfernt wird
            \param content das zu schreibende Objekt
         */
 	void write(T content){
@@ -122,7 +121,7 @@ public:
 		if(size > capaticity && active){
 			read_cond.wait(lock);
 		}
-                //schreibe Objeckt
+                //schreibe Objekt
 		qu.push_back(content);
                 //erhöhe size
                 size++;

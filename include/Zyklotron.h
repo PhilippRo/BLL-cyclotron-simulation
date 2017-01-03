@@ -23,8 +23,10 @@ namespace ZyklotronParts{
         /*!
             \brief Das ZykSet
  
-            ist eine Menge von Messdaten, die zwischen dem Berechnungsthread und dem 
-            dem ManagementThread ausgetauscht werden
+            Das ZykSet ist eine Menge von Messdaten, die zwischen dem Berechnungsthread 
+	    und dem dem Managementthread ausgetauscht werden. (vgl. Zyklotron)
+
+	    Das ZykSet ist eine Plain-Old-Data-Klasse (kurz POD).
             
         */
 	class ZykSet{
@@ -68,7 +70,7 @@ protected:
 	///Ladung des Beschleunigten Teilchens
 	Double q;
 
-	///Beschleunigungsspannung des Kondessators
+	///Beschleunigungsspannung des Kondensators
 	Double u;
 
 	///Breite des Beschleunigungskondensators
@@ -89,7 +91,8 @@ protected:
 	///Beschleunigung im Kondensator
 	Double a0;
 
-	///Zeitmaßstab: gibt die Möglichkeit die Simulation zu verlangsamen oder zu beschleunigen
+	///Zeitmaßstab: gibt die Möglichkeit die Simulation zu verlangsamen 
+	///oder zu beschleunigen
 	float timeScale = 1.0;
 
 	///Channel für die Kommunikation zwischen clalcThread und thisThread
@@ -119,7 +122,7 @@ public:
 	/**
 		\brief konfiguriert das Zyklotron
 
-		Die Methode konfiguriert das Zyklotron mit den Werten
+		Die Methode konfiguriert das Zyklotron mit den Parametern:
 
 		\param paraQ die Ladung des Teilchens
 
@@ -172,7 +175,8 @@ public:
 		diese Methode startet das Zykotron und damit die Threads thisThread und
 		calcThread
 
-		Sie ließt aus dem Channel chan
+		Sie gibt calcThrad die Methode clac als Code und thisThread ein Lamda,
+		das aus chan ließt und die Werte an die Graphen übergibt.
 
 	*/
 	void run();

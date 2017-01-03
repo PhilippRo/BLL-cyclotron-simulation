@@ -20,15 +20,15 @@ namespace BLL {
 
 
 /**
-    \brief Double ist eine einfach mp Klasse
+    \brief Double ist eine wissenschaftlichen Dastellung von Zahlen.
 
-    Double ist eine Multiprecision Klasse und versucht dem Floatingpointprecisionproblem    annähernd zu lösen.
+    Double versucht das Floatingpointprecisionproblem annähernd zu lösen.
     Dabei werden Zahl als float * (10 ^ n) dagestellt. 
 */
 class  Double {
 public:
         
-        //Standartkonstruktor
+        //Standartdkonstruktor
 	Double();
 
         /**
@@ -80,23 +80,23 @@ public:
         /** 
             \brief formt BLL::Double nach double um
            
-            formt die Exponentielle Dastellung in die normale um
+            formt die wissenschaftliche Dastellung in die normale um
 
-            \return Wert als Double
+            \return Wert als double
         */    
 	double toStd();
 
         /**
-           \brief multiplizirt zwei Zahlen vom Typ Double
+           \brief multipliziert zwei Zahlen vom Typ Double
 
            \return Produkt zweier Zahlen vom Typ Double
         */	
         Double operator*(Double d);
 	
         /**
-           \brief dividirt zwei Zahlen vom Typ Double
+           \brief dividiert zwei Zahlen vom Typ Double
 
-           \return Quotient? zweier Zahlen vom Typ Double
+           \return Quotient zweier Zahlen vom Typ Double
         */
         Double operator/(Double d);
 
@@ -115,9 +115,11 @@ public:
 	Double operator-(Double d);
 
          /**
-            \brief Modulooperator für zwei Zahlen vom Typ Double
+           \brief Modulo-operator für zwei Zahlen vom Typ Double
 
-           \return Restklasse eines Doubles modulo d
+	   Funktioniert auch bei reellen Zahlen. 
+
+           \return Rest eines Doubles geteilt d
         */
 	Double operator%(Double d);
 
@@ -131,14 +133,14 @@ public:
         /**
             \brief vergleicht zwei Zahlen von Typ Double
 
-            \return ob a kleiner ist als d ( a < d)
+            \return ob a kleiner ist als d ( a < d )
         */
 	bool operator<(Double d);
 	
         /**
             \brief prüft zwei Doubles auf Gleichheit
 
-            \return ob 2 Double gleich sind
+            \return ob 2 Doubles sich entsprechen
         */
         bool operator==(Double d);
 
@@ -158,11 +160,14 @@ public:
 
             Wenn in der Form f * 10^n f in einen Bereich kommt, in dem das
             Floatingpointprecisionproblem relevant wird kann mit diese Methode f 
-            in eine günstigere Form gebracht werden.
+            , durch Anpassen des Exponenten, in eine günstigere Form gebracht werden.
         */
 	Double adapt();
 
+	///Wert der Zahl
 	double value;
+
+	///Exponent über der Zehn
 	int    power = 1;
 };
 

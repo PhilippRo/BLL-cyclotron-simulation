@@ -45,7 +45,7 @@ public:
 			, int xOffset, int yOffset);
 	
         /**
-        \brief  Standartkonstruktor
+        \brief  Standardkonstruktor
 
         Ruft initGraphController mit StdGraphController auf
         */
@@ -56,6 +56,8 @@ public:
 
         Der Graphkontroller wird mit der Klasse im Templateargument initialisiert.
         Das Tenplateargument muss von StdGraphController erben.
+
+	\tparam T der GraphController, der eingerichtet werden soll.
         */
 	template <class T>
 	void initGraphController(){
@@ -77,7 +79,7 @@ public:
         /**
         \brief fügt dem Graphen einen Wert hinzu
  
-        Hängt dem Graphkontroller des Graphen einen Punkt hinzu. Dieser Punkt wird dann durch void Graph::render() gemalt.
+        Hängt dem GraphController des Graphen einen Punkt an. Dieser Punkt wird dann durch void Graph::render() gemalt.
 
         \param p der anzuhängende BLL::Point
         */
@@ -99,13 +101,15 @@ protected:
         /// die Schriftart für die Überschrift des Graphen
 	sf::Font font;
         
-        /// der Graphkontroller des Graphen
+        /// der GraphController des Graphen
 	StdGraphController* gCont;
         
         /// Status der Schriftart font
+	/// legt fest ob "Font.ttf" geladen werden muss
 	bool isFontSetup = false;
         
-	/// Status des Graphkontrollers
+	/// Status des GraphControllers
+	/// legt fest, ob ein neuer StdGraphController erstellt werden muss
         bool isStdGraphSetUp = false;
 };
 }

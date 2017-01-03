@@ -17,13 +17,14 @@ namespace BLL {
   \brief Basisklasse als Inhalt für das Window
 
   Die Klasse Graph erbt von dieser Klasse. Der Sinn dieser Klasse
-  besteht in potentiellen Erweiterungen des Funktionsumpfangs des Windows.
+  besteht in potentiellen(d.h. noch nicht implementierte) 
+  Erweiterungen des Funktionsumpfangs des Windows.
 
 */
 class Widget {
 public:
 
-        ///Standartkonstruktor
+        ///Standardkonstruktor
 	Widget();
 
         ///Desktruktor sollte überschrieben werden
@@ -38,7 +39,7 @@ public:
         int y;
         ///Breite des Widgets
         int width;
-        ///Hoehe des Widgets
+        ///Höhe des Widgets
         int height;
         ///Horizontialer Rand von Widgetrand zum eigentlichen Inhalt
         int xOffset;

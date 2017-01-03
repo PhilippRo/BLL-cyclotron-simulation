@@ -22,32 +22,30 @@ using namespace std;
 /**
 \brief Window ist ein Fenster mit Geometriemanager für Widgets
 
-Das Hauptwidget für Window ist Graph und es ist ein Singletonobjekt.
+Das Hauptwidget für Window ist Graph und Window ist ein Singletonobjekt.
 */
 
 class Window{
-private:
-        /// Standardkonstructor (Singleton)
-	Window();
 
 protected:
-        /// eine Uhr, um die Framerate festzulegen, damit nicht zu viel Zeit auf
+
+         /// Standardkonstructor (protected weil es sich um ein Singleton handelt)
+	Window();       
+	
+	/// eine Uhr, um die Framerate festzulegen, damit nicht zu viel Zeit auf
 	/// das Rendern der Graphen verschwendet wird
 	sf::Clock renderTimer;
 
         /// ein Event, das lokal verwendet wird, um das Fenster auf Tastendruck zu
-        /// schleißen
+        /// schließen
 	sf::Event ev;
 
 	/// die Liste von Graphen, die verwaltet und gerendert werden
 	vector<Graph> graph;
 
-	/// eine Liste von Graphname, damit die Graphen verwaltet werden können
+	/// eine Liste von Graphnamen, damit die Graphen verwaltet werden können
         /// der n-te Entrag der Liste ist der Name des n-ten Graphen
 	vector<string> graphName;
-
-        /// der lokale GraphController, der die Anzahl der Punkte komprimiert.
-	vector<StdGraphController*> graphController;
 
 	/// Variabel für die Geometrie
 	unsigned int graphsInARow = 4;
@@ -62,15 +60,15 @@ public:
 	/// Destruktor
 	virtual ~Window();
 
-	// templates kompilieren nicht in einem cpp file
+	// templates kompilieren nicht in einem cpp file bzw. g++ hat Probleme
 	/**
 		\brief Fügt einen Graphen hinzu
 
-		Fügt einen Graphen mit dem GraphController t zu dem Window hinzu
+		Fügt einen Graphen mit dem GraphController vom Typ t zu dem Window hinzu
 
 		\param name Name des Graphen
 
-		\tparam t Typ des GraphController des Graphen im Fenster
+		\tparam t Typ des GraphController des Graphen
 
 	*/
 	template<class t>
@@ -82,9 +80,9 @@ public:
 	}
 
 	/**
-		\brief Giebt einen Graphen zurück
+		\brief Getter für Graphen
 
-		Gibt einen Graphen zurück, um dannach Punkte hinzuzufügen.
+		Gibt einen Graphen zurück.
 
 		\param name Name des Graphen
 
@@ -103,7 +101,7 @@ public:
 		\brief erstellt das Fenster
 
 		ruft den Algorithmus für die Geometrie auf und überträgt die 
-		errechneten Dimentsionen auf die Graphen
+		errechneten Dimensionen auf die Graphen
 	*/
 	void create();
 

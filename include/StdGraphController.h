@@ -15,10 +15,11 @@
 namespace BLL {
 
 /**
-  \brief Standardimplementation eines Graphkontrollers
+  \brief Standardimplementation eines GraphControllers
 
   Der StdGraphController übernimmt die Aufgaben die Punkte im Graphen zu verwalten.
-  Seine Aufgaben sind das Aufnehmen, Ordnen und Bereitstellen von Punkten bzw Punktsammlungen.
+  Seine Aufgaben sind das Aufnehmen, Ordnen und Bereitstellen von Punkten bzw.
+  Punktsammelungen.
   Er muss dabei Threadsicher, schnell sein und auf den Speicherverbrauch achten.
   Diese Implementation erlaubt maximal 1000 Werte.
   Sollte dieser Wert überschritten werden, werden die überschüssigen Werte gelöscht.
@@ -29,8 +30,8 @@ protected:
         /**
            Wie viele Punkte nach einem Löschvorgang nicht aufgenommen werden. Dieser
            Wert vedoppelt sich nach jedem Löschvorgang. Wenn der Wert gleich 
-           pointsFiltered ist, wird der neue Wert aufgenommen.
-           Das ist notwending um die Werte repräsentativ zu halten.
+           pointsFiltered ist, wird der neue Wert aufgenommen,
+           Da ist notwending um die Werte repräsentativ zu halten.
            Der Startwert ist 1.
         */
 	int pointsToFilter;
@@ -63,7 +64,7 @@ public:
             \brief Setzt den internen Punktecontainer. 
             Diese Methode ist für die Konfiguration im Graphen gedacht.
             Soll das Feld points auf p setzen.
-            \param p der Pointer zum Container um Graphen 
+            \param p der zusetzende Pointer
         */
 	void setPoints(std::vector<BLL::Point>* p);
 
@@ -79,6 +80,9 @@ public:
 
         /**
             \brief gibt den maximalen Wert im Conatiner zurück.
+
+	    Diese Implementation nutzt einen Sortieralgorithmus aus der 
+	    Standardbibliothek.
 
             \return der maximale Wert
         */
