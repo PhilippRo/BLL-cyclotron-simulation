@@ -25,9 +25,10 @@ clean:
 	rm -rf $(BIN)
 	rm -rf $(DOC)
 	rm -f  $(EXEC)
+	rm $(basename $(Arbeit))
 	@echo
 
-Doc: dirs
+Doc: dirs $(DOC_DIR)/$(Arbeit)
 	@echo
 	@echo building documentation
 	$(DOXYGEN) $(DOXYFILE) >> /dev/null
