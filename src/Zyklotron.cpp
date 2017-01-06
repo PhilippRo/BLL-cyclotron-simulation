@@ -32,11 +32,13 @@ Zyklotron::~Zyklotron() {
 	chan->deactivate();
 	if(calcThread != 0){
 		calcThread->interrupt();
+		calcThread->join();
 		if( calcThread != 0)
 			delete calcThread;
 	}
 	if(thisThread != 0){
 		thisThread->interrupt();
+		thisThread->join();
 		if(thisThread !=0)
 			delete thisThread;
 	}
@@ -88,6 +90,7 @@ void Zyklotron::run(){
 			(*BLL::Window::instance().getGraph(names[3]))<< Point(res.time, res.ke);
 			(*BLL::Window::instance().getGraph(names[4])) << Point(res.time, res.re);
 			(*BLL::Window::instance().getGraph(names[5])) << Point(res.time, res.me);
+			boost::this_thread::interruption_point();
 		}
 	});
 }
@@ -149,6 +152,7 @@ void Zyklotron::calc(){
 				return;
 
 			chan->write(res);
+			boost::this_thread::interruption_point();
 		}
 	}
 
