@@ -214,7 +214,7 @@ ist keine konstante Gr"o"se \marginpar{vgl. \ref{var_m}} und steigt mit zunehmen
 Geschwindigkeit. Die Frequenz am Beschleunigungskondensator und die Umlaufzeit wurden
 extra aufeinander abgestimmt, um eine maximale Beschleunigung zu erzielen. Wenn das 
 nicht mehr gegeben ist spricht man davon, dass das Zyklotron aus dem Takt gekommen ist.
-
+\label{Zyklotron aus dem Takt}
 Nun passiert es,
 dass das geldene Teilchen im Kondensator zwar noch beschleunigt wird, aber wenn sich die
 Spannung im Kondensator "andert, es sich immernoch in ihm befindet und dann wieder 
@@ -226,15 +226,35 @@ Aufgrund dieses Befundes wurde das Synchrotron entwickelt
 \marginpar{vgl. Synchrotron Seite \pageref{synchrotron}}
 
 \chapter{verwendetes Modell}
-\section{Betrachtung der Teilchen}
-\section{Betrachtung der Felder}
+\section{Betrachtung der Teilchen und Felder}
+\paragraph{Teilchen} 
+werden in dieser Simulation als Punkte betrachtet, die Masse und Ladung
+besitzen. Es wirken nur Kräfte aus in dem Zyklotron auf das Teilchen. Also keine
+Schwerkraft von anderen Massen. In anderen Worten ausgedr"uckt: 
+die Teilchen werden in der Schwerelosigkeit und im Vakuum beschleunigt.
+
+\paragraph{Die Felder} 
+werden als absolut homogen und perfekt auf die Teilchen ausgerichtet
+betrachtet. Man hat also keine Kraftverluste, weil das zum Beispiel nicht perfekt
+orthogonal auf der Kreisbahn der geladenen Teilchen stehen k"onnte.
+
 \section{Beschleunigung im E-Feld}
-Interpretation der Kraft als Ableitung des Impulses
+Die typische Betrachtung von geladenen Teilchen im elektrischen Feld 
+$E_{kin} = Q * U$ \footnote{(vgl. Das Gro"se Tafelwerk interaktiv Seite 108}
+f"ur die Zunahmen an kinetischer Energie im elektrischen Feld ist f"ur diese Simulation
+nicht hilfreich, da mit mit ihr nicht die Zeit verfolgen, aber das notwendig ist, um das
+aus dem Takt kommende Zyklotron zu simulieren. 
+\marginpar{Siehe Seite \pageref{Zyklotron aus dem Takt}}
+
+Daher verfolgen wir die Interpretation der Kraft als Ableitung des Impulses
 \begin{equation}
 \dot{p} = f 
 \end{equation}
-Aus der Unkelbachschen Formelsammlung l"asst sich folgender Zusammenhang ableiten:
+und formen jenen nach einer Gleichung der Gestalt $v(t)$ um.
+\newpage
+Es l"asst sich folgender Zusammenhang ableiten:
 \begin{eqnarray}
+\frac{d}{dt} (m * v ) && = \frac{U * Q}{d} ~~~~~~~~\footnotemark \\
 \frac{d}{dt} (\frac{m_0 * v}{\sqrt{1 - (\frac{v}{c}})^2}) && = \frac{U * Q}{d} \\
 \frac{d}{dt} (\frac{v}{\sqrt{1 - (\frac{v}{c})^2}}) && = \frac{U * Q}{d * m_0} \\
 \int_{t_0}^t \frac{d}{dt} (\frac{v}{\sqrt{1 - (\frac{v}{c})^2}}) 
@@ -252,10 +272,33 @@ v^2 * (1 + \frac{(a * t + v_0)^2}{c^2}) &&  = (a * t + v_0)^2 \\
 v^2 && = \frac{(a * t + v_0)^2}{1 + (\frac{a * t + v_0}{c})^2} \\ 
 v && = \frac{a * t + v_0}{\sqrt{1 + (\frac{a * t + v_0}{c})^2}}
 \end{eqnarray}
+\footnotetext{vgl. Unkelbachschen Formelsammlung Seite 5 und Seite 15}
+
+\newpage
+Nun wird noch ein Zusammenhang f"ur die zur"uckgelegte Streckte im Kondensator gebraucht,
+um zu berechnen, wie lange das geladene Teilchen im Kondesator bleibt.
+\begin{eqnarray}
+s(t) && = \int_0^t v(t) ~dt \\
+s(t) && = \int_0^t \frac{a * t + v_0}{\sqrt{1 + (\frac{a * t + v_0}{c})^2}} ~ dt
+\end{eqnarray}
+
+man substuiert $u = 1 + (\frac{a * t + v_0}{c})^2$ und 
+$dt = \frac{du}{(1 + (\frac{a * t + v_0}{c})^2)\dot{}}$
+
+\begin{eqnarray}
+s(t) && = \int_0^t \frac{a * t + v_0}{\sqrt{u}} ~ \frac{du}{ ({1 + (\frac{a * t + v_0}{c})^2})\dot{}}\\
+s(t) && =  \int_0^t \frac{a * t + v_0}{\sqrt{u}} ~ \frac{du}{2*(\frac{a * t + v_0}{c})*\frac{a}{c}}\\
+s(t) && = \frac{1}{2}*(\frac{c^2}{a}) ~ \int_{1 + (\frac{v_0}{c})^2}^{1 + (\frac{a*t + v_0}{c})^2} \frac{1}{u} ~ du \\
+s(t) && = \frac{1}{2}*(\frac{c^2}{a})~[2*\sqrt{u}]_{1 + (\frac{v_0}{c})^2}^{1 + (\frac{a*t + v_0}{c})^2} \\
+s(t) && = (\frac{c^2}{a}) * (\sqrt{1 + (\frac{a*t + v_0}{c})^2} - \sqrt{1 + (\frac{v_0}{c})^2})
+\end{eqnarray}
+
+Um die Zeit im Kondensator zu berechnen wird eine Funktion der Gestalt $t_{v_0}(s)$
+gesucht, die sich aus der obigen Gleichung $s(t)$ ableiten l"asst.
+
+
+
 \section{klassische Mechanische Zusammenh"ange im Zyklotron}
-
-
-
 
 
 \part{Umsetzung am PC}
@@ -298,6 +341,12 @@ v && = \frac{a * t + v_0}{\sqrt{1 + (\frac{a * t + v_0}{c})^2}}
 \chapter{Quellen}
 
 \appendix
+\chapter{Handbuch}
+\tableofcontents
+\section{Die Software bauen}
+\section{Eine Simulation starten}
+
+
 \chapter{Klassendokumentation}
 \newpage
 
