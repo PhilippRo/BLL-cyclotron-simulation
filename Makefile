@@ -25,14 +25,17 @@ clean:
 	rm -rf $(BIN)
 	rm -rf $(DOC)
 	rm -f  $(EXEC)
-	rm $(basename $(Arbeit))
+	rm $(DOC_DIR)/$(basename $(Arbeit)).pdf
 	@echo
 
 Doc: dirs $(DOC_DIR)/$(Arbeit)
 	@echo
 	@echo building documentation
 	$(DOXYGEN) $(DOXYFILE) >> /dev/null
-	$(LATEX) $(DOC_DIR)/$(Arbeit) -output-directory=$(DOC_DIR)
+	$(LATEX) $(DOC_DIR)/$(Arbeit)
+	$(LATEX) $(DOC_DIR)/$(Arbeit)
+	mv $(basename $(Arbeit)).pdf $(DOC_DIR)/$(basename $(Arbeit)).pdf
+	rm $(basename $(Arbeit)).*
 	@echo
 
 Bin: dirs $(OBJS)

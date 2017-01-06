@@ -65,6 +65,7 @@ class Zyklotron {
 
 protected:
 
+	/// hält fest, ob das Zyklotron schon konfiguriert wurde
 	bool configured = false;
 	
 	///Ladung des Beschleunigten Teilchens
