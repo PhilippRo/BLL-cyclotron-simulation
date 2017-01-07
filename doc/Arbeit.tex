@@ -286,8 +286,8 @@ man substuiert $u = 1 + (\frac{a * t + v_0}{c})^2$ und
 $dt = \frac{du}{(1 + (\frac{a * t + v_0}{c})^2)\dot{}}$
 
 \begin{eqnarray}
-s(t) && = \int_0^t \frac{a * t + v_0}{\sqrt{u}} ~ \frac{du}{ ({1 + (\frac{a * t + v_0}{c})^2})\dot{}}\\
-s(t) && =  \int_0^t \frac{a * t + v_0}{\sqrt{u}} ~ \frac{du}{2*(\frac{a * t + v_0}{c})*\frac{a}{c}}\\
+s(t) && = \int_{1 + (\frac{v_0}{c})^2}^{1 + (\frac{a*t + v_0}{c})^2}  \frac{a * t + v_0}{\sqrt{u}} ~ \frac{du}{ ({1 + (\frac{a * t + v_0}{c})^2})\dot{}}\\
+s(t) && =  \int_{1 + (\frac{v_0}{c})^2}^{1 + (\frac{a*t + v_0}{c})^2}  \frac{a * t + v_0}{\sqrt{u}} ~ \frac{du}{2*(\frac{a * t + v_0}{c})*\frac{a}{c}}\\
 s(t) && = \frac{1}{2}*(\frac{c^2}{a}) ~ \int_{1 + (\frac{v_0}{c})^2}^{1 + (\frac{a*t + v_0}{c})^2} \frac{1}{u} ~ du \\
 s(t) && = \frac{1}{2}*(\frac{c^2}{a})~[2*\sqrt{u}]_{1 + (\frac{v_0}{c})^2}^{1 + (\frac{a*t + v_0}{c})^2} \\
 s(t) && = (\frac{c^2}{a}) * (\sqrt{1 + (\frac{a*t + v_0}{c})^2} - \sqrt{1 + (\frac{v_0}{c})^2})
@@ -296,7 +296,15 @@ s(t) && = (\frac{c^2}{a}) * (\sqrt{1 + (\frac{a*t + v_0}{c})^2} - \sqrt{1 + (\fr
 Um die Zeit im Kondensator zu berechnen wird eine Funktion der Gestalt $t_{v_0}(s)$
 gesucht, die sich aus der obigen Gleichung $s(t)$ ableiten l"asst.
 
-
+\begin{eqnarray}
+s && =  (\frac{c^2}{a}) * (\sqrt{1 + (\frac{a*t + v_0}{c})^2} - \sqrt{1 + (\frac{v_0}{c})^2}) \\
+\frac{s * a}{c^2}  && = \sqrt{1 + (\frac{a*t + v_0}{c})^2} - \sqrt{1 + (\frac{v_0}{c})^2} \\
+\sqrt{1 + (\frac{a*t + v_0}{c})^2} && = \frac{s*a}{c^2} + \sqrt{1 + (\frac{v_0}{c})^2} \\
+(\frac{a*t + v_0}{c})^2 && = (\frac{s*a}{c^2} + \sqrt{1 + (\frac{v_0}{c})^2})^2 -1 \\ 
+\frac{a*t}{c} && = \sqrt{(\frac{s*a}{c^2} + \sqrt{1 + (\frac{v_0}{c})^2})^2 -1} - \frac{v_0}{c} \\
+t && = \frac{c}{a} * (\sqrt{(\frac{s*a}{c^2} + \sqrt{1 + (\frac{v_0}{c})^2})^2 -1} - \frac{v_0}{c}) \\
+t && = \frac{c}{a} * \sqrt{(\frac{s*a}{c^2} + \sqrt{1 + (\frac{v_0}{c})^2})^2 -1} - \frac{v_0}{a}
+\end{eqnarray}
 
 \section{klassische Mechanische Zusammenh"ange im Zyklotron}
 
