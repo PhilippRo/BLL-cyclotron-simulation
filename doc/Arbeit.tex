@@ -294,16 +294,24 @@ s(t) && = (\frac{c^2}{a}) * (\sqrt{1 + (\frac{a*t + v_0}{c})^2} - \sqrt{1 + (\fr
 \end{eqnarray}
 
 Um die Zeit im Kondensator zu berechnen wird eine Funktion der Gestalt $t_{v_0}(s)$
-gesucht, die sich aus der obigen Gleichung $s(t)$ ableiten l"asst.
+gesucht, die sich aus der obigen Gleichung $s(t)$ ableiten l"asst. Da die Injektivit"at 
+\footnote{Quelle ist nicht zu suchen} von $s(t)$ nicht gegeben ist, wird eine 
+Umkehrfunktion f"ur den Wertebereich $t \ge 0 und v_0 \ge 0$ gesucht.
 
 \begin{eqnarray}
-s && =  (\frac{c^2}{a}) * (\sqrt{1 + (\frac{a*t + v_0}{c})^2} - \sqrt{1 + (\frac{v_0}{c})^2}) \\
-\frac{s * a}{c^2}  && = \sqrt{1 + (\frac{a*t + v_0}{c})^2} - \sqrt{1 + (\frac{v_0}{c})^2} \\
-\sqrt{1 + (\frac{a*t + v_0}{c})^2} && = \frac{s*a}{c^2} + \sqrt{1 + (\frac{v_0}{c})^2} \\
-(\frac{a*t + v_0}{c})^2 && = (\frac{s*a}{c^2} + \sqrt{1 + (\frac{v_0}{c})^2})^2 -1 \\ 
-\frac{a*t}{c} && = \sqrt{(\frac{s*a}{c^2} + \sqrt{1 + (\frac{v_0}{c})^2})^2 -1} - \frac{v_0}{c} \\
-t && = \frac{c}{a} * (\sqrt{(\frac{s*a}{c^2} + \sqrt{1 + (\frac{v_0}{c})^2})^2 -1} - \frac{v_0}{c}) \\
-t && = \frac{c}{a} * \sqrt{(\frac{s*a}{c^2} + \sqrt{1 + (\frac{v_0}{c})^2})^2 -1} - \frac{v_0}{a}
+s && = (\frac{c^2}{a}) * (\sqrt{1 + (\frac{a*t + v_0}{c})^2} - \sqrt{1 + (\frac{v_0}{c})^2}) \\
+\frac{s*a}{c^2}&& = \sqrt{1 + (\frac{a*t + v_0}{c})^2} - \sqrt{1 + (\frac{v_0}{c})^2}) \\
+\sqrt{1 + (\frac{a*t + v_0}{c})^2} &&= \frac{s*a}{c^2} + \sqrt{1 + (\frac{v_0}{c})^2} \\
+(\frac{a*t + v_0}{c})^2 &&  = (\frac{s*a}{c^2} + \sqrt{1 + (\frac{v_0}{c})^2})^2 - 1 \\ 
+\frac{a*t + v_0}{c} && = +\sqrt{(\frac{s*a}{c^2} + \sqrt{1 + (\frac{v_0}{c})^2})^2 - 1}\\
+\end{eqnarray}
+Das Vorzeichen vor der Wurzel ist plus, da alle Werte aus der Bild und Ursprungsmenge 
+der Funktione $s(t)$ mit den obigen Einschr"ankungen positiv sind.
+\begin{eqnarray}
+t = \frac{c}{a} * ( +\sqrt{(s*a/c^2 + \sqrt{1 + (\frac{v_0}{c})^2})^2 - 1} - \frac{v_0}{c})
+\end{eqnarray}
+
+\begin{eqnarray}
 \end{eqnarray}
 
 \section{klassische Mechanische Zusammenh"ange im Zyklotron}
