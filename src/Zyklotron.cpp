@@ -121,7 +121,7 @@ void Zyklotron::calc(){
 			
 
 				auto m = m0 / (Double(1,0) - ((res.v*res.v) /(c*c))).sqrt(); 
-			
+				//Massendifferenz	
 				res.me = m - m0;
 
 				res.ke = (m - m0) * c* c;
@@ -131,6 +131,7 @@ void Zyklotron::calc(){
 			}else{
 				res.v = a*(timePosAccel- timeNegAccel) + it.v;
 				auto& v = res.v;
+				//Keine Massendifferenz
 				res.me = m0;
 				res.ke = m0 * v * v * Double (0.5,0);
 				res.re = res.ke;
@@ -138,6 +139,9 @@ void Zyklotron::calc(){
 			res.r = (res.me  * res.v)/(q * b);
 			auto r0 = (m0 * res.v)/(q * b);
 			
+			// Falsch
+			// gesucht ist eine Halbe Umrundungszeit
+			// U/2*v = pi * r / v
 			res.roundtime = (res.r)/res.v;
 
 			res.timeInCondensator = timePosAccel- timeNegAccel;

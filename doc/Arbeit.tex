@@ -143,8 +143,8 @@ des geladenen Teilchens.
 Nach der klassischen Vorstellung ist ist die Umlaufzeit eines geladenen Teilchens 
 unabhängig von dessen Geschwindigkeit:
 \begin{eqnarray}
-  F_L  		&& = F_Z  \footnotemark \\
-  Q * v * B 	&& = \frac{m * v^2}{r} \\
+  F_L  		&& = F_Z  \footnotemark  \\
+  Q * v * B 	&& = \frac{m * v^2}{r} \label{Radius im Zyklotron}\\
   r		&& = \frac{m * v}{Q * B} \\
   r		&& = \frac{m * 2 * \pi * r}{Q * B * T} \\
   T		&& = \frac{m * 2 * \pi }{Q * B} \label{klassische_Umlaufzeit}
@@ -200,7 +200,7 @@ Einige von Einstein abgeleiteten Beziehungen sind
 \Delta t' && = \Delta t * \sqrt{1 - \beta^2} ~ (Zeitdilatation) \\
 \Delta x' && = \Delta x * \sqrt{1 - \beta^2} ~ (L"angenkontraktion) \\
 m && = \frac{m_0}{\sqrt{1 - \beta^2}} \label{var_m} \\
-W_{ges} && = m * c^2 
+W_{ges} && = m * c^2 \label{mc_square}
 \end{eqnarray}
 
 \section{Experimenteller Befund: Das klassische Modell schl"agt fehl}
@@ -264,6 +264,7 @@ Es l"asst sich folgender Zusammenhang ableiten:
 $ \frac{U * Q}{d * m_0} $ wird als $ a $ interpretiert
 \end{center}
 \begin{eqnarray}
+a && = \frac{U * Q}{d * m_0} \label{Beschleunigung} \\ 
 \frac{v}{\sqrt{1 - (\frac{v}{c})^2}} && = a * t + v_0 \\
 \frac{v^2}{1 - (\frac{v}{c})^2} && = (a * t + v_0 )^2 \\
 v^2  && = (a * t + v_0)^2 - (\frac{v}{c})^2 * (a * t + v_0)^2\\
@@ -303,7 +304,7 @@ s && = (\frac{c^2}{a}) * (\sqrt{1 + (\frac{a*t + v_0}{c})^2} - \sqrt{1 + (\frac{
 \frac{s*a}{c^2}&& = \sqrt{1 + (\frac{a*t + v_0}{c})^2} - \sqrt{1 + (\frac{v_0}{c})^2}) \\
 \sqrt{1 + (\frac{a*t + v_0}{c})^2} &&= \frac{s*a}{c^2} + \sqrt{1 + (\frac{v_0}{c})^2} \\
 (\frac{a*t + v_0}{c})^2 &&  = (\frac{s*a}{c^2} + \sqrt{1 + (\frac{v_0}{c})^2})^2 - 1 \\ 
-\frac{a*t + v_0}{c} && = +\sqrt{(\frac{s*a}{c^2} + \sqrt{1 + (\frac{v_0}{c})^2})^2 - 1}\\
+\frac{a*t + v_0}{c} && = +\sqrt{(\frac{s*a}{c^2} + \sqrt{1 + (\frac{v_0}{c})^2})^2 - 1}
 \end{eqnarray}
 Das Vorzeichen vor der Wurzel ist plus, da alle Werte aus der Bild und Ursprungsmenge 
 der Funktione $s(t)$ mit den obigen Einschr"ankungen positiv sind.
@@ -311,19 +312,82 @@ der Funktione $s(t)$ mit den obigen Einschr"ankungen positiv sind.
 t = \frac{c}{a} * ( +\sqrt{(s*a/c^2 + \sqrt{1 + (\frac{v_0}{c})^2})^2 - 1} - \frac{v_0}{c})
 \end{eqnarray}
 
-\begin{eqnarray}
-\end{eqnarray}
+In der Relativit"atstherie kommt es auf den Bezugspunkt an. Deshalb reicht es aus nur
+die Massenver"anderung des Teilchens zu breachten, da ein Teilchen als Punkt 
+interpretiert wird und Punkte sich nicht kontrahieren können und die Zeit f"ur das 
+Teilchen irrelevant ist, da die Beschleunigung aus sich des Zyklotrons simuliert wird.
+Natürlich gebe es weitere relativistische Effekte, wenn man aus die Perpektive des 
+Teilchens simulieren w"urde.
+
+Die Gesamternergie des Teilchens wird mit $ e = m*c^2$ \footnote{Siehe 
+Seite \pageref{mc_square} \ref{mc_square}} beschrieben. Die kinetische Energie ist die 
+Energiezunahme eines Teilchens durch eine Beschleunigung. Die kinetische Energie eines
+Teilchens ist also die bewegte Gesamteenergie - die ruhende. Das lässt sich zu 
+$E_{kin} = (m-m_0)*c^2$ vereinfachen. Die bewegte Masse wird mit 
+$m = \frac{m_0}{1-(v/c)^2}$\footnote{Siehe Seite \pageref{var_m} \ref{var_m}} berechnet.
+Einige Sachverhalte lassen sich mit klassischen Mitteln am genauso gut, wie mit 
+relativistischen beschreiben, wenn man bei ihnen die variable Masse bedenkt, 
+wie zu Beispiel der Radius eines Teilchens im Zyklotron.
 
 \section{klassische Mechanische Zusammenh"ange im Zyklotron}
-
+In dem klassischem Modell werden die typischen Zusammenh"ange $v(t) = a*t + v_0$ und,
+der daraus entstehende, $s(t) = \frac{1}{2} *a *t^2 + v_0 *t + s_0$ verwendet, um die
+Geschwindigkeit und die Strecke im Beschleunigungskondesator zu modellieren. Die 
+Beschleunigung $a$ wird aus dem  relativistischen Modell "Ubernommen 
+\footnote{Siehe Seite \pageref{Beschleunigung} \ref{Beschleunigung}}. Die kinetische 
+Energie ist $ W_{kin} = \frac{1}{2} * m * v^2 $ \footnote{vgl. Das Gro"se Tafelwerk 
+interaktiv Seite 94}. Die Gesamtenergie des Systemes ist gleich der kinetischen
+Energie, da Masse in der klassischen Vorstellung keine Energieform ist und daher die
+einzige Energieform des Teilchens die kinetische ist. F"ur den Radius wird der 
+Zusammenhang $ r = \frac{m * v}{Q * B} $ \footnote{Siehe Seite \pageref{Radius im 
+Zyklotron} \ref{Radius im Zyklotron}}. Die Dauer einer halben Umrundung $U$ l"asst sich 
+folgenderma"sen beschreiben:
+\begin{eqnarray}
+v && = \frac{\Delta s}{\Delta t} \footnote{Defintion der Geschwindigkeit}\\
+\Delta t && = \frac{\Delta s}{v} \\
+T && = \frac{U}{ 2*v}\\
+T && = \frac{\pi * r}{v}
+\end{eqnarray}
 
 \part{Umsetzung am PC}
 \chapter{Die technische Herausvorderung}
 \section{Geschwindigkeit und Rechenaufwand}
+Eine gro"se Herausforderung bei einer Simulation ist die Geschwindigkeit. Der Benutzer
+m"ochte keine lange Zeit warten, um eine relativ kurze Beschleunigung simuliert zu
+bekommen. Das Problem dabei ist, dass gleichzeitig eine Gro"se Korrekheit des Models
+erwartet wird. Es ist schwierig gleichzeitig genau und schnell zu rechnen. Das wird 
+auch noch dadurch verst"arkt, dass mehrere Zyklotrons gleichzeitig simuliert werden.
+
+Die Berechnungen sind deutlich simpler als die L"osung einiger Differentialgleichungen,
+aber trotzdem besteht eine Anforderung keine langsamen Code zu schreiben, da im 
+Optimalfall die Simulation in Echtzeit angezeigt werden soll.
+
+
 \section{Genauigkeitsproblem bei Flie"skommazahlen}
+Es gibt einige Probleme, wenn man am PC genau rechenen will, die von den 
+unterschiedlichen Zahlensystemen und dem beschr"anken Speicherplatz des Computers 
+verursacht werden. Ein Bepiel f"ur eine Ungenauigkeit im Dezimalsystem sind Zahlen
+wie $\frac{1}{3}$, die im Dezimalsystem unendlich lang dagestellt sind, damit genau
+abgebildet werden. Ein Computer kann jedoch keine Zahl unendlich lang dastellen, da
+er nur begrenzten Speicherplatz hat. Das Problem geht noch deutlich weiter, da eine
+typische Flie"skommazahl eines Computers schon 32 Nachkommastellen im 
+Bin"arsystem abschneidet. So ist zum Beispiel die Masse Elektrons mit $9,106 * 10^{31} 
+kg$ im Computer nie genau dagestellt wird, da die kleinste Zahl, die er dastellen kann 
+$2^{-32} \approx 2,328 * 10^{-10}$ ist. Eine weitere Zahlen, die nicht dagestellt werden
+kann ist zum Beispiel auch die Elementarladung $e = 1,602 * 10^{-16} C$. Der typische 
+Flie"skommazahl des Computers ist nur mit Anpassungen f"ur eine Simulation mit kleinen
+Zahlen, die ben"otigt werden, verwendbar.
 
 \chapter{Die Wahlt der Werkzeuge}
 \section{Sprachen}
+Eine Computersprache ist ein Werkzeug, das verwendet wird, um ein Modell oder eine Idee
+umzusetzten. Die Wahl des richtigen Werkzeuges ist eine wichtige Entscheidung, da jede
+Sprache Vor- und Nachteile hat. F"ur dieses Projekt ist es eine hohe Geschwindigkeit 
+und eine hohe Abstraktion n"otig.
+
+\paragraph{Die imperativen Sprachen}, wie C oder Fortran, sind f"ur diese Simulation
+nicht geeignet, da 
+
 \section{Bibliotheken}
 \section{Buildsysteme}
 
