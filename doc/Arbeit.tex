@@ -385,14 +385,74 @@ umzusetzten. Die Wahl des richtigen Werkzeuges ist eine wichtige Entscheidung, d
 Sprache Vor- und Nachteile hat. F"ur dieses Projekt ist es eine hohe Geschwindigkeit 
 und eine hohe Abstraktion n"otig.
 
-\paragraph{Die imperativen Sprachen}, wie C oder Fortran, sind f"ur diese Simulation
-nicht geeignet, da 
+\paragraph{Die imperativen Sprachen}, wie C, sind f"ur diese Simulation
+nicht geeignet, da sie zu wenig Abstraktion bieten. Da eine Umgebung aufgebaut werden 
+muss, ist es praktisch, wenn die Sprache eine Strukturierung von sich zu verf"ugung 
+stellt. Einfache Datenstruktur, ohne starkes Typensystem oder objektoriente Abstraktion,
+reichen nicht aus, um eine flexible Umgebung aufzubauen. Die hohe Geschwindigkeit, die
+C bietet, ist f"ur eine Simulation, wie diese, optimal, aber die mangelnde Abstraktion
+verhindert das Aufbauen einer starken Umgebung.
+
+\paragraph{Die Skriptsprachen}, wie Python oder Perl, sind schlicht nicht schnell genug.
+Das dynamische Typensystem und die st"andige Interpretation des Klartextcodes machen 
+diese Sprachen zu langsam, um mehrere Teilchenbeschleuniger gleichzeitig zu 
+simulieren. Die hohe Abstraktion die diese Sprachen geben erm"oglichen aber eine 
+schnelle Entwicklung mit angenehmer Abstraktion.
+
+\paragraph{Die VM-Sprachen}, wie Java, bieten eine hervoragende Kombination von 
+Leistung und Abstraktion. Sie sind darauf gepolt dem Entwickler m"oglichst viel Arbeit
+abzunehmen. Nach ein paar Sekunden springt zum Beispiel die Garbage Collection an und
+gibt Speicher frei. Das unterbricht zwar den Prgrammablauf, aber nimmt dem Entwickler 
+Arbeit ab. Hohe Leistung ist ein Anspruch an die Simulation. Die VM-Sprachen sind 
+per se eine gute Wahl, da eine gute Ballance zwischen Leistung und Abstraktion besteht
+und Bibliotheken dabei sind. Trotzdem ist es nicht optimal, wenn keine absolute 
+Kontrolle "uber den Programmaublauf besteht.
+
+\paragraph{C++} ist die Sprache, die immer dann verwendet wird, wenn man gro"se 
+Abstraktion und n"ahe zur Hardware braucht. Die Abstraktion von C++ ist so gro"s wie die
+von Java, erlaubt aber den Programm komplett zu kontrollieren, und ist "ahnlich schnell
+wie C. Wenn man strukturiert an C++-Code bearbeitet kann man RAII \marginpar{Siehe 
+Seite \pageref{RAII} \ref{RAII}} kann man den Nachteil einer fehlenden 
+Garbage-Collection vollkommen ausgleichen.
+
+In dieser Simulation wird eine Symbiose von C++ und Java verwendet. C++ ist rein f"ur 
+die Simulation gedacht, da sehr hohe Performance mit einem sehr hohen Abstraktionniveau erm"oglicht. Java hingegen wird f"ur die Konfiguration der Simulation verwendet, da die
+Standardbibliothek eine sehr gute Benutzeroberfl"ache bietet, die auf de-facto jedem
+PC lauff"ahig ist.
 
 \section{Bibliotheken}
+C++ hat allerdings den Nachteil, dass keine gro"se Standardbibliothek hat, die Rendering
+und komplexes Multithreading erlaubt, die beide f"ur diese Simulation exsistentiell 
+sind. 
+
+\paragraph{SFML}, die Simple and Fast Media Layer, wird verwendet, um Graphen zu 
+zeichnen und auf Nutzereingabe zu warten, um dannach das Prgramm zu verwenden. SFML
+ist eine Plattform"ubergreifende Bibliothek, die einen OpenGL-Context erstellt und von
+jenem Abstrahiert, um eine performante und leicht zu bedienende Renderingbibliothek zur
+verf"ugung stellt. SFML unterst"utzt auch Multithreading und vieles mehr.
+
+\paragraph{Boost} ist eine andere Plattform"ubergreifende Bilbiothek f"ur C++, die eine
+Alternative zur Standardbibliothek dastellt. Boost interagiert gut mit der 
+Standardbibliothek und stellt moderene Implementationen (oder überhaupt welche) f"ur
+die meisten Probleme da. Boost-Thread eine Unterbibliothek von Boost f"ur Multithreading
+wird hier verwendet.
+
 \section{Buildsysteme}
+Als Buildsystem werden Unix-Makefiles benutzt. Ein Makefile besteht aus Regeln, die
+entweder von Regeln oder von Dateien abh"angen und erlaubt ein Inkrementelles bauen
+der Simulation. Als Kompiler wird Clang empfolen, da er schneller ist und bessere
+Warnungen oder Fehlermeldungen ausgibt als GCC. W"ahrend es Entwicklungsprozesses 
+wurde GCC verwendet, damit das Tool Gprof zum Profiling verwendet wernden konnte.
+Unix-Makefiles sind durch Ports, wie MinGW, auch f"ur Windows verf"ugbar. Zum Bauen
+der Software m"ussen die Bibliotheken f"ur den Kompiler vorhanden und auffindbar sein.
+
+Das Startprogramm in Java wird mit Netbeans entwickelt und muss seperat gebaut werden,
+allerdings ist eine Binary als versionierte Datei enthalten.
+
 
 \chapter{Design Grundlagen in C++}
 \section{Klassen und Strukturen}
+\section{RAII} \label{RAII}
 \section{Templates}
 \section{Operator"uerladung}
 \section{Singletonobjekte}
@@ -429,5 +489,6 @@ nicht geeignet, da
 
 \chapter{Klassendokumentation}
 \newpage
+
 
 \end{document}
