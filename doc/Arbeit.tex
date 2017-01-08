@@ -1,9 +1,34 @@
 \documentclass[14pt, a4paper]{report}
 
+%Packages
 \usepackage{ngerman}
+\usepackage{listings}
+\usepackage{color}
 
+%Style
 \setlength{\parindent}{0em}
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
 
+\lstset{frame=tb,
+  language=Java,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  numberstyle=\tiny\color{gray},
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=3
+}
+
+%Content
 \begin{document}
 
 \title{Besondere Lernleistung \\ Simulation eines Zyklotrons }
@@ -451,16 +476,64 @@ allerdings ist eine Binary als versionierte Datei enthalten.
 
 
 \chapter{Design Grundlagen in C++}
-\section{Klassen und Strukturen}
-\section{RAII} \label{RAII}
+\section{RAII-Klassen} \label{RAII}
+RAII (resource aquision is initialization) ist ein Designprinzip in C++, das 
+Resourcen-Leaks vermeiden soll. Da C++ keinen Garbage-Collector hat, muss mit
+anderen Mitteln vermiden, dass Speicher nicht wieder freigegen wird oder Threads beendetwerden. Eine Grundlage von RAII ist, dass man in Konstruktor alle Ressourcen, wie
+Speicher, Threads oder Sockets, initialisiert und sie im Destruktor wieder frei gibt.
+Der Destruktor wird immer dann aufgerufen, wenn ein Objekt aus dem Scope geht oder
+gel"oscht wird. H"alt man das RAII-Prinzip strickt ein kann den Nachteil der fehlenden
+Garbage-Collection mit ein Minimum an Mehrarbeit ausgleichen. Nat"urlich gibt es auch
+billige Gr"unde von dem RAII Prinzip wegzugehen, wie Performancegr"unde bei Mutexen
+\marginpar{Siehe Seite \pageref{Synchronisation} \ref{Synchronisation} }, abzuweichen,
+aber meisten ist es zu empfehlen, bei RAII zu bleiben.
+
+Man sollte im Destruktor niemals Exceptions werfen, da wenn schon eine Exception 
+geworfen wurde man so lange Scopes verl"asst wie es dauert die Exception zu fagen.
+Das heißt, wenn eine Exception ein Destruktoraufruf ausl"ost und in jenem eine Exception
+geworfen wird m"ussen 2 Exception gleichzeitig behandelt werden. Das ist undefiniertes 
+Verhalten und kann von jedem Kompiler anders gehandelt werden und zu Abstrutz des 
+Programmes f"uhren. RAII ist die einzige M"oglichkeit Ressourcen-Leaks zu vermeiden,
+wenn mit Exceptions programmiert wird.
+
+Wenn eine Exception geworfen wird, wird das Objekt der Klasse Array
+
+\newpage
 \section{Templates}
-\section{Operator"uerladung}
+Templates sind mit Generics in Java vergleichbar. Templates erm"oglichen in C++
+parametrischen Polymorphismus. Das hei"st, dass man einen neuen Typen mit Parametern
+erschaffen kann. In den spitzen Klammern von Templates k"onnen mehrere Klassen, 
+primitive Datentypen, wie int oder double, und Typen an die Klasse "ubergeben.
+
+Eine einfache Array-Klasse als Beispiel f"ur Templates und RAII
+\begin{lstlisting}
+template<class type, int size>
+class Array{
+	protected:
+		type* array_content;
+
+	public:
+		Array(){
+			array_content = new type[size];
+		}
+
+		type& get_element(int at){
+			return array_content[at];
+		}
+
+		~Array(){
+			delete array_content;
+		}
+}; 
+\end{lstlisting}
+
+\section{Operator"uberladung}
 \section{Singletonobjekte}
 
 \chapter{Multitasking}
 \section{Warum Multithreading ?}
 \section{Wer viel gleichzeitug macht, macht fehler.}
-\section{Synchronisation}
+\section{Synchronisation} \label{Synchronisation}
 \section{Kommunikation zwischen Threads}
 
 \chapter{Desing der Simulation}
