@@ -479,31 +479,31 @@ allerdings ist eine Binary als versionierte Datei enthalten.
 \section{RAII-Klassen} \label{RAII}
 RAII (resource aquision is initialization) ist ein Designprinzip in C++, das 
 Resourcen-Leaks vermeiden soll. Da C++ keinen Garbage-Collector hat, muss mit
-anderen Mitteln vermiden, dass Speicher nicht wieder freigegen wird oder Threads beendetwerden. Eine Grundlage von RAII ist, dass man in Konstruktor alle Ressourcen, wie
-Speicher, Threads oder Sockets, initialisiert und sie im Destruktor wieder frei gibt.
+anderen Mitteln vermieden werden, 
+dass Speicher nicht wieder freigegen wird oder Threads  nicht
+beendet werden. Eine Grundlage von RAII ist, dass man in Konstruktor alle Ressourcen, 
+wie Speicher, Threads oder Sockets, initialisiert und sie im Destruktor wieder frei gibt.
 Der Destruktor wird immer dann aufgerufen, wenn ein Objekt aus dem Scope geht oder
-gel"oscht wird. H"alt man das RAII-Prinzip strickt ein kann den Nachteil der fehlenden
-Garbage-Collection mit ein Minimum an Mehrarbeit ausgleichen. Nat"urlich gibt es auch
-billige Gr"unde von dem RAII Prinzip wegzugehen, wie Performancegr"unde bei Mutexen
-\marginpar{Siehe Seite \pageref{Synchronisation} \ref{Synchronisation} }, abzuweichen,
+gel"oscht wird. H"alt man das RAII-Prinzip strickt ein, kann der Nachteil der fehlenden
+Garbage-Collection mit ein Minimum an Mehrarbeit ausglichen werden. 
+Nat"urlich gibt es auch
+billige Gr"unde von dem RAII Prinzip abzuweichen, wie Performancegr"unde bei Mutexen
+\marginpar{Siehe Seite \pageref{Synchronisation} \ref{Synchronisation} },
 aber meisten ist es zu empfehlen, bei RAII zu bleiben.
 
-Man sollte im Destruktor niemals Exceptions werfen, da wenn schon eine Exception 
-geworfen wurde man so lange Scopes verl"asst wie es dauert die Exception zu fagen.
-Das heißt, wenn eine Exception ein Destruktoraufruf ausl"ost und in jenem eine Exception
-geworfen wird m"ussen 2 Exception gleichzeitig behandelt werden. Das ist undefiniertes 
-Verhalten und kann von jedem Kompiler anders gehandelt werden und zu Abstrutz des 
-Programmes f"uhren. RAII ist die einzige M"oglichkeit Ressourcen-Leaks zu vermeiden,
-wenn mit Exceptions programmiert wird.
-
-Wenn eine Exception geworfen wird, wird das Objekt der Klasse Array
-
+Man sollte im Destruktor keine Exceptions werfen, da dies zu ungew"unschten Effekten 
+f"uhren kann. Wird generell eine Exception geworfen befindet sich das Programm in einem
+Unwind-Prozess, dass heißt Codebl"ocke werden so lange verlassen, bis die Exception
+gefangen und dannach behandelt wird. Das Problem ist, wenn 2 Exceptions, also eine aus
+Programmfluss und eine aus dem Destruktor in dem Prozess sind, kommt es zu nicht
+definiertem Verhalten. Bei nicht definiertem Verhalten ist nicht klar, wie das Programm 
+reagiert und muss deshalb vermieden werden.
 \newpage
 \section{Templates}
 Templates sind mit Generics in Java vergleichbar. Templates erm"oglichen in C++
 parametrischen Polymorphismus. Das hei"st, dass man einen neuen Typen mit Parametern
 erschaffen kann. In den spitzen Klammern von Templates k"onnen mehrere Klassen, 
-primitive Datentypen, wie int oder double, und Typen an die Klasse "ubergeben.
+primitive Datentypen, wie int, und Typen an die Klasse "ubergeben werden.
 
 Eine einfache Array-Klasse als Beispiel f"ur Templates und RAII
 \begin{lstlisting}
@@ -527,7 +527,59 @@ class Array{
 }; 
 \end{lstlisting}
 
+Die unterschiedlichen Templateparameter f"uhren zu unterschiedlichen Typen. Also sind 
+Array<int, 10> und Array<int, 11> von unterschiedlichen Typen.
+
 \section{Operator"uberladung}
+Eine weitere elegante Methode, um in C++ zu abstrahieren, ist die Operator"uberladung.
+Sie erlaubt es Operatoren, wie $+$ oder den Dereffernezierungsopertor $*$ zu "uberladen
+und erh"oht so die Lesbarkeit des Codes. Eine Operator"uberladung erfolgt, indem
+spezielle Methode "uberl"ad.
+
+Das Beispiel f"ur eine Vektor-Klasse (damit ist das mathematische Objekt gemeint) soll
+Operator"uberladung demonstrieren.
+
+\begin{lstlisting}
+template<class obj>
+class vector{
+	protected:
+		obj x;
+		obj y;
+		obj z;
+
+	public:
+		vector(obj paraX, obj paraY, obj paraZ){
+			x = paraX;
+			y = paraY;
+			z = paraZ;
+		}
+
+		obj getX(){
+			return x;
+		}
+
+		obj getY(){
+			return y;
+		}
+		
+		obj getZ(){
+			return z;
+		}
+		
+		vector operator+(vec<obj> other){
+			return vector(x + other.getX(), 
+					y + other.getY();, 
+					z + other.getZ(); 
+
+		}
+};
+\end{lstlisting}
+
+Die Lesbatkeit des gesamten Codes kann sich durch Operator"uberladung verbessern, da man
+die Rechnung mit der Klasse vector mit Operatoren aufschreiben kann und nicht als 
+Methoden. Die Klasse ist außerdem ein Beispiel f"ur Abstraktion mit Templates. Jeder
+Typ, der den Operator + unterst"utzt kann als Template eingesetzt werden.
+
 \section{Singletonobjekte}
 
 \chapter{Multitasking}
