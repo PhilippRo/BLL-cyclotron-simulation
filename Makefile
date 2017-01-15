@@ -58,4 +58,4 @@ dirs:
 	@echo
 
 .PHONY: clean Doc
-.IGNORE: dirs
+.IGNORE: dirs Doc

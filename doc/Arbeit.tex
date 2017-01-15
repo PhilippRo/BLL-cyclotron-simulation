@@ -4,7 +4,7 @@
 \usepackage{ngerman}
 \usepackage{listings}
 \usepackage{color}
-
+\usepackage{amssymb}
 %Style
 \setlength{\parindent}{0em}
 \definecolor{dkgreen}{rgb}{0,0.6,0}
@@ -677,6 +677,8 @@ das Objekt freigeben und ein Kontruktor aufgerufen, der den Mutex dann wieder fr
 Ein weiterer Vorteil von RAII-Klassen zur Synchronisation ist, dass der Programmierer 
 nicht vergessen kann den Mutex freizugeben.
 
+\paragraph{Condition-Variable}
+
 \section{Kommunikation zwischen Threads}
 Am PC liegt eine Parallelisierungsprinzip namens Shared Memory vor. Das heißt das alle
 Prozesse und Threads in den selben Speicher schreiben, sich ihn also teilen. Das macht
@@ -737,20 +739,140 @@ Simulation als HTML-Datei gespeichert werden.
 
 \chapter{Umsetzung}
 \section{L"osung des Genauigkeitsproblem bei Flie"skommazahlen}
+Um das Genauigkeitsproblem bei Flie"skommazahlen zu l"osen gibt es mehrere Ans"atze.
+Einer ist es die gr"o"se der Zahlen zu erhöhen, also die Anzahl der Nachkommastellen im
+Bin"arsystem zu erh"ohen, ein andere ist es die Zahlen in einer wissenschaftlichen
+Dastellung also als $a * 10^n ~ a \in \mathbb Q, ~ n \in \mathbb N$ zu speichern. In
+dieser Simulation wird die wissenschaftliche Dastellung benutzt, da sie 
+speicherfreundlicher ist und mit dem kleinsten Aufwand den gr"o"sten Zahlenbereich
+abdeckt. Es werden alle wichtigen Operatoren, die der primitive Datentyp double 
+implementiert, werden auch in der Klasse Double implementiert.
+
 \section{Channel f"ur die Kommunikation zwischen Threads}
+Die Channel-Klasse erm"oglicht einfache Zwischenthreadkommunikation. Ein Channel soll
+eine Klasse sein, die eine FIFO-Datenstruktur verwaltet. Deshalb ist die Datenstruktur
+hinter dem Channel eine Standardqueue. Wenn aus dem Channel gelesen wird, aber kein 
+Objekt in der Queue ist, wartet der Channel so lange, wie es dauert, dass ein anderer
+Thread ein Objekt in den Channel geschreibt. Die Implementation des Channels sieht
+eine Kapazit"at vor, da der Berechnungsthread deutlich schneller als der 
+Verwaltungsthread l"auft und der RAM m"oglichst nicht vollst"andig gef"ullt werden soll.
+Wenn die Anzahl der Objekte in dem Channel gr"o"ser als die Kapzit"at wird, wartet der 
+Channel so lange, bis ein Objekt aus dem Channel entfernt wurde.
+
 \section{Geometrie im Fenster}
+Zu Anfang muss berechnet werden, wie viele Zeilen mit Graphen gef"ullt werden. Es ist
+gegeben, dass 3 Graphen in dem Fenster nebeneinander gerendert werden. Nachdem die 
+Anzahl der Zeilen und Spalten klar ist, kann das Fenster in gleichgro"se Rechtecke
+aufgeteilt werden, in die Graphen gerendert werden. Die Breite zwischen dem Rand des 
+Graphen und den Koordinatenachsen betr"agt $\frac{1}{10}$ der gesamten Breite eines
+Rechteckes.
+
 \section{Wie wird ein Graph gerendert}
+Die Mainloop in der Application-Klasse ruft, wenn kein Tastendruck erkannt wurde, immer
+die Methode Window::render() auf, die aber nur rendert, wenn es von der Framerate her
+erforderlich ist. Sollt es erforderlich sein, werden von dort die Methoden Graph::render
+f"ur jeden Graphen aufgerufen.
+
+Als erstes wird "uberpr"uft, ob die Schriftart zu beschriften der Graphen geladen ist,
+sollte dieses nicht der Fall sein, wird es nachgeholt. daraufhin werden alle zu 
+rendernden Punkte aus dem GraphController geholt. S"amtliche Linien werden in 
+sf::VertexArray gespeichert, da dies eine bessere Performance und Verwendbarkeit des
+Renderingalgorythmus zur Verf"ugung stellt. Dannch werden zuerst die Koordinatenachsen 
+berechnet, die daraufhin mit Einheitenstrichen der L"ange $0.5 * Offset$ berechnet und
+in sf::VertexArray geschrieben. Die Daten im sf::VertexArray sind sf::Lines, da es Sinn
+ergibt, dass die Enden der Einheitenstriche bzw. Koordinatenachsen nicht mit dem jeweils
+n"achsten verbunden sind. Daraufhin werden die Punkte berechnet und in ein VertexArray
+geschrieben. Dieses mal sind die Punkte im Array vom Typen LineStrip, da es Sinn ergibt,
+dass s"amtliche Datenpunkte im Graphen miteinander verbunden sind.
+
 \section{Starten der Simulation}
+Am Anfang wird die Jar-Datei bllGui.jar gestartet. Nachdem der Nutzter s"amliche Daten
+ausgef"ullt hat und den entsprechenden Knopf gedr"uckt hat. Werden aus der Eingabe 
+Konsolenparamter generiert. Daraufhin wird die Bin"ardatei mit den eben erstellten
+Konsolenparamtern gestartet.
+
+Nachdem von der Main-Methode entschieden wurde welche Implementation der Programmlogik,
+wird der erste Zyklotronnamen erstellt und in den ZyklotronController gegeben. Daraufhin
+wird das erste Zyklotron nach den Konsolenparametern konfiguriert. Dannach werden die
+anderen Zyklotrons wie das erste konfiguriert und die Graphen durch den
+ZyklotronController im Window angelegt. Die Geometrie muss allerdings noch per Hand 
+angelegt werden, da noch die M"oglichkeit vorhanden sein muss, weitere Graphen anzulegen
+und das Fenster weiter anzupassen. Daraufhin wird die Mainloop gestartet und gewartet,
+bis das Fenster geschlossen wird. Daraufhin wird die Simulation gestoppt.
+
 \section{Stoppen der Simulation}
+Wird die Methode ZyklotronController::shut\_down beginnt das Herunterfahren der 
+Simulation. Nacheinandert werden nun alle Zyklotrons gel"oscht. Im Desktruktor der 
+Zyklotrons wird nun zuerst der Verwaltungsthread heruntergefahren, damit keine neunen
+Daten in das Fenster eingespielt werden. Daraufhin wird aus dem Channel zwischen dem 
+Verwaltungsthread und dem Berechnungsthread ein Datensatz entnommen und die Daten werden
+in den ZyklotronController als zu protokollierende Daten geschrieben. Darauf hin wird
+der Channel deactiviert. So wird verhindert, dass die Simulation weiterl"auft. Nun wird
+auch den Berechnungsthread heruntergefahren und der Channel gel"oscht. Als vorletztes
+wird nun das HTML im Hintergrund des ZyklotronsController validiert und der Inhalt des
+Buffers in eine Datei namens log.html geschrieben. Daraufhin wird das Programm beendet.
 
 \chapter{Quellen}
+\begin{itemize}
+
+\item Der C++ Programmierer
+\item SFML-Dokumentation: https://www.sfml-dev.org/learn.php 
+\item Boost-Dokumentation: http://www.boost.org/doc/
+\item http://en.cppreference.com/w/
+\item Metzlersphyisik
+\item Cornelson Das Gro"se Tafelwerk interaktiv
+\item Unkelbachsche Formelsammlung
+
+\end{itemize}
 
 \appendix
 \chapter{Handbuch}
 \tableofcontents
 \section{Die Software bauen}
-\section{Eine Simulation starten}
 
+\subsection{Abh"angigkeiten}
+\paragraph{Die verwendete Buildsysteme} sind Unix-Makefiles und die Java Netbeans-IDE.  
+\paragraph{Ein C++-Kompiler} ist zum Bauen der Software von N"oten, damit das 
+Hauptprogramm zu bauen. F"ur den Entwicklungsprozess wird am Besten GCC verwendet, damit
+der GProfiler und GDB gut verwendet werden k"onnen. F"ur ein Release ist allerdings auch
+der Clang Kompiler eine gute Wahl. 
+\paragraph{Zum Erstellen der Dokumentation} sind mehrere Programme n"otig. N"amlich
+eine Latex-Version wie pdflatex zum Erstellen der schriftliche Arbeit und Doxygen zur
+Generierung der Dokumentation.
+\paragraph{N"otige Bibliotheken} sind:
+\begin{itemize}
+\item SFML
+\item Boost-System
+\item Boost-Thread
+\end{itemize}
+
+\subsection{Kompilate erstellen}
+\paragraph{Das Java-Kompilat} ist schon vorgefertig, da die virtuelle Maschiene eine 
+extrem gute Anpassbarkeit f"ur die meisten Plattformen dastellt. F"ur den Fall, dass es
+trotzdem nicht startet, kann Netbeans gestartet werden und die Jar neu gebaut werden.
+F"ur denn Fall, dass die Java-Version veraltet ist, k"onnte auch ein Aktualisieren 
+dieser, das generell keine schlechte Idee ist, das Problem l"osen.
+
+\paragraph{Das C++-Kompilat} wird automatisch durch das Ausf"uhren des Programmes make
+erstellt. Daf"ur m"ussen die entsprechenden Abh"angigkeiten erf"ullt sein. Eine weitere
+Konfiguration des Buildprozesses l"asst sich "uber die folgenden Variabeln "andern:
+\begin{itemize}
+\item CXX legt Aufruf f"ur den C++-Kompiler fest
+\item Doxygen legt den Aufruf f"ur Doxygen fest
+\item LATEX legt den Aufruf f"ur pdflatex fest 
+\item DEBUG legt die Optimierungsstufe fest. F"ur den Fall, dass Clang verwendet wird 
+oder es sich ein Release handelt ist die Option -03 eine gute Option
+\end{itemize}
+
+\section{Eine Simulation starten}
+Zum Starten der Simulation wird die bllGui.jar gestartet und die Felder werden 
+ausgef"ullt. Die Kombobox oben links legt die Anzahl, der zu simulierenden Zyklotrons 
+fest.
+
+Die eigentliche Simulation wird durch den Knopf "`Simulation Starten"' gestartet.
+
+Durch einen beliebigen Knopfdruck wird die Simulation beendet. Die Endergebnisse der
+Simulation sind in der Datei log.html auffindbar.
 
 \chapter{Klassendokumentation}
 \newpage
