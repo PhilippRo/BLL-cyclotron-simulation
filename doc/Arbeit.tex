@@ -457,7 +457,8 @@ jenem Abstrahiert, um eine performante und leicht zu bedienende Renderingbibliot
 verf"ugung stellt. SFML unterst"utzt auch Multithreading und vieles mehr.
 
 \paragraph{Boost} ist eine andere Plattform"ubergreifende Bilbiothek f"ur C++, die eine
-Alternative zur Standardbibliothek dastellt. Boost interagiert gut mit der 
+Alternative zur Standardbibliothek ist und eine Beispielimplementation f"ur zuk"unftige 
+Standardtisierung neuer Features zur Verf"ugung stellt. Boost interagiert gut mit der 
 Standardbibliothek und stellt moderene Implementationen (oder überhaupt welche) f"ur
 die meisten Probleme da. Boost-Thread eine Unterbibliothek von Boost f"ur Multithreading
 wird hier verwendet.
@@ -528,7 +529,7 @@ class Array{
 \end{lstlisting}
 
 Die unterschiedlichen Templateparameter f"uhren zu unterschiedlichen Typen. Also sind 
-Array<int, 10> und Array<int, 11> von unterschiedlichen Typen.
+Array$<$int, 10$>$ und Array$<$int, 11$>$ von unterschiedlichen Typen.
 
 \section{Operator"uberladung}
 Eine weitere elegante Methode, um in C++ zu abstrahieren, ist die Operator"uberladung.
@@ -578,22 +579,121 @@ class vector{
 Die Lesbatkeit des gesamten Codes kann sich durch Operator"uberladung verbessern, da man
 die Rechnung mit der Klasse vector mit Operatoren aufschreiben kann und nicht als 
 Methoden. Die Klasse ist außerdem ein Beispiel f"ur Abstraktion mit Templates. Jeder
-Typ, der den Operator + unterst"utzt kann als Template eingesetzt werden.
+Typ, der den Operator + unterst"utzt kann in das Template eingesetzt werden.
 
 \section{Singletonobjekte}
+Singletonobjekte sind Objekte, die nicht explizit initialisiert werden und, wenn der 
+Header eingef"ugt ist, von "uberall im Programm aufrufbar. Diese Objekte werden immer
+dann benutzt, wenn es Sinn ergibt, dass nur ein Objekt exsistiert. Beispiele daf"ur
+sind Steurungsklassen, Fenster und einige weitere.
+
+Die Merkmale eines Singletonobjektes sind ein privater Konstruktor, ein statisches 
+privates Objekt des entsprechenden Typen und eine "offentliche statische Methode, die 
+eine Refferenz auf das eben erw"ahnte statische Objekt zur"uck gibt und das private
+Objekt initialisiert.
+
+Es gibt einige Generische Ans"atze, um Singletons umzusetzen, mit Templates oder Makros.
+In dieser Simulation wird aus Gr"unden der Einfachkeit keiner dieser Ans"atze verwendet.
 
 \chapter{Multitasking}
 \section{Warum Multithreading ?}
-\section{Wer viel gleichzeitug macht, macht fehler.}
+Eine CPU besteht aus Speicher und mehreren Prozessorkernen, mit einer bestimmten
+Taktung. Also ist die CPU erst ausgelastet, wenn auf mehreren Kernen parrallel
+gerechnet wird. Bei diversen Simulation besteht Interesse daran Zeit zu sparen, um
+schneller Ergebnisse zu erhalten und deshalb sollten die Ressourcen des Rechners 
+vollst"andig genutzt werden.
+
+Eine Aufgabe l"asst sich allerdings nicht immer auf unterschiedliche Kerne aufteilen.
+Damit eine Aufgabe auf unterschiedliche Kernel verteilt werden kann, muss ein gewisser
+Datenparallelismus bestehen. Dataparrallelismus hei"st, das die Ergebnisse einer Aufgabe
+unabh"angig voneinander berechnet werden k"onnen. Als Beispeiel l"asst sich die
+Berechnung von Fibonaccizahlen nicht parallelisieren, da das Ergebnis der Stelle $n$ von
+den Ergebnissen der Stellen $n-1$ und $n-2$ abh"angig ist. Im Gegensatz dazu l"asst sich
+Matrizenmultiplikation hervorragen parallelisieren, da alle Ergebnisse nicht voneinander
+abh"angen.
+
+In dieser Simulation h"angen die Zyklotrons nicht voneinander ab, da sie sich nicht
+gegenseitig beeinflussen, und daher lassen sie sich verschiedenen Threads zuweisen. Die
+einzelnen Uml"aufe des Teilchens sind jedoch nicht parallelisierbar, da sie von einigen
+Kenngr"o"sen der vorgegangenen Uml"aufe abh"angen, wie zum Beispiel die aktuelle Zeit 
+im Zyklotron oder die Geschwindigkeit.
+
+\section{Einen Thread starten}
+In der Bibliothek Boost ist ein Thread ein Objekt von dem Typen Thread. Der
+Konstruktor dieser Funktion nimmt etwas ausf"uhrbahres, also eine Lambda-Funktion
+ein Objekt, dass die Operator $()$ unterst"utzt oder eine Funktion ohne Parameter.
+Soll eine Funktion mit Parametern gestartet werden gibt die Funktion boost::bind ein
+passendes Objekt zur"uck, das den Operator $()$ unterst"utzt und Funktion mit den
+Parametern ausf"uhrbar macht.
+
 \section{Synchronisation} \label{Synchronisation}
+Ein Problem bei Multithreading am PC ist, dass die unterschiedlichen Thread auf den
+selben Speicher schreiben. An sich ist kein Problem, aber es besteht die M"oglichkeit,
+dass 2 Threads gleichzeitig in ein Objekt schreiben oder in einem lesen und so einige
+schwierig zu behebende Fehler enstehen k"onnen. Um einen solchen Doppelzugriff zu 
+verhindern gibt es einige Methoden, die alle auf Mutexen basieren.
+
+\paragraph{Ein Mutex} ist eine Klasse, die zwei Hauptmethode hat lock und unlock. Ein
+Mutex kann man als Schranke vorstellen, bei der die Methode lock die Schranke schlie"st
+und die Threads, die den selben Mutex passieren wollte m"ussen warten, bis die Schranke
+mithilfe der Methode unlock ge"offnet wurde. Ein Mutex hat um das zu gew"ahrleisten eine
+Schlange im Hintergrund, in der gespeichert wird, welcher Thread als erstes den Zugriff
+erh"alt und auch als erstes mit lock nach Zugriff verlangt hat. 
+
+\paragraph{Deadlocks} treten immer dann auf, wenn ein Mutex nicht wieder freigegeben 
+wird. Das passiert, wenn sich zwei Mutexe gegenseitig davor hindern, sich wieder 
+freizugeben. Ein Beispiel:
+\begin{lstlisting}
+boost::mutex a_mutex;
+boost::mutex b_mutex;
+
+void foo_a(){
+	a_mutex.lock();
+	do_something_a();
+	b_mutex.lock();
+	do_something_else_a();
+	a_mutex.unlock();
+	b_mutex.unlock();
+}
+
+void foo_b(){
+	b_mutex.lock();
+	do_something_b();
+	a_mutex.lock();
+	do_something_else_b();
+	a_mutex.unlock();
+	b_mutex.unlock();
+}
+\end{lstlisting}
+Wenn foo\_a und foo\_b gleichzeitig aus unterschiedlichen Threads aufgerufen werden, 
+versperren die Methoden sich gegenseitig das Weiterkommen. Wenn die Mutexe nicht mehr
+entsperrt werden, was f"ur gew"ohnlich nicht der Fall, hat sich das Programm
+aufgeh"angt. Deadlocks k"onnen auch entstehen, wenn eine Exception geworfen wird und
+Mutexe nicht mehr entsperrt werden.
+
+\paragraph{RAII-Klassen} sind eine M"oglichkeit exceptionsicher zu programmieren und 
+Deadlocks zu vermeiden. Daf"ur erstellt man eine Klasse, die eine im Konstruktor eine 
+Refferenz auf einen Mutex nimmt und ihn lockt. Wird nun eine Exception geworgen wird
+das Objekt freigeben und ein Kontruktor aufgerufen, der den Mutex dann wieder freigibt.
+Ein weiterer Vorteil von RAII-Klassen zur Synchronisation ist, dass der Programmierer 
+nicht vergessen kann den Mutex freizugeben.
+
 \section{Kommunikation zwischen Threads}
+Am PC liegt eine Parallelisierungsprinzip namens Shared Memory vor. Das heißt das alle
+Prozesse und Threads in den selben Speicher schreiben, sich ihn also teilen. Das macht
+die Kommunikation zwischen Threads au"serordentlich einfach, da man anders als bei
+Supercomputern keine Pakete durch Netzwerk oder andere schwierige Vorg"ange Umsetzten
+muss. 
+
+Vom Grundsatz her verwerndet man einen im Zusammenhang gut geeigneten Container, wie
+einen Stapel, Liste oder eine einfache Variabel, und sch"utzt ihn mit Mutexen so, dass 
+kein Doppelzugriff m"oglich ist.
 
 \chapter{Desing der Simulation}
 \section{Application}
 \section{Window} 
 \section{Graphen und GraphController}
 \section{Zyklotron und ZyklotronController}
-\section{Starten der Simulation}
 
 \chapter{Umsetzung}
 \section{L"osung des Genauigkeitsproblem bei Flie"skommazahlen}
