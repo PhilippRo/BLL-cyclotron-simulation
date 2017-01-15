@@ -12,7 +12,7 @@
 \definecolor{mauve}{rgb}{0.58,0,0.82}
 
 \lstset{frame=tb,
-  language=Java,
+  language=C++,
   aboveskip=3mm,
   belowskip=3mm,
   showstringspaces=false,
@@ -23,7 +23,6 @@
   keywordstyle=\color{blue},
   commentstyle=\color{dkgreen},
   stringstyle=\color{mauve},
-  breaklines=true,
   breakatwhitespace=true,
   tabsize=3
 }
@@ -691,9 +690,50 @@ kein Doppelzugriff m"oglich ist.
 
 \chapter{Desing der Simulation}
 \section{Application}
+Die Application-Klasse ist die eigentliche Programmlogik und wird von Main-Methode
+aufgerufen. Die Aufgabe der Applicaiton Klasse ist es das Window und das Zyklotron
+zu konfigurieren und die Simulation zu starten. Konsolenparameter der Main-Methode
+werden, falls vorhanden, an die Application-Klasse gegeben.
+
 \section{Window} 
+Das Fenster ist ein Wrapper f"ur das SFML-RenderWindow. Seine Aufgaben sind es das 
+Fenster zu erstellen und die Graphen zu verwalten, dass hei"st sie zu zum Rendern 
+anzuhalten und ihnen die Grenzen, Offsets etc. zuzuweisen. Das Window hat eine 
+hardgecodedete Framerate von 25 fps, die die CPU-Zeit f"ur das Rendern gering h"alt.
+Window ist ein Singleton, da es Sinn macht, dass die Daten an mehreren Stellen 
+auszugeben. Das Window ist nur daf"ur gedacht Widgets von dem Typen Graphen zu halten,
+auch wenn durch die Objektstruktur eine Erweiterung f"ur weitere Widgets m"oglich ist.
+
 \section{Graphen und GraphController}
+\paragraph{Die Graph-Klasse} ist f"ur das Rendern der Punkte zust"andig. Sie speichert
+die Punkte in einem Vector und malt diese direkt in das sfml::RenderWindow, das in der
+Window-Klasse gewrapt wird. Die von dem Window "ubergebenen Grenzen werden immer von dem
+Graphen eingehalten.
+
+\paragraph{Die GraphController-Klasse} ist f"ur die eigentliche Verwaltung der Punkte
+zust"andig. Die Standardimplementation einer GraphController-Klasse ist 
+StdGraphController. Man kann eigene Implementationen eines GraphControllers in einem
+Graphen hinterlegen. Der GraphController muss daf"ur sorgen, dass die Anzahl der Punkte
+nicht zu gro"s wird, da sonst der RAM zu klein wird, um alle Punkte zu speichern. 
+Au"serdem ist es Aufgabe des GraphControllers den maximalen Wert aus der Punktesammlung
+zu suchen. Je nach Sachzusammenhang k"onnen Optimierungen vorgenommen werden. Wenn von
+Anfang an klar ist, an welcher Stelle im Vector der Gr"o"ste Wert steht kann dieser,
+ohne zu suchen, zur"uckgegeben werden.
+
 \section{Zyklotron und ZyklotronController}
+\paragraph{Im Zyklotron} werden die Werte gerechnet. Er besteht aus 2 Threads. Erstens
+dem Berechnungsthread und zweitens dem Verwaltungsthread, die mit einem Channel zur
+Kommunikation verbunden sind. Der Berechnungsthread errechnet Werte und schickt sie an
+den Verwaltungsthread, der sie an den Graphen weitergibt. Diese Aufteilung ist sinnvoll,
+da der Graphcontroller die Aufnahme der neuen Werte nicht in einem neuen Thread startet
+und so der Graph die Berechnung im Zyklotron nicht behindert.
+
+\paragraph{Der ZyklotronController} hat die Aufgabe die verschiedenen Zyklotrons zu
+verwalten. Seine Aufgabe ist es Zyklotrons zu erstellen und sie zu speichern. Er startet
+au"serdem die Berechnungen und f"ahrt sie ordnungsgem"a"s herunter, wenn er 
+benarchitigt wurde oder alle Zyklotrons ausgelaufen sind. In den ZyklotronController
+k"onnen Endergebnisse der diversen Zyklotrons geschrieben werden, die am Ende der 
+Simulation als HTML-Datei gespeichert werden.
 
 \chapter{Umsetzung}
 \section{L"osung des Genauigkeitsproblem bei Flie"skommazahlen}
