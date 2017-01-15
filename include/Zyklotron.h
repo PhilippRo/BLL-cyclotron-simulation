@@ -199,6 +199,8 @@ public:
 		\param names Namen der Graphen
 	*/
 	void setGraphNames(std::vector <std::string> names );
+
+
 };
 
 } /* namespace BLL */

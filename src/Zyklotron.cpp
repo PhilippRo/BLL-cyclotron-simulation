@@ -14,6 +14,7 @@
  */
 
 #include <Zyklotron.h>
+#include <ZyklotronController.h>
 #include <cmath>
 #include <limits.h>
 #include <SFML/System.hpp>
@@ -29,19 +30,24 @@ Zyklotron::Zyklotron() {
 }
 
 Zyklotron::~Zyklotron() {
-	chan->deactivate();
-	if(calcThread != 0){
-		calcThread->interrupt();
-		calcThread->join();
-		if( calcThread != 0)
-			delete calcThread;
-	}
 	if(thisThread != 0){
 		thisThread->interrupt();
 		thisThread->join();
 		if(thisThread !=0)
 			delete thisThread;
 	}
+
+	BLL::ZyklotronController::instance().writeToLog(names, chan->read());
+
+	chan->deactivate();
+
+	if(calcThread != 0){
+		calcThread->interrupt();
+		calcThread->join();
+		if( calcThread != 0)
+			delete calcThread;
+	}
+
 	if(chan == 0)
 		delete chan;
 }

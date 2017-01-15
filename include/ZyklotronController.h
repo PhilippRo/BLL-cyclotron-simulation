@@ -8,6 +8,8 @@
 
 #include <vector>
 #include <string>
+#include <sstream>
+
 
 namespace BLL{
 
@@ -35,6 +37,10 @@ protected:
 	///Speichert die Namen der Graphen für ein Zyklotron
 	///der n-te vector enthält die Graphnamen für das n-te Zyklotron
 	std::vector<std::vector<std::string>> names;
+
+	///In eine HTML-Datei zu schreibende Daten
+	///siehe writeToLog
+	std::stringstream to_log;
 
 public:
 
@@ -94,6 +100,20 @@ public:
 		löscht jedes Zykltron und ruft damit den Destructor desselbigen auf.
 	*/
 	void shut_down();
+
+	/**
+		\brief Merkt Daten vor, um sie in einer HTML-Datei zu speichern.
+
+		Diese Methode Methode schreibt zu protokollierende Daten in den
+		Stingstream to_log und in der Methode shut_down werden die Daten in
+		die Datei log.html geschrieben
+
+		\param names Namen der Datensätze häufig Namen der Graphen; es sind
+				immer 6 Namen
+		\param data Datensatz
+	*/
+	void writeToLog(std::vector <std::string> names, ZyklotronParts::ZykSet data);
+
 };
 
 }
