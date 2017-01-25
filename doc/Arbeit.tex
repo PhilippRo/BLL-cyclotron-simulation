@@ -2,14 +2,21 @@
 
 %Packages
 \usepackage{ngerman}
+% TODO make it working\usepackage[german]{babel}
 \usepackage{listings}
 \usepackage{color}
 \usepackage{amssymb}
+
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{geometry}
 %Style
 \setlength{\parindent}{0em}
+
 \definecolor{dkgreen}{rgb}{0,0.6,0}
 \definecolor{gray}{rgb}{0.5,0.5,0.5}
 \definecolor{mauve}{rgb}{0.58,0,0.82}
+\definecolor{titleblue}{rgb}{0.21, 0.31, 0.88}
 
 \lstset{frame=tb,
   language=C++,
@@ -27,10 +34,46 @@
   tabsize=3
 }
 
+\linespread{1.3}
+
+\pagestyle{fancy}
+\chead{}
+\lhead{\leftmark}
+\rhead{}
+\cfoot{\thepage}
+\lfoot{}
+\rfoot{}
+
+\titleformat
+{\part} % command
+[display]% shape
+{\bfseries\huge\center} % format
+{Teil  \ \thepart} % label
+{0.5ex} % sep
+{\Huge\color{titleblue}} % before-code
+
+\titleformat
+{\chapter} % command
+[display]% shape
+{\color{titleblue}\bfseries\huge\raggedleft} % format
+{Kapitel  \ \thechapter} % label
+{0.5ex} % sep
+{\Huge} % before-code
+
+\titleformat
+{\section} % command
+[hang]% shape
+{\color{titleblue}\bfseries\Large} % format
+{Kapitel  \ \thechapter} % label
+{0.5ex} % sep
+{} % before-code
+
+\newgeometry{left=2.5cm, right=2.5cm }
+
 %Content
 \begin{document}
 
-\title{Besondere Lernleistung \\ Simulation eines Zyklotrons }
+\title{\bfseries \Large Besondere Lernleistung: \\ \Huge \color{titleblue}Simulation eines Zyklotrons am Computer}
 \author{Philipp Rosendahl \\ philipp.rosendahl@gmx.de \\ Mallinckrodt-Gymnasium Dortmund}
 \date{23.12.2016}
 \maketitle
@@ -97,8 +140,7 @@ dann w"ahrend der Beschleunigung das Magnetfeld und die Frequenz an den
 Beschleunigunskondensatoren angepasst werden. \label{synchrotron}
 \end{enumerate}
 
-\newpage
-\section{Das Zyklotron im Vergleich zu anderen}
+\section{Das Zyklotron im Vergleich zu anderen Beschleunigern}
 Zyklotrons sind die einfachsten Teichenbeschleuniger. Die anderen 
 Teilchenbeschleunigern, doch die sind meistens deutlich schwieriger zu benutzten. 
 Ein Nachteil des Zyklotrons ist zum Beispiel, das ein Synchrotron die Teilchen auf 
