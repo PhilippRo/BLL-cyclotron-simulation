@@ -38,7 +38,7 @@
 
 \pagestyle{fancy}
 \chead{}
-\lhead{\leftmark}
+\lhead{\leftmark }
 \rhead{}
 \cfoot{\thepage}
 \lfoot{}
@@ -140,6 +140,7 @@ dann w"ahrend der Beschleunigung das Magnetfeld und die Frequenz an den
 Beschleunigunskondensatoren angepasst werden. \label{synchrotron}
 \end{enumerate}
 
+\newpage
 \section{Das Zyklotron im Vergleich zu anderen Beschleunigern}
 Zyklotrons sind die einfachsten Teichenbeschleuniger. Die anderen 
 Teilchenbeschleunigern, doch die sind meistens deutlich schwieriger zu benutzten. 
@@ -719,7 +720,13 @@ das Objekt freigeben und ein Kontruktor aufgerufen, der den Mutex dann wieder fr
 Ein weiterer Vorteil von RAII-Klassen zur Synchronisation ist, dass der Programmierer 
 nicht vergessen kann den Mutex freizugeben.
 
-\paragraph{Condition-Variable}
+\paragraph{Condition-Variable} können gut dafür verwendet werden, um auf eine Funktion
+oder anderes zu warten. Der Vorteil der Condition-Variable gegen"uber einer Schleife,
+die wartet ist, dass keine Rechenzeit der CPU verwendet wird um st"andig Vergleiche und
+Spr"unge durchzuf"uhren. Eine Condition-Variable wird mithilfe eines Mutexes 
+initialisiert und hat 2 wichtige Methode: wait() und notify(). Die Methode wait() 
+pausiert den momentanen Programmablauf, bis auf die selbe Condition-Variable die Methode
+notify() aufgerufen wird.
 
 \section{Kommunikation zwischen Threads}
 Am PC liegt eine Parallelisierungsprinzip namens Shared Memory vor. Das heißt das alle
