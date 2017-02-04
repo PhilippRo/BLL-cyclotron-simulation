@@ -43,21 +43,21 @@ Double::Double(double val, int pow)
 Double Double::operator*(Double d){
 	return Double(
 		value * d.value,
-		power + d.power);
+		power + d.power).adapt();
 }
 
 Double BLL::Double::operator/(Double d){
 	Double ret(
 		value / d.value,
 		power - d.power);
-	return ret;
+	return ret.adapt();
 }
 
 Double Double::operator+(Double d){
 	Double ret(
 		value + d.value*std::pow(10, d.power - power),
 		power);
-	return ret;
+	return ret.adapt();;
 }
 
 Double Double::operator-(Double d){
@@ -122,15 +122,15 @@ Double Double::adapt(){
 		
  		auto abso = neg ? -1*value : value; 
 		
-		while(abso > 1000.0){
-			value /= 1000;
-			abso  /= 1000;
-			power+=3;
+		while(abso > 1e5){
+			value /= 1e5;
+			abso  /= 1e5;
+			power+=5;
 		}
-		while( abso < 0.001){
-			value *= 1000;
-			abso  *= 1000;	
-			power-=3;
+		while( abso < 1e-5){
+			value *= 1e5;
+			abso  *= 1e5;	
+			power-=5;
 		}
 	}
 	return (*this);

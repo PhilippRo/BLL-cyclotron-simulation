@@ -99,29 +99,41 @@ void Zyklotron::run(){
 void Zyklotron::calc(){
 
 	using namespace ZyklotronParts;
-	// Todo Fork Thread for Calculating the shit
 	ZyklotronParts::ZykSet it;
 	it.v = this->v0;
 	it.time = Double(0,0);
 	Double a = a0;
+        Double one(1,0);
 	long i = 1;
 		while(true){
 			ZyklotronParts::ZykSet res;
 			
-			Double c(3, 8);
+			Double c = Double::c();
 			auto v0 = it.v;
-			
-			Double timePosAccel = (((v0 * v0)/(Double(4,0) * a * a)) + (d / a)).sqrt() - v0/(Double(2,0) * a);
-			//Double timePosAccel = (Double(2*i, 0) * d / a).sqrt();	
+	
+			Double timePosAccel;
+			if(relativistic){
+				timePosAccel = (c/a) * ( ( (d * a /(c*c) + (one+ (v0*v0/
+					(c*c))).sqrt()) * (d * a /(c*c) + (one + (v0*v0/
+					(c*c))).sqrt()) - one).sqrt() - (v0/c));
+			}else{
+				timePosAccel = (((v0 * v0)/(Double(4,0) * a*a))+ 
+					(d / a)).sqrt() - v0/(Double(2,0) * a);
+			}	
 			
 
 			Double timeNegAccel = ((it.time + timePosAccel) %  f);
-			timeNegAccel = timeNegAccel == ((it.time + timePosAccel) % (Double(2,0)* f)) ? timeNegAccel : Double (0,0);
-			if(relativistic){
-				res.v = (a*(timePosAccel-timeNegAccel) + v0) / (Double(1,0)+ ((a*(timePosAccel - timeNegAccel)+ v0)*(a*(timePosAccel-timeNegAccel) + v0)/(c*c))).sqrt();
+			timeNegAccel = timeNegAccel == ((it.time + timePosAccel) % 
+				(Double(2,0)* f)) ? timeNegAccel : Double (0,0);
 			
-
-				auto m = m0 / (Double(1,0) - ((res.v*res.v) /(c*c))).sqrt(); 
+			if(relativistic){
+				res.v = (a*(timePosAccel-timeNegAccel) + v0) / 
+					(Double(1,0)+ ((a*(timePosAccel - timeNegAccel)
+					+ v0)*(a*(timePosAccel-timeNegAccel) + v0)/
+					(c*c))).sqrt();
+			
+				auto m = m0 / 
+					(Double(1,0) - ((res.v*res.v) /(c*c))).sqrt(); 
 				//Massendifferenz	
 				res.me = m - m0;
 
