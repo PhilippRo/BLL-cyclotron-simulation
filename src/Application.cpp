@@ -6,16 +6,12 @@
  */
 
 #include <Application.h>
-#include <SFML/Graphics.hpp>
-#include <Graph.h>
-#include <iostream>
 #include <cstdlib>
 #include <iostream>
 #include <Zyklotron.h>
 #include <ZyklotronController.h>
 #include <StdGraphController.h>
 #include <boost/thread/thread.hpp>
-#include <X11/Xlib.h>
 #include <vector>
 #include <string>
 

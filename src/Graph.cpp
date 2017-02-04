@@ -8,7 +8,7 @@
 #include "Graph.h"
 #include <SFML/System/Vector2.hpp>
 #include <Window.h>
-#include <iostream>
+#include <string>
 
 BLL::Graph::Graph(int x, int y, int width, int height
 		, int xOffset, int yOffset) {

@@ -7,7 +7,7 @@
 
 #include <Double.h>
 #include <sstream>
-#include <iostream>
+#include <cmath>
 
 namespace BLL {
 

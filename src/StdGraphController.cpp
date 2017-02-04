@@ -8,7 +8,6 @@
 #include <StdGraphController.h>
 #include <algorithm>
 #include <iterator>
-#include <iostream>
 
 namespace BLL {
 
@@ -18,8 +17,7 @@ StdGraphController::StdGraphController() {
 	pointsFiltered = 1;
 }
 
-StdGraphController::~StdGraphController() {
-	// TODO Auto-generated destructor stub
+StdGraphController::~StdGraphController(){ 
 }
 
 void StdGraphController::operator<<(BLL::Point p){

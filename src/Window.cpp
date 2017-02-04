@@ -6,9 +6,7 @@
  */
 
 #include <Window.h>
-#include <vector>
-#include <Graph.h>
-#include <iostream>
+#include <cstdlib>
 
 namespace BLL {
 
@@ -17,7 +15,6 @@ Window::Window() {
 }
 
 Window::~Window() {
-	// TODO Auto-generated destructor stub
 }
 
 Graph* Window::getGraph(std::string name){

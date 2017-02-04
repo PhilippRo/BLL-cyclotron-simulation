@@ -8,13 +8,11 @@
 #ifndef GRAPH_H_
 #define GRAPH_H_
 
-#include <string>
 #include <vector>
 #include <SFML/Graphics.hpp>
 #include <Widget.h>
 #include <Point.h>
 #include <StdGraphController.h>
-#include <iostream>
 
 namespace BLL {
 

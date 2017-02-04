@@ -11,7 +11,6 @@
 
 #include <Point.h>
 #include <Channel.h>
-#include <queue>
 #include <boost/thread.hpp>
 
 #include <vector>

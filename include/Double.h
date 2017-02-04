@@ -12,8 +12,6 @@
 #ifndef DOUBLE_H_
 #define DOUBLE_H_
 
-#include <typeinfo>
-#include <cmath>
 #include <string>
 
 namespace BLL {

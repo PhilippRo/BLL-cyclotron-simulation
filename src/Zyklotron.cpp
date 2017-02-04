@@ -15,13 +15,8 @@
 
 #include <Zyklotron.h>
 #include <ZyklotronController.h>
-#include <cmath>
-#include <limits.h>
 #include <SFML/System.hpp>
 #include <Window.h>
-#include <iostream>
-#include <vector>
-#include <iostream>
 
 namespace BLL {
 
