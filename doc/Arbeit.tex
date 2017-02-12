@@ -49,7 +49,7 @@
 [display]% shape
 {\bfseries\huge\center} % format
 {Teil  \ \thepart} % label
-{0.5ex} % sep
+{0.5ex} % sep 
 {\Huge\color{titleblue}} % before-code
 
 \titleformat
@@ -75,100 +75,97 @@
 
 \title{\bfseries \Large Besondere Lernleistung: \\ \Huge \color{titleblue}Simulation eines Zyklotrons am Computer}
 \author{Philipp Rosendahl \\ philipp.rosendahl@gmx.de \\ Mallinckrodt-Gymnasium Dortmund}
-\date{23.12.2016}
+\date{\today}
+
 \maketitle
 
 \tableofcontents
 
 \chapter{Vorwort}
-\section{Warum sollte man ein Zyklotron simulieren?}
-Teilchenbeschleuniger erm"oglichen es Forschern einen tiefen Einblick in die
-Materie zu erhalten. Man sollte sich daher mit ihnen besch"aftigen, da sie die
-experimentelle Grundlage der Teilchenphysik dastellen. Dennoch sind sie sehr
-teuer und als Sch"uler oder Laie ist es nur schwierig möglich, einen
-Teilchenbeschleuniger zu benutzen. \\
-Man sollte Zyklotrons simulieren, da man Fehler vorhersagen kann, ohne die Ressourcen
-f"ur einen Testlauf aufbringen zu m"ussen. Als Nichtforscher kann man, Dank Simulationen, einen Einblick in Teilgebiete aktueller Forschung erhalten und risikofrei experimentieren.
+\section{Warum simuliert man ein Zyklotron?}
+Teilchenbeschleuniger erm"oglichen es Forschern, einen tiefen Einblick in die
+Phyisk zu erhalten. Man besch"aftigt sich mit ihnen, da sie die
+experimentelle Grundlage der Teilchenphysik dastellen. Aber sie sind sehr
+teuer und als Sch"uler oder Laie ist es nur schwierig m"oglich, einen
+Teilchenbeschleuniger zu benutzen.
+
+Man simuliert Zyklotrons, da man Fehler vorhersagen kann, ohne die Ressourcen
+f"ur einen Testlauf aufbringen zu m"ussen. Als Nichtforscher kann man, dank 
+Simulationen, einen Einblick in Teilgebiete aktueller Forschung erhalten und risikofrei 
+, zum Beispiel ohne Zykloreonstrahlung, experimentieren. 
 \section{Motivation}
-Ich möchte diese besondere Lernleistung erbringen, da ich es interessant finde 
+Ich m"ochte diese besondere Lernleistung erbringen, da ich es interessant finde, 
 zu abstrahieren, Modelle zu entwickeln und diese am PC umzusetzten. 
 Teilchenbeschleuniger sind relativ komplex und genie"sen ein gro"ses Interesse
-in der "Offentlichkeit, was sie für eine Simulation attraktiv macht. Au"serdem
+in der "Offentlichkeit, was sie f"ur eine Simulation attraktiv macht. Au"serdem
 k"onnte die Simulation im Rahmen des Physikunterrichtes eingesetzt werden, da dort 
-ein preiwertes und risikofreies Experimentieren erwünscht ist.
-\section{Danksagung}
-Ich möchte mich bei allen bedanken, die mich unterst"utzt und ermutigt haben, eine
-besondere Lernleistung zu erbringen: Bei Herrn Dr. Unkelbach und Herrn H"orsken, 
-die mich betreut haben, bei Herrn Dr. Wiele, Herrn Broelemann und Herrn Wambach, 
-die mich auf die Möglichkeit einer besonderen Lenrleistung hingeweisen und mir im
-Rahmen von mathematischen Akademien fachlich Exkurse ermöglicht haben und nicht 
-zuletzt bei dem Mallinckrodt-Gymnasium, im Speziellem bei Herrn Weishaupt und Herrn
-Freudenreich, das mich ausgebildet hat und mir die Möglichkeit gibt diese Arbeit zu
-erbringen. Und zuletzt bei meinen Eltern, die mir ihren Möglichkeiten entsprechend
-geholfen haben.
+ein preiswertes und risikofreies Experimentieren erw"unscht ist.
+\section{Ziel dieser Arbeit}
+Das Ergebnis dieser Arbeit soll ein Programm sein, mit dem man klassischer und 
+realitivistischer Machanik simuliert. Dabei geht es um die Beschleunigung des Teilchens.
+Zerfallseffekte werden aufgrund aus Schwierigkeitsgr"unden vernachl"assigt, da das den
+Umfang der Arbeit sprengen w"urde.
 
 \part{Physikalische Grundlagen}
-\chapter{Bedeutung eines Zyklotrons}
-\section{Aufbau von Teilchenbeschleunigern}
+\chapter{Das Zyklotron}
+\section{Aufbau von Teilchenbeschleunigern}oaraus folgt, dass das geladene Teilchen immer dann den Kondensator passiert,
+wenn die Spannung auf Beschleunigungs steht, da sich die Frequenz am Kondensator ohne
+Probleme auf $\frac{1}{T}$ einstellent l"asst. 
 Man differenziert zwischen drei Arten von Teilchenbeschleunigern \footnotemark
 \footnotetext{vergleiche Physikbuch \_ Seite ?}
 \begin{enumerate}
 \item
 Der \textbf{Linearbeschleuniger} besteht aus Beschleunigungskondensatoren, die linear
-t oder gradlienig hintereinander angeordnet sind, durch die
-Teilchen auf eine hohe Geschwindigkeit gebracht werden. Damit ist jeweils ein hoher
-Konfigurationsaufwand verbunden, da viel wie z.B der Abstand zwischen allen
-Kondensatorplatten oder gegebenenfalls die Frequenz an den Kondensatorplatten 
-eingestellt werden muss.
+oder gradlienig hintereinander angeordnet sind, und Teilchen auf 
+eine h"ohere Geschwindigkeit bringen. Mit Linearbescleunigern ist ein hoher
+Konfigurationsaufwand verbunden, da viele Einstellungen, z.B der Abstand zwischen allen
+Kondensatorplatten und die Frequenz an den Kondensatorplatten eingestellt werden muss.
 \item \label{ZyklotronBeschreibungAufbau}
-Das \textbf{Zyklotron} besteht aus 2 Halbkreisen zwischen denen ein Kondensator ist.
-Es werden 2 Arten von Feldern benutzt. Eimal die magnetischen, mit denen die 
+Das \textbf{Zyklotron} besteht aus 2 Halbkreisen zwischen denen ein Kondensator 
+angeordnet ist. Es werden 2 Arten von Feldern benutzt. Eimal die magnetischen, mit 
+denen die 
 Teilchen auf einer Kreisbahen\footnote{mit der Lorenzkraft}
 gehalten werden, und die elektrischen, 
 mit denen die Teilchen w"ahrend des "Ubergangs zwischen den Halbkreisen in dem 
 Kondensator beschleunigt werden. Ein Zyklotron hat einen geringen 
-Konfigurationsaufwand, da nur 3 nach der klassischen Vorstellung konstante Gr"o"sen
-einzustellen sind: Die Masse, die Frequenz und das Magnetfeld an den Hablkreisen. 
-Haben die Teilchen einen gewissen Radius erreicht, werden sie mittels eines Kondesators
-aus dem Zyklotron gelenkt.
+Konfigurationsaufwand, da f"ur eine optimale Funktionsweise nur die Frequenz am 
+Kondesator und die St"arke des Magnetfeldes angepasst werden m"ussen, die nur von der 
+Masse und Ladung des Teilchens abh"angen, die nach der klassischen Vorstellung konstant
+sind. Haben die Teilchen einen gewissen Radius erreicht, werden sie mittels eines 
+Kondesators aus dem Zyklotron gelenkt.
 \item
 Der \textbf{Synchrotron} ist im Prinzip wie ein Zyklotron aufgebaut mit dem 
 Unterschied, dass das Magnetfeld anpassbar ist und in kreisf"ormig angeordneten Rohren 
-beschleunigt wird. Experimente haben gezeigt, dass die
-Masse nach Einsteins Relativit"atstheorie keine konstante Größe ist. Daher muss 
-dann w"ahrend der Beschleunigung das Magnetfeld und die Frequenz an den 
-Beschleunigunskondensatoren angepasst werden. \label{synchrotron}
+beschleunigt. Experimente haben gezeigt, dass die
+Masse nach Einsteins Relativit"atstheorie keine konstante Gr"o"se ist. Daher muss 
+w"ahrend der Beschleunigung das Magnetfeld und die Frequenz an den 
+Beschleunigunskondensatoren angepasst werden. Dadurch bleibt eine gute Konfiugaration, 
+trotz der volatiler Gr"o"sen, erhalten. \label{synchrotron}
 \end{enumerate}
 
-\newpage
 \section{Das Zyklotron im Vergleich zu anderen Beschleunigern}
-Zyklotrons sind die einfachsten Teichenbeschleuniger. Die anderen 
-Teilchenbeschleunigern, doch die sind meistens deutlich schwieriger zu benutzten. 
-Ein Nachteil des Zyklotrons ist zum Beispiel, das ein Synchrotron die Teilchen auf 
-höhere Geschwindigkeiten beschleunigen kann. Damit eignet sich ein Zyklotron für 
-Massenspektrometrien und andere Experimente, bei denen man nur wenig am 
-Beschleuniger anpassen möchte und relativ geringe Geschwindigkeiten ausreichen. 
-Bei einem Linearbeschleunigern müssen zum Beispiel, anders als beim Zyklotron, von 
-Teilchenart zu Teilchenart, mehrere Beschleunigungskondensatoren an ihrem 
-Plattenabstand eingestellt werden, wobei man von Kondensator zu Kondensator andere
-Abst"ande braucht. Ein Synchrotron braucht eine dauerhafte Anpassung eines 
-Magenetfeldes, was ein Zyklotron nicht benötigt
+Zyklotrons haben genen"uber anderen Beschleunigern einige Vorteile: Sei sind einfach
+einzustellen, sind sehr  platzsparend, und erm"oglichen durch ihre Kreisform  ein langes
+Beschleunigen mit hohen Geschwindigkeiten. Nachteilig ist, dass es eine maximale
+Geschwindigkeit gibz und zwingend ein Vorbeschleuniger ben"otigt wird, da sonst das 
+Halten der geladenen Teilchen auf der Kreisbahn nicht m"oglich ist. (Vgl. Lorenzkraft
+\ref {B-Feld-Gleichungen} )
 
 \chapter{Funktion eines Zyklotrons}
 \section{Das elektrische Feld}
-Das elektrische Feld ist ein mathematisches Modell, mitdem man die Kräfte zwischen
+Das elektrische Feld ist ein mathematisches Modell, mit dem man die Kr"afte zwischen
 Ladungen modelliert. Die Feldlinien verdeutlichen dabei die Bewegung von positiver 
 Ladung im elektrischen Feld. \footnote{vergleiche Metzler Physik Seite 182}
 Sie gehen also von positiver Ladung zur negativen. Dabei verdeutlicht der Abstand zweier
 Feldlinien die St"arke des Feldes. F"ur ein Zyklotron betrachten wir nur an"ahernd
-homogene elektische Felder, wie sie in einem Kondensator vorkommen. Das besondere an 
-einem homogenen Feld ist, dass die Feldstärke an jedem Punkt des Feldes gleich stark 
+homogene elektische Felder, wie sie in einem Kondensator vorkommen. Das Besondere an 
+einem homogenen Feld ist, dass die Feldst"arke an jedem Punkt des Feldes gleich stark 
 ist. Bei einem Zyklotron stehen die Feldlinien orthogonal auf den Kondensatorplatten
-des Beschleunigungskondesnsators, da dessen Platten parrallel zueinander stehen.
+des Beschleunigungskondesnsators, da dessen Platten parallel zueinander stehen.
 F"ur das Feld im Kondesator und auch im Beschleunigungskondesator eines Zyklotrons
 sind folgende Beziehungen f"ur diese Simulation wichtig:
 \footnote{vgl. Das Gro"se Tafelwerk interaktiv Seite 107}
-\begin{eqnarray}
+\begin{eqnarray} \label{E-Feld-Gleichungen}
 \vec{E} = \frac{\vec{F}}{Q} \\
 E = \frac{U}{d}
 \end{eqnarray}
@@ -180,11 +177,14 @@ bewegte Ladung erzeugt ein magnetisches Feld und ein sich "anderndes Magnetfeld
 setzt Ladung in Bewegung. \footnote{elektromagnetische Induktion}
 Ein Magnetfeld wirkt auch auf bewegete Ladung. Diese Lorenzkraft l"asst sich als
 Rechtssystem definieren:
-\begin{eqnarray} \label{E-Feld-Gleichungen}
- \vec{F_L} && = Q\vec{v} \times \vec{B} \footnotemark \\
- F_L && = Q * v * B (wenn ~ \vec{v} \perp \vec{B}) \footnotemark
-\end{eqnarray}
+\newpage
+\begin{equation} \label{B-Feld-Gleichungen}
+ \vec{F_L} = Q\vec{v} \times \vec{B} \footnotemark
+\end{equation}
 \footnotetext{vgl. Metzlers Physik Seite 229}
+\begin{equation}
+ F_L  = Q * v * B (wenn ~ \vec{v} \perp \vec{B}) \footnotemark
+\end{equation}
 \footnotetext{vgl. das Gro"se Tafelwerk interaktiv Seite 109}
 
  
@@ -194,21 +194,21 @@ Felder beschleunigt. Dieses ist nur m"oglich, da die Teilchen mit einer
 Startgeschwindigkeit $v_0$, die von einem Vorbeschleuniger ( meist 
 Linerarbeschleuniger) erzeugt wird, in das Zyklotron eintreten. Wie in Kapitel 2 
 gezeigt 
-\marginpar{siehe S. \pageref{ZyklotronBeschreibungAufbau}}
-sind für ein Zyklotron 2 Beschleunigungsarten wichtig: erstens eine lineare und 
-zweitens eine radiale. Für die lineare Beschleunigung also f"ur die Erh"ohung des 
-Betrages der Geschwindikeit benutzt man ein elektisches Feld. Die Feldlinien im 
+\marginpar{siehe S. \pageref{ZyklotronBeschreibungAufbau}},
+sind f"ur ein Zyklotron 2 Beschleunigungsarten wichtig: erstens eine lineare und 
+zweitens eine radiale. F"ur die lineare Beschleunigungi, also f"ur die Erh"ohung des 
+Betrages der Geschwindikeit, benutzt man ein elektisches Feld. Die Feldlinien im 
 Kondensator sind an"ahernd parrallel zu der Bewegungsrichtung des geladenen Teilchens. 
 Also kann angenommen werden, dass die gesamte Kraft auf den Betrag der Geschwindigkeit 
-des geladenen Teilchens wirkt. Das magnetische Feld wird dazu verwendet das geladene
+des geladenen Teilchens wirkt. Das magnetische Feld wird dazu verwendet, das geladene
 Teilchen auf einer Kreisbahn zu bewegen. Da die Lorenzkraft ein Rechtsystem aus der
 Geschwindigkeit, dem Magnetfeld und der Kraft bildet, kann man das Magnetfeld so
-in das Zyklotron legen, dass die Lorentkraft als Zentripitalkraft $F_L = F_Z$ wirkt.
+in das Zyklotron legen, dass die Lorenzkraft als Zentripitalkraft $F_L = F_Z$ wirkt.
 Um das zu erreichen, steht das Magnetfeld immer im rechten Winkel auf der Kreisbahn
 des geladenen Teilchens.
 
 Nach der klassischen Vorstellung ist ist die Umlaufzeit eines geladenen Teilchens 
-unabhängig von dessen Geschwindigkeit:
+unabh"angig von dessen Geschwindigkeit:
 \begin{eqnarray}
   F_L  		&& = F_Z  \footnotemark  \\
   Q * v * B 	&& = \frac{m * v^2}{r} \label{Radius im Zyklotron}\\
@@ -217,22 +217,27 @@ unabhängig von dessen Geschwindigkeit:
   T		&& = \frac{m * 2 * \pi }{Q * B} \label{klassische_Umlaufzeit}
 \end{eqnarray}
 \footnotetext{vgl. Das Gro"se Tafelwerk interaktiv Seite 93}
-Alle Werte von denen die Umlaufzeit $T$ abh"angt sind, nach der klassischen Vorstellung
-konstant. Daraus folgt, dass das geladene Teilchen immer dann den Kondensator passiert,
-wenn die Spannung auf Beschleunigungs steht, da sich die Frequenz am Kondensator ohne
-Probleme auf $\frac{1}{T}$ einstellent l"asst. So kann man, nach dem klassischen Modell
+Alle Werte, von denen die Umlaufzeit $T$ abh"angt, 
+sind nach der klassischen Vorstellung konstant. 
+Die Frequenz am Beschleunigungskondensator l"asst sich auf genau $f = \frac{1}{T}$
+einstellen. Das f"uhrt dazu, dass immer wenn das geladene Teilchen am Kondensator 
+ankommt, es von der Spannung beschleunigt wird. So kann man nach dem klassischen Modell
 ein geladenes Teilchen im Prinzip unbegrenzt hoch beschleunigung, bis es aus dem
 Zyklotron entfernt wird. \label{klassische_Erwartung}
 
-\chapter{relativistische Mechanik im Zyklotron}
+\chapter{Relativistische Mechanik im Zyklotron}
 \section{Grundlage: Relativit"atstheorie}
-Neben der klassichen Vorstellung exsistiert allerdings noch eine andere, die 
-Relativit"atstheorie. Einigen Ph"anome, wie zum Beispiel die des Michelson-Experimentes,
+Neben der klassichen Vorstellung exsistiert allerdings noch eine andere: die 
+Relativit"atstheorie. Einige Ph"anome, wie zum Beispiel die Ergebnissse 
+des Michelson-Experimentes,
 lassen sich mit der klassischen Vorstellung nicht erkl"aren. Einstein nahm an, dass 
-die Gesetze der Physik in jedem Bezugssystem gleicherma"sen gelten m"ussen. 
-Wenn man sich allerdings mit $c$ bewegt, erscheint ein Lichtstrahl als ruhend. 
+die Gesetze der Elektrodynamik, also auf f"ur elektro-magnetische Wellen wie Licht,
+in jedem Bezugssystem gleicherma"sen gelten m"ussen. 
+Wenn man sich allerdings mit $c$ bewegt, was in der klassischen Vorstellung 
+m"oglich ist, erscheint ein Lichtstrahl als ruhend. 
 Die Lichtgeschwindigkeit ist eine Naturkonstante und sollte daher unter keinen 
-Umst"anden abweichen. Deshalb postulierte Einstein, dass in jedem Initialsystem die 
+Umst"anden abweichen. Deshalb postulierte Einstein, dass in jedem Initialsystem, also in
+einem f"ur den Betrachter ruhendes Bezugssystem, die 
 Naturkonstanten, wie die Lichtgeschwindigkeit, gleich seien m"ussten. Daraus folgt auch
 das alle Initialsysteme bei Beobachtungen und Regeln gleichberechtigt sind. Das hei"st,
 das man in einem Raumschiff, dass mit an"ahernd $c$ fliegt, die selben Beobachtungen 
@@ -240,22 +245,23 @@ macht, wie auf der Erde.
 \footnote{vgl. Metzler Physik Seite 345}
 
 Daraus folgt, dass einige Gr"o"sen, die nach unserer allt"aglichen Erfahrung konstant
-seien m"ussten nicht konstant sein k"onnen. Nimmt man an, dass man ein Teilchen 
+sein m"ussten nicht konstant sein k"onnen. Nimmt man an, dass man ein Teilchen 
 unendlich lange beschleunigt, gibt es irgendwann den Punkt, an dem man es nicht weiter
 beschleunigen kann, da das Teilchen sonnst f"ur einen Moment so schnell wie das Licht 
-w"are. Das Problem ist, wo wird die Energie gespeichert? In der klassischen Vorstellung 
+w"are. Bei weiterem Beschleunigen wird dem Teilchen weiterhin Energie hinzugef"ugt, die 
+umgewandelt werden musss.  In der klassischen Vorstellung 
 w"urde sich die Geschwindigkeit erh"ohen, doch das ist jetzt nicht mehr m"oglich, aber 
 trotzdem muss die Energie irgendwo gespeichert werden\footnote{Energieerhaltungssatz}. 
 Um das Problem zu l"osen, nahm man an, dass die Masse des besagten Teilchens gr"o"ser 
 wird und die Energie speichert. \marginpar{Siehe Seite \pageref{var_m} \ref{var_m}}
-Dieses Ph"anomen trifft erst bei sehr hohen Geschwindigkeiten auf. Die klassische 
+Dieses Ph"anomen wird erst bei sehr hohen Geschwindigkeiten wahrnehmbar. Die klassische 
 Vorstellung trifft auf sehr kleine Geschwindikeiten immernoch n"aherungsweise zu.
 
 So l"asst sich sagen: Aus dem Bezugssystem $S$ betrachtet hat 
 ein Objekt im Bezugssystem $S'$ andere Eigenschaften, zum Beispiel eine ver"anderte 
 Masse $m_v$, da sich von $S$ aus $S'$ mit einer Geschwindigkeit $v$ bewegt. 
 Allerdings funktioniert das auch umgekehrt. Steht der Betrachter im Bezugssystem $S'$ 
-hat das selbe Objekt die Ruhemasse $m_0$, während sich ein anderes Objekt im System $S$ 
+hat das selbe Objekt die Ruhemasse $m_0$, w"ahrend sich ein anderes Objekt im System $S$ 
 in den Eigenschaften ver"andert hat. Zusammengefasst: Einige Werte, die in der 
 klassischen Vorstellung konstant sind, h"angen eigentlich von der Geschwindigkeit 
 relativ zum eigenen Bezugssystem ab.
@@ -271,46 +277,50 @@ W_{ges} && = m * c^2 \label{mc_square}
 \end{eqnarray}
 
 \section{Experimenteller Befund: Das klassische Modell schl"agt fehl}
-Gegen die Erwartgungen im klassischen Modell 
+Gegen die Erwartgungen des klassischen Modells
 \marginpar{Siehe Seite \pageref{klassische_Erwartung} \ref{klassische_Erwartung}}
 lassen sich die Teilchen nicht unbegrenzt beschleunigen. Im klassischen Modell
 gilt die Beziehung $T = \frac{m * 2 * \pi }{Q * B}$.
 Man ging davon aus, dass sich $T$ nicht ver"andert, da alle Gr"o"sen rechts von dem 
-Gleichheitszeichen Konstanten seien. Doch die Masse eines Teilchens
+Gleichheitszeichen Konstanten seien. oaraus folgt, dass das geladene Teilchen immer dann den Kondensator passiert,
+wenn die Spannung auf Beschleunigungs steht, da sich die Frequenz am Kondensator ohne
+Probleme auf $\frac{1}{T}$ einstellent l"asst. Doch die Masse eines Teilchens
 ist keine konstante Gr"o"se \marginpar{vgl. \ref{var_m}} und steigt mit zunehmender 
-Geschwindigkeit. Die Frequenz am Beschleunigungskondensator und die Umlaufzeit wurden
-extra aufeinander abgestimmt, um eine maximale Beschleunigung zu erzielen. Wenn das 
+Geschwindigkeit. Die Frequenz am Beschleunigungskondensator und die Umlaufzeit $T$ 
+wurden
+exakt aufeinander abgestimmt, um eine maximale Beschleunigung zu erzielen. Wenn das 
 nicht mehr gegeben ist spricht man davon, dass das Zyklotron aus dem Takt gekommen ist.
 \label{Zyklotron aus dem Takt}
 Nun passiert es,
-dass das geldene Teilchen im Kondensator zwar noch beschleunigt wird, aber wenn sich die
-Spannung im Kondensator "andert, es sich immernoch in ihm befindet und dann wieder 
-abgebremst wird. Im Extremfall wird der Kondesator genau dann umgepolt, wenn das 
-Teilchen gerade in der Mitte des Beschleunigungskondensators ist. Dann wird die 
+dass das geladene Teilchen im Kondensator zwar noch beschleunigt wird, aber wenn sich die
+Spannung im Kondensator "andert und es sich immernoch in ihm befindet 
+und es dann wieder 
+abgebremst wird. Im Extremfall wird der Kondesator genau dann umgepolt, wenn sich das 
+Teilchen gerade in der Mitte des Beschleunigungskondensators befindet. Dann wird die 
 Geschwindigkeit gar nicht erh"oht, da es genau so lange postiv wie negativ beschleunigt 
 wird \footnote{Bremsen wird als negative Beschleunigung betrachtet}.
-Aufgrund dieses Befundes wurde das Synchrotron entwickelt 
+Aufgrund dieses Befundes wurde das Synchrotron entwickelt.
 \marginpar{vgl. Synchrotron Seite \pageref{synchrotron}}
 
-\chapter{verwendetes Modell}
+\chapter{Verwendetes Modell}
 \section{Betrachtung der Teilchen und Felder}
 \paragraph{Teilchen} 
-werden in dieser Simulation als Punkte betrachtet, die Masse und Ladung
-besitzen. Es wirken nur Kräfte aus in dem Zyklotron auf das Teilchen. Also keine
+werden in dieser Simulation als Punkte betrachtet, die Masse und Ladung aber keine 
+besitzen. Es wirken nur Kr"afte aus dem Zyklotron auf das Teilchen. Also keine
 Schwerkraft von anderen Massen. In anderen Worten ausgedr"uckt: 
 die Teilchen werden in der Schwerelosigkeit und im Vakuum beschleunigt.
 
 \paragraph{Die Felder} 
 werden als absolut homogen und perfekt auf die Teilchen ausgerichtet
-betrachtet. Man hat also keine Kraftverluste, weil das zum Beispiel nicht perfekt
+betrachtet. Man hat also keine Kraftverluste, weil das B-Feld nicht perfekt
 orthogonal auf der Kreisbahn der geladenen Teilchen stehen k"onnte.
 
 \section{Beschleunigung im E-Feld}
 Die typische Betrachtung von geladenen Teilchen im elektrischen Feld 
 $E_{kin} = Q * U$ \footnote{(vgl. Das Gro"se Tafelwerk interaktiv Seite 108}
 f"ur die Zunahmen an kinetischer Energie im elektrischen Feld ist f"ur diese Simulation
-nicht hilfreich, da mit mit ihr nicht die Zeit verfolgen, aber das notwendig ist, um das
-aus dem Takt kommende Zyklotron zu simulieren. 
+nicht hilfreich, da mit ihr nicht die Zeit verfolgt. Dieses ist allerdings notwendig, 
+um das aus dem Takt kommende Zyklotron zu simulieren. 
 \marginpar{Siehe Seite \pageref{Zyklotron aus dem Takt}}
 
 Daher verfolgen wir die Interpretation der Kraft als Ableitung des Impulses
@@ -322,92 +332,93 @@ und formen jenen nach einer Gleichung der Gestalt $v(t)$ um.
 Es l"asst sich folgender Zusammenhang ableiten:
 \begin{eqnarray}
 \frac{d}{dt} (m * v ) && = \frac{U * Q}{d} ~~~~~~~~\footnotemark \\
-\frac{d}{dt} (\frac{m_0 * v}{\sqrt{1 - (\frac{v}{c}})^2}) && = \frac{U * Q}{d} \\
-\frac{d}{dt} (\frac{v}{\sqrt{1 - (\frac{v}{c})^2}}) && = \frac{U * Q}{d * m_0} \\
-\int_{t_0}^t \frac{d}{dt} (\frac{v}{\sqrt{1 - (\frac{v}{c})^2}}) 
+\frac{d}{dt} \left(\frac{m_0 * v}{\sqrt{1 - (\frac{v}{c}})^2}\right) && = \frac{U * Q}{d} \\
+\frac{d}{dt} \left(\frac{v}{\sqrt{1 - (\frac{v}{c})^2}}\right) && = \frac{U * Q}{d * m_0} \\
+\int_{t_0}^t \frac{d}{dt} \left(\frac{v}{\sqrt{1 - (\frac{v}{c})^2}}\right) 
     && = \int_{t_0}^t \frac{U * Q}{d * m_0} \\
 \end{eqnarray}
 \begin{center}
-$ \frac{U * Q}{d * m_0} $ wird als $ a $ interpretiert
+$ \frac{U * Q}{d * m_0} $ wird als $ a $ interpretiert \label{Beschleunigung}
 \end{center}
 \begin{eqnarray}
-a && = \frac{U * Q}{d * m_0} \label{Beschleunigung} \\ 
-\frac{v}{\sqrt{1 - (\frac{v}{c})^2}} && = a * t + v_0 \\
-\frac{v^2}{1 - (\frac{v}{c})^2} && = (a * t + v_0 )^2 \\
-v^2  && = (a * t + v_0)^2 - (\frac{v}{c})^2 * (a * t + v_0)^2\\
-v^2 + (\frac{v}{c})^2 * (a * t + v_0)^2 && = (a * t + v_0)^2 \\
-v^2 * (1 + \frac{(a * t + v_0)^2}{c^2}) &&  = (a * t + v_0)^2 \\
-v^2 && = \frac{(a * t + v_0)^2}{1 + (\frac{a * t + v_0}{c})^2} \\ 
-v && = \frac{a * t + v_0}{\sqrt{1 + (\frac{a * t + v_0}{c})^2}}
+\frac{v}{\sqrt{1 - \left(\frac{v}{c}\right)^2}} && = a * t + v_0 \\
+\frac{v^2}{1 - \left(\frac{v}{c}\right)^2} && = \left(a * t + v_0 \right)^2 \\
+v^2  && = \left(a * t + v_0\right)^2 - \left(\frac{v}{c}\right)^2 * \left(a * t + v_0 \right)^2\\
+v^2 + \left(\frac{v}{c}\right)^2 * \left(a * t + v_0\right)^2 && = \left(a * t + v_0 \right)^2 \\
+v^2 * \left(1 + \frac{(a * t + v_0)^2}{c^2}\right) &&  = \left(a * t + v_0\right)^2 \\
+v^2 && = \frac{\left(a * t + v_0\right)^2}{1 + \left(\frac{a * t + v_0}{c}\right)^2} \\ 
+v && = \frac{a * t + v_0}{\sqrt{1 + \left(\frac{a * t + v_0}{c}\right)^2}}
 \end{eqnarray}
 \footnotetext{vgl. Unkelbachschen Formelsammlung Seite 5 und Seite 15}
 
 \newpage
-Nun wird noch ein Zusammenhang f"ur die zur"uckgelegte Streckte im Kondensator gebraucht,
-um zu berechnen, wie lange das geladene Teilchen im Kondesator bleibt.
+Nun wird noch ein Zusammenhang f"ur die zur"uckgelegte Streckte im Kondensator formuliert,
+um zu berechnen, wie viel Zeit das geladenen Teilchen braucht, um den Kondensator zu
+passieren.
 \begin{eqnarray}
 s(t) && = \int_0^t v(t) ~dt \\
-s(t) && = \int_0^t \frac{a * t + v_0}{\sqrt{1 + (\frac{a * t + v_0}{c})^2}} ~ dt
+s(t) && = \int_0^t \frac{a * t + v_0}{\sqrt{1 + \left(\frac{a * t + v_0}{c}\right)^2}} ~ dt
 \end{eqnarray}
 
-man substuiert $u = 1 + (\frac{a * t + v_0}{c})^2$ und 
-$dt = \frac{du}{(1 + (\frac{a * t + v_0}{c})^2)\dot{}}$
+man substuiert $u = 1 + \left(\frac{a * t + v_0}{c}\right)^2$ und 
+$dt = \frac{du}{\left(1 + \left(\frac{a * t + v_0}{c}\right)^2\right)\dot{}}$
 
 \begin{eqnarray}
-s(t) && = \int_{1 + (\frac{v_0}{c})^2}^{1 + (\frac{a*t + v_0}{c})^2}  \frac{a * t + v_0}{\sqrt{u}} ~ \frac{du}{ ({1 + (\frac{a * t + v_0}{c})^2})\dot{}}\\
-s(t) && =  \int_{1 + (\frac{v_0}{c})^2}^{1 + (\frac{a*t + v_0}{c})^2}  \frac{a * t + v_0}{\sqrt{u}} ~ \frac{du}{2*(\frac{a * t + v_0}{c})*\frac{a}{c}}\\
-s(t) && = \frac{1}{2}*(\frac{c^2}{a}) ~ \int_{1 + (\frac{v_0}{c})^2}^{1 + (\frac{a*t + v_0}{c})^2} \frac{1}{u} ~ du \\
-s(t) && = \frac{1}{2}*(\frac{c^2}{a})~[2*\sqrt{u}]_{1 + (\frac{v_0}{c})^2}^{1 + (\frac{a*t + v_0}{c})^2} \\
-s(t) && = (\frac{c^2}{a}) * (\sqrt{1 + (\frac{a*t + v_0}{c})^2} - \sqrt{1 + (\frac{v_0}{c})^2})
+s(t) && = \int_{1 + \left(\frac{v_0}{c}\right)^2}^{1 + \left(\frac{a*t + v_0}{c}\right)^2}  \frac{a * t + v_0}{\sqrt{u}} ~ \frac{du}{ \left({1 + \left(\frac{a * t + v_0}{c}\right)^2}\right)\dot{}}\\
+s(t) && =  \int_{1 + \left(\frac{v_0}{c}\right)^2}^{1 + \left(\frac{a*t + v_0}{c}\right)^2}  \frac{a * t + v_0}{\sqrt{u}} ~ \frac{du}{2*\left(\frac{a * t + v_0}{c}\right)*\frac{a}{c}}\\
+s(t) && = \frac{1}{2}*\left(\frac{c^2}{a}\right) ~ \int_{1 + \left(\frac{v_0}{c}\right)^2}^{1 + \left(\frac{a*t + v_0}{c}\right)^2} \frac{1}{u} ~ du \\
+s(t) && = \frac{1}{2}*\left(\frac{c^2}{a}\right)~\left[2*\sqrt{u}\right]_{1 + \left(\frac{v_0}{c}\right)^2}^{1 + \left(\frac{a*t + v_0}{c}\right)^2} \\
+s(t) && = \left(\frac{c^2}{a}\right) * \left(\sqrt{1 + \left(\frac{a*t + v_0}{c}\right)^2} - \sqrt{1 + \left(\frac{v_0}{c}\right)^2}\right)
 \end{eqnarray}
 
 Um die Zeit im Kondensator zu berechnen wird eine Funktion der Gestalt $t_{v_0}(s)$
 gesucht, die sich aus der obigen Gleichung $s(t)$ ableiten l"asst. Da die Injektivit"at 
 \footnote{Quelle ist nicht zu suchen} von $s(t)$ nicht gegeben ist, wird eine 
-Umkehrfunktion f"ur den Wertebereich $t \ge 0 und v_0 \ge 0$ gesucht.
+Umkehrfunktion f"ur den Wertebereich $t \ge 0$ und $v_0 \ge 0$ gesucht.
 
 \begin{eqnarray}
-s && = (\frac{c^2}{a}) * (\sqrt{1 + (\frac{a*t + v_0}{c})^2} - \sqrt{1 + (\frac{v_0}{c})^2}) \\
-\frac{s*a}{c^2}&& = \sqrt{1 + (\frac{a*t + v_0}{c})^2} - \sqrt{1 + (\frac{v_0}{c})^2}) \\
-\sqrt{1 + (\frac{a*t + v_0}{c})^2} &&= \frac{s*a}{c^2} + \sqrt{1 + (\frac{v_0}{c})^2} \\
-(\frac{a*t + v_0}{c})^2 &&  = (\frac{s*a}{c^2} + \sqrt{1 + (\frac{v_0}{c})^2})^2 - 1 \\ 
-\frac{a*t + v_0}{c} && = +\sqrt{(\frac{s*a}{c^2} + \sqrt{1 + (\frac{v_0}{c})^2})^2 - 1}
+s && = \left(\frac{c^2}{a}\right) * \left(\sqrt{1 + \left(\frac{a*t + v_0}{c}\right)^2} - \sqrt{1 + \left(\frac{v_0}{c}\right)^2}\right) \\
+\frac{s*a}{c^2}&& = \sqrt{1 + \left(\frac{a*t + v_0}{c}\right)^2} - \sqrt{1 + \left(\frac{v_0}{c}\right)^2}\\
+\sqrt{1 + \left(\frac{a*t + v_0}{c}\right)^2} &&= \frac{s*a}{c^2} + \sqrt{1 + \left(\frac{v_0}{c}\right)^2} \\
+\left(\frac{a*t + v_0}{c}\right)^2 &&  = \left(\frac{s*a}{c^2} + \sqrt{1 + \left(\frac{v_0}{c}\right)^2}\right)^2 - 1 \\ 
+\frac{a*t + v_0}{c} && = +\sqrt{\left(\frac{s*a}{c^2} + \sqrt{1 + \left(\frac{v_0}{c}\right)^2}\right)^2 - 1}
 \end{eqnarray}
-Das Vorzeichen vor der Wurzel ist plus, da alle Werte aus der Bild und Ursprungsmenge 
+Das Vorzeichen vor der Wurzel ist positiv, da alle Werte aus der Bild und Ursprungsmenge 
 der Funktione $s(t)$ mit den obigen Einschr"ankungen positiv sind.
 \begin{eqnarray}
-t = \frac{c}{a} * ( +\sqrt{(s*a/c^2 + \sqrt{1 + (\frac{v_0}{c})^2})^2 - 1} - \frac{v_0}{c})
+t = \frac{c}{a} * \left( +\sqrt{\left(\frac{s*a}{c^2} + \sqrt{1 + \left(\frac{v_0}{c}\right)^2}\right)^2 - 1} - \frac{v_0}{c}\right)
 \end{eqnarray}
 
+\section{L"angenkontraktion, Zeitdelitation und $e=mc^2$}
 In der Relativit"atstherie kommt es auf den Bezugspunkt an. Deshalb reicht es aus nur
 die Massenver"anderung des Teilchens zu breachten, da ein Teilchen als Punkt 
-interpretiert wird und Punkte sich nicht kontrahieren können und die Zeit f"ur das 
-Teilchen irrelevant ist, da die Beschleunigung aus sich des Zyklotrons simuliert wird.
-Natürlich gebe es weitere relativistische Effekte, wenn man aus die Perpektive des 
+interpretiert wird und Punkte sich nicht kontrahieren k"onnen. Die Zeit ist f"ur das 
+Teilchen irrelevant, da die Beschleunigung aus Sicht des Zyklotrons simuliert wird.
+Nat"urlich gebe es weitere relativistische Effekte, wenn man aus die Perpektive des 
 Teilchens simulieren w"urde.
 
 Die Gesamternergie des Teilchens wird mit $ e = m*c^2$ \footnote{Siehe 
 Seite \pageref{mc_square} \ref{mc_square}} beschrieben. Die kinetische Energie ist die 
 Energiezunahme eines Teilchens durch eine Beschleunigung. Die kinetische Energie eines
-Teilchens ist also die bewegte Gesamteenergie - die ruhende. Das lässt sich zu 
+Teilchens ist also die bewegte Gesamtenergie minus die ruhende. Das l"asst sich zu 
 $E_{kin} = (m-m_0)*c^2$ vereinfachen. Die bewegte Masse wird mit 
 $m = \frac{m_0}{1-(v/c)^2}$\footnote{Siehe Seite \pageref{var_m} \ref{var_m}} berechnet.
-Einige Sachverhalte lassen sich mit klassischen Mitteln am genauso gut, wie mit 
-relativistischen beschreiben, wenn man bei ihnen die variable Masse bedenkt, 
-wie zu Beispiel der Radius eines Teilchens im Zyklotron.
+Einige Sachverhalte lassen sich mit klassischen Mitteln genauso gut, wie mit 
+relativistischen beschreiben, wenn man bei ihnen die variable Masse bedenkt. Ein solcher
+Sachverhalt ist zum Beipspiel die Kreisbewegung eines Teilchens im Zyklotron.
 
 \section{klassische Mechanische Zusammenh"ange im Zyklotron}
 In dem klassischem Modell werden die typischen Zusammenh"ange $v(t) = a*t + v_0$ und,
 der daraus entstehende, $s(t) = \frac{1}{2} *a *t^2 + v_0 *t + s_0$ verwendet, um die
 Geschwindigkeit und die Strecke im Beschleunigungskondesator zu modellieren. Die 
-Beschleunigung $a$ wird aus dem  relativistischen Modell "Ubernommen 
+Beschleunigung $a$ wird aus dem  relativistischen Modell "ubernommen 
 \footnote{Siehe Seite \pageref{Beschleunigung} \ref{Beschleunigung}}. Die kinetische 
 Energie ist $ W_{kin} = \frac{1}{2} * m * v^2 $ \footnote{vgl. Das Gro"se Tafelwerk 
 interaktiv Seite 94}. Die Gesamtenergie des Systemes ist gleich der kinetischen
 Energie, da Masse in der klassischen Vorstellung keine Energieform ist und daher die
-einzige Energieform des Teilchens die kinetische ist. F"ur den Radius wird der 
+einzige Energieform des Teilchens die kinetische Energie ist. F"ur den Radius gilt der 
 Zusammenhang $ r = \frac{m * v}{Q * B} $ \footnote{Siehe Seite \pageref{Radius im 
-Zyklotron} \ref{Radius im Zyklotron}}. Die Dauer einer halben Umrundung $U$ l"asst sich 
+Zyklotron} \ref{Radius im Zyklotron}}. Die Dauer einer Umrundung $U$ l"asst sich 
 folgenderma"sen beschreiben:
 \begin{eqnarray}
 v && = \frac{\Delta s}{\Delta t} \footnote{Defintion der Geschwindigkeit}\\
@@ -420,32 +431,35 @@ T && = \frac{\pi * r}{v}
 \chapter{Die technische Herausvorderung}
 \section{Geschwindigkeit und Rechenaufwand}
 Eine gro"se Herausforderung bei einer Simulation ist die Geschwindigkeit. Der Benutzer
-m"ochte keine lange Zeit warten, um eine relativ kurze Beschleunigung simuliert zu
-bekommen. Das Problem dabei ist, dass gleichzeitig eine Gro"se Korrekheit des Models
+m"ochte keine lange Zeit warten, um eine relativ wenig Zeit in Anspruch nehmende 
+Beschleunigung simuliert zu bekommen. 
+Das Problem dabei ist, dass gleichzeitig eine gro"se Korrekheit des Models
 erwartet wird. Es ist schwierig gleichzeitig genau und schnell zu rechnen. Das wird 
 auch noch dadurch verst"arkt, dass mehrere Zyklotrons gleichzeitig simuliert werden.
 
 Die Berechnungen sind deutlich simpler als die L"osung einiger Differentialgleichungen,
-aber trotzdem besteht eine Anforderung keine langsamen Code zu schreiben, da im 
+aber trotzdem besteht eine Anforderung keinen langsamen Code zu schreiben, da im 
 Optimalfall die Simulation in Echtzeit angezeigt werden soll.
 
 
 \section{Genauigkeitsproblem bei Flie"skommazahlen}
-Es gibt einige Probleme, wenn man am PC genau rechenen will, die von den 
+Es gibt einige Probleme, wenn man am PC genau rechenen will. Das wird von den 
 unterschiedlichen Zahlensystemen und dem beschr"anken Speicherplatz des Computers 
-verursacht werden. Ein Bepiel f"ur eine Ungenauigkeit im Dezimalsystem sind Zahlen
-wie $\frac{1}{3}$, die im Dezimalsystem unendlich lang dagestellt sind, damit genau
-abgebildet werden. Ein Computer kann jedoch keine Zahl unendlich lang dastellen, da
-er nur begrenzten Speicherplatz hat. Das Problem geht noch deutlich weiter, da eine
-typische Flie"skommazahl eines Computers schon 32 Nachkommastellen im 
-Bin"arsystem abschneidet. So ist zum Beispiel die Masse Elektrons mit $9,106 * 10^{31} 
-kg$ im Computer nie genau dagestellt wird, da die kleinste Zahl, die er dastellen kann 
-$2^{-32} \approx 2,328 * 10^{-10}$ ist. Eine weitere Zahlen, die nicht dagestellt werden
+verursacht. Ein Beipiel f"ur eine Ungenauigkeit im Dezimalsystem sind Zahlen
+wie $\frac{1}{3}$, die im Dezimalsystem unendlich lang (also periodisch)
+ dagestellt sind, damit genau
+abgebildet zu werden. Ein Computer kann jedoch keine Zahl unendlich lang dastellen, da
+er nur begrenzten Speicherplatz hat. Die Flie"skommazahlen werden im Computer zu kurz
+dagestellt, um sehr kleine Zahlen unverf"alsch zu speichern. So ist zum Beispiel die 
+Masse Elektrons mit $9,109 * 10^{31} kg$ nut schwierig dastellbar ist, da ein 
+Standarddouble circa acht Byte lang ist. Die kleinste Einheit eines Doubles ist zwar
+$4,940 * 10^{-324}$, trotzdem kann es schon ab der 15 Nachkommastelle zu 
+Ungenauigkeiten kommen. Eine weitere Zahlen, die nicht dagestellt werden
 kann ist zum Beispiel auch die Elementarladung $e = 1,602 * 10^{-16} C$. Der typische 
 Flie"skommazahl des Computers ist nur mit Anpassungen f"ur eine Simulation mit kleinen
 Zahlen, die ben"otigt werden, verwendbar.
 
-\chapter{Die Wahlt der Werkzeuge}
+\chapter{Die Wahl der Werkzeuge}
 \section{Sprachen}
 Eine Computersprache ist ein Werkzeug, das verwendet wird, um ein Modell oder eine Idee
 umzusetzten. Die Wahl des richtigen Werkzeuges ist eine wichtige Entscheidung, da jede
@@ -454,14 +468,18 @@ und eine hohe Abstraktion n"otig.
 
 \paragraph{Die imperativen Sprachen}, wie C, sind f"ur diese Simulation
 nicht geeignet, da sie zu wenig Abstraktion bieten. Da eine Umgebung aufgebaut werden 
-muss, ist es praktisch, wenn die Sprache eine Strukturierung von sich zu verf"ugung 
-stellt. Einfache Datenstruktur, ohne starkes Typensystem oder objektoriente Abstraktion,
+muss, ist es praktisch, wenn die Sprache eine Strukturierung von sich zu Verf"ugung 
+stellt. Einfache Datenstrukturen, ohne starkes Typensystem oder 
+objektoriente Abstraktion,
 reichen nicht aus, um eine flexible Umgebung aufzubauen. Die hohe Geschwindigkeit, die
 C bietet, ist f"ur eine Simulation, wie diese, optimal, aber die mangelnde Abstraktion
-verhindert das Aufbauen einer starken Umgebung.
+verhindert das Aufbauen einer starken Umgebung. Fortran w"are aufgrund des staken Real-
+Datentypen eine gute Wahlm aber C++-Klassen geben eine bessere M"oglichkeitt zur 
+Abstraktion.
 
 \paragraph{Die Skriptsprachen}, wie Python oder Perl, sind schlicht nicht schnell genug.
-Das dynamische Typensystem und die st"andige Interpretation des Klartextcodes machen 
+Das dynamische Typensystem und die st"andige Interpretation des Klartextcodes oder 
+der deutlich schnellere Just-In-Time Kompiler machen 
 diese Sprachen zu langsam, um mehrere Teilchenbeschleuniger gleichzeitig zu 
 simulieren. Die hohe Abstraktion die diese Sprachen geben erm"oglichen aber eine 
 schnelle Entwicklung mit angenehmer Abstraktion.
@@ -471,47 +489,55 @@ Leistung und Abstraktion. Sie sind darauf gepolt dem Entwickler m"oglichst viel 
 abzunehmen. Nach ein paar Sekunden springt zum Beispiel die Garbage Collection an und
 gibt Speicher frei. Das unterbricht zwar den Prgrammablauf, aber nimmt dem Entwickler 
 Arbeit ab. Hohe Leistung ist ein Anspruch an die Simulation. Die VM-Sprachen sind 
-per se eine gute Wahl, da eine gute Ballance zwischen Leistung und Abstraktion besteht
-und Bibliotheken dabei sind. Trotzdem ist es nicht optimal, wenn keine absolute 
-Kontrolle "uber den Programmaublauf besteht.
+per se eine gute Wahl, da eine hervoragende Ballance zwischen Leistung und Abstraktion 
+besteht und Bibliotheken dabei sind. Trotzdem ist es nicht optimal, wenn keine absolute 
+Kontrolle "uber den Programmablauf besteht.
 
 \paragraph{C++} ist die Sprache, die immer dann verwendet wird, wenn man gro"se 
 Abstraktion und n"ahe zur Hardware braucht. Die Abstraktion von C++ ist so gro"s wie die
-von Java, erlaubt aber den Programm komplett zu kontrollieren, und ist "ahnlich schnell
-wie C. Wenn man strukturiert an C++-Code bearbeitet kann man RAII \marginpar{Siehe 
-Seite \pageref{RAII} \ref{RAII}} kann man den Nachteil einer fehlenden 
-Garbage-Collection vollkommen ausgleichen.
+von Java, erlaubt aber den Programmfluss komplett zu kontrollieren,
+und ist "ahnlich schnell
+wie C. Wenn man strukturiert an C++-Code arbeitet kann man mit einigen 
+Programmiertechniken \marginpar{Siehe Seite \pageref{RAII} \ref{RAII}} 
+den Nachteil einer fehlenden Garbage-Collection vollkommen ausgleichen.
 
 In dieser Simulation wird eine Symbiose von C++ und Java verwendet. C++ ist rein f"ur 
-die Simulation gedacht, da sehr hohe Performance mit einem sehr hohen Abstraktionniveau erm"oglicht. Java hingegen wird f"ur die Konfiguration der Simulation verwendet, da die
-Standardbibliothek eine sehr gute Benutzeroberfl"ache bietet, die auf de-facto jedem
+die Simulation gedacht, da C++ eine sehr hohe Performance mit einem sehr hohen 
+Abstraktionniveau bietet. Java hingegen wird f"ur die Konfiguration der 
+Simulation verwendet, da die
+Standardbibliothek eine sehr gute Benutzeroberfl"ache bietet, die auf de-facto auf jedem
 PC lauff"ahig ist.
 
 \section{Bibliotheken}
-C++ hat allerdings den Nachteil, dass keine gro"se Standardbibliothek hat, die Rendering
-und komplexes Multithreading erlaubt, die beide f"ur diese Simulation exsistentiell 
+C++ hat allerdings den Nachteil, dass es keine gro"se Standardbibliothek hat, 
+die Rendering
+und komplexes Multithreading erlaubt, das beides f"ur diese Simulation exsistentiell 
 sind. 
 
 \paragraph{SFML}, die Simple and Fast Media Layer, wird verwendet, um Graphen zu 
-zeichnen und auf Nutzereingabe zu warten, um dannach das Prgramm zu verwenden. SFML
+zeichnen und auf Nutzereingabe zu warten, um dannach das Prgramm zu beenden. SFML
 ist eine Plattform"ubergreifende Bibliothek, die einen OpenGL-Context erstellt und von
-jenem Abstrahiert, um eine performante und leicht zu bedienende Renderingbibliothek zur
-verf"ugung stellt. SFML unterst"utzt auch Multithreading und vieles mehr.
+jenem abstrahiert, um eine performante und leicht zu bedienende Renderingbibliothek zur
+Verf"ugung stellt. SFML unterst"utzt auch Multithreading und vieles mehr.
 
 \paragraph{Boost} ist eine andere Plattform"ubergreifende Bilbiothek f"ur C++, die eine
 Alternative zur Standardbibliothek ist und eine Beispielimplementation f"ur zuk"unftige 
-Standardtisierung neuer Features zur Verf"ugung stellt. Boost interagiert gut mit der 
+Standardtisierungen neuer Features zur Verf"ugung stellt. Boost interagiert gut mit der 
 Standardbibliothek und stellt moderene Implementationen (oder überhaupt welche) f"ur
-die meisten Probleme da. Boost-Thread eine Unterbibliothek von Boost f"ur Multithreading
-wird hier verwendet.
+die meisten Probleme da. Boost-Thread, eine Unterbibliothek von Boost, f"ur 
+wird hier f"ur Multithreading verwendet.
 
 \section{Buildsysteme}
-Als Buildsystem werden Unix-Makefiles benutzt. Ein Makefile besteht aus Regeln, die
-entweder von Regeln oder von Dateien abh"angen und erlaubt ein Inkrementelles bauen
+Als Buildsystem werden Unix-Makefiles benutzt. Ein Makefile besteht aus Regeln, die eine
+Aktion, wie das Kompilieren oder Linken mit einem Namen assoziieren. Eine Regel kann von
+einer Datei oder von anderen Regeln abh"angen. Eine Regel wird nur ausgef"uhrt, wenn 
+sich die Abh"angigkeiten ver"andern (also Dateien oder ausgef"uhrte Regeln) und erlaubt
+so ein Inkrementelles bauen
 der Simulation. Als Kompiler wird Clang empfolen, da er schneller ist und bessere
 Warnungen oder Fehlermeldungen ausgibt als GCC. W"ahrend es Entwicklungsprozesses 
 wurde GCC verwendet, damit das Tool Gprof zum Profiling verwendet wernden konnte.
-Unix-Makefiles sind durch Ports, wie MinGW, auch f"ur Windows verf"ugbar. Zum Bauen
+Unix-Makefiles sind als portierte Versionen, wie MinGW, auch f"ur Windows verf"ugbar. 
+Zum Bauen
 der Software m"ussen die Bibliotheken f"ur den Kompiler vorhanden und auffindbar sein.
 
 Das Startprogramm in Java wird mit Netbeans entwickelt und muss seperat gebaut werden,
@@ -521,32 +547,32 @@ allerdings ist eine Binary als versionierte Datei enthalten.
 \chapter{Design Grundlagen in C++}
 \section{RAII-Klassen} \label{RAII}
 RAII (resource aquision is initialization) ist ein Designprinzip in C++, das 
-Resourcen-Leaks vermeiden soll. Da C++ keinen Garbage-Collector hat, muss mit
+Resourcen-Leaks vermeiden soll. Da C++ keine Garbage-Collection hat, muss mit
 anderen Mitteln vermieden werden, 
 dass Speicher nicht wieder freigegen wird oder Threads  nicht
-beendet werden. Eine Grundlage von RAII ist, dass man in Konstruktor alle Ressourcen, 
+beendet werden. Eine Grundlage von RAII ist, dass man im Konstruktor alle Ressourcen, 
 wie Speicher, Threads oder Sockets, initialisiert und sie im Destruktor wieder frei gibt.
 Der Destruktor wird immer dann aufgerufen, wenn ein Objekt aus dem Scope geht oder
 gel"oscht wird. H"alt man das RAII-Prinzip strickt ein, kann der Nachteil der fehlenden
 Garbage-Collection mit ein Minimum an Mehrarbeit ausglichen werden. 
 Nat"urlich gibt es auch
-billige Gr"unde von dem RAII Prinzip abzuweichen, wie Performancegr"unde bei Mutexen
-\marginpar{Siehe Seite \pageref{Synchronisation} \ref{Synchronisation} },
+billige Gr"unde von dem RAII Prinzip abzuweichen, wie Performancegr"unde bei Mutexen,
+\marginpar{Siehe Seite \pageref{Synchronisation} \ref{Synchronisation}}
 aber meisten ist es zu empfehlen, bei RAII zu bleiben.
 
 Man sollte im Destruktor keine Exceptions werfen, da dies zu ungew"unschten Effekten 
 f"uhren kann. Wird generell eine Exception geworfen befindet sich das Programm in einem
-Unwind-Prozess, dass heißt Codebl"ocke werden so lange verlassen, bis die Exception
+Unwind-Prozess, dass hei"st Codebl"ocke werden so lange verlassen, bis die Exception
 gefangen und dannach behandelt wird. Das Problem ist, wenn 2 Exceptions, also eine aus
-Programmfluss und eine aus dem Destruktor in dem Prozess sind, kommt es zu nicht
+dem Programmfluss und eine aus einem Destruktor in dem Prozess sind, kommt es zu nicht
 definiertem Verhalten. Bei nicht definiertem Verhalten ist nicht klar, wie das Programm 
 reagiert und muss deshalb vermieden werden.
 \newpage
 \section{Templates}
 Templates sind mit Generics in Java vergleichbar. Templates erm"oglichen in C++
-parametrischen Polymorphismus. Das hei"st, dass man einen neuen Typen mit Parametern
-erschaffen kann. In den spitzen Klammern von Templates k"onnen mehrere Klassen, 
-primitive Datentypen, wie int, und Typen an die Klasse "ubergeben werden.
+parametrischen Polymorphismus. Das hei"st, dass man einen neuen Typen mithilfe von 
+Parametern erschaffen kann. In den spitzen Klammern von Templates k"onnen mehrere 
+Klassen, primitive Datentypen, wie int, und Typen an die Klasse "ubergeben werden.
 
 Eine einfache Array-Klasse als Beispiel f"ur Templates und RAII
 \begin{lstlisting}
@@ -575,7 +601,7 @@ Array$<$int, 10$>$ und Array$<$int, 11$>$ von unterschiedlichen Typen.
 
 \section{Operator"uberladung}
 Eine weitere elegante Methode, um in C++ zu abstrahieren, ist die Operator"uberladung.
-Sie erlaubt es Operatoren, wie $+$ oder den Dereffernezierungsopertor $*$ zu "uberladen
+Sie erlaubt es Operatoren, wie $+$ oder den Dereffernzierungsopertor $*$ zu "uberladen
 und erh"oht so die Lesbarkeit des Codes. Eine Operator"uberladung erfolgt, indem
 spezielle Methode "uberl"ad.
 
@@ -620,12 +646,14 @@ class vector{
 
 Die Lesbatkeit des gesamten Codes kann sich durch Operator"uberladung verbessern, da man
 die Rechnung mit der Klasse vector mit Operatoren aufschreiben kann und nicht als 
-Methoden. Die Klasse ist außerdem ein Beispiel f"ur Abstraktion mit Templates. Jeder
+Methoden, also \glqq a+b\grqq statt \glqq a.add(b)\grqq. Die Klasse ist außerdem ein Beispiel f"ur 
+Abstraktion mit Templates. Jeder
 Typ, der den Operator + unterst"utzt kann in das Template eingesetzt werden.
 
 \section{Singletonobjekte}
-Singletonobjekte sind Objekte, die nicht explizit initialisiert werden und, wenn der 
-Header eingef"ugt ist, von "uberall im Programm aufrufbar. Diese Objekte werden immer
+Singletonobjekte sind Objekte, die nicht explizit initialisiert werden m"ussen. Wenn auf
+das Objekt das erste mal zugegriffen wird, wird es automatisch initialisiert und das
+gesamte Programm kann auf das selbe Objekt zugreifen. Diese Objekte werden immer
 dann benutzt, wenn es Sinn ergibt, dass nur ein Objekt exsistiert. Beispiele daf"ur
 sind Steurungsklassen, Fenster und einige weitere.
 
@@ -640,14 +668,14 @@ In dieser Simulation wird aus Gr"unden der Einfachkeit keiner dieser Ans"atze ve
 \chapter{Multitasking}
 \section{Warum Multithreading ?}
 Eine CPU besteht aus Speicher und mehreren Prozessorkernen, mit einer bestimmten
-Taktung. Also ist die CPU erst ausgelastet, wenn auf mehreren Kernen parrallel
+Taktung. Also ist die CPU erst ausgelastet, wenn auf mehreren Kernen parallel
 gerechnet wird. Bei diversen Simulation besteht Interesse daran Zeit zu sparen, um
 schneller Ergebnisse zu erhalten und deshalb sollten die Ressourcen des Rechners 
 vollst"andig genutzt werden.
 
 Eine Aufgabe l"asst sich allerdings nicht immer auf unterschiedliche Kerne aufteilen.
 Damit eine Aufgabe auf unterschiedliche Kernel verteilt werden kann, muss ein gewisser
-Datenparallelismus bestehen. Dataparrallelismus hei"st, das die Ergebnisse einer Aufgabe
+Datenparallelismus bestehen. Dataparallelismus hei"st, das die Ergebnisse einer Aufgabe
 unabh"angig voneinander berechnet werden k"onnen. Als Beispeiel l"asst sich die
 Berechnung von Fibonaccizahlen nicht parallelisieren, da das Ergebnis der Stelle $n$ von
 den Ergebnissen der Stellen $n-1$ und $n-2$ abh"angig ist. Im Gegensatz dazu l"asst sich
@@ -662,28 +690,30 @@ im Zyklotron oder die Geschwindigkeit.
 
 \section{Einen Thread starten}
 In der Bibliothek Boost ist ein Thread ein Objekt von dem Typen Thread. Der
-Konstruktor dieser Funktion nimmt etwas ausf"uhrbahres, also eine Lambda-Funktion
+Konstruktor dieser Funktion nimmt etwas Ausf"uhrbares, also eine Lambda-Funktion,
 ein Objekt, dass die Operator $()$ unterst"utzt oder eine Funktion ohne Parameter.
-Soll eine Funktion mit Parametern gestartet werden gibt die Funktion boost::bind ein
-passendes Objekt zur"uck, das den Operator $()$ unterst"utzt und Funktion mit den
+Soll eine Funktion mit Parametern gestartet werden gibt die Funktion boost::bind gibt
+ein passendes Objekt zur"uck, das den Operator $()$ unterst"utzt und Funktion mit den
 Parametern ausf"uhrbar macht.
 
 \section{Synchronisation} \label{Synchronisation}
-Ein Problem bei Multithreading am PC ist, dass die unterschiedlichen Thread auf den
-selben Speicher schreiben. An sich ist kein Problem, aber es besteht die M"oglichkeit,
+Ein Problem bei Multithreading am PC ist, dass die unterschiedlichen Threads auf den
+selben Speicher schreiben. An sich ist das kein Problem, 
+aber es besteht die M"oglichkeit,
 dass 2 Threads gleichzeitig in ein Objekt schreiben oder in einem lesen und so einige
 schwierig zu behebende Fehler enstehen k"onnen. Um einen solchen Doppelzugriff zu 
 verhindern gibt es einige Methoden, die alle auf Mutexen basieren.
 
 \paragraph{Ein Mutex} ist eine Klasse, die zwei Hauptmethode hat lock und unlock. Ein
 Mutex kann man als Schranke vorstellen, bei der die Methode lock die Schranke schlie"st
-und die Threads, die den selben Mutex passieren wollte m"ussen warten, bis die Schranke
-mithilfe der Methode unlock ge"offnet wurde. Ein Mutex hat um das zu gew"ahrleisten eine
+und die Threads, die den selben Mutex passieren wollen warten m"ussen, bis die Schranke
+mithilfe der Methode unlock ge"offnet wurde. Ein Mutex hat, um das zu gew"ahrleisten,
+eine
 Schlange im Hintergrund, in der gespeichert wird, welcher Thread als erstes den Zugriff
-erh"alt und auch als erstes mit lock nach Zugriff verlangt hat. 
+erh"alt, also als erstes mit lock nach Zugriff verlangt hat. 
 
 \paragraph{Deadlocks} treten immer dann auf, wenn ein Mutex nicht wieder freigegeben 
-wird. Das passiert, wenn sich zwei Mutexe gegenseitig davor hindern, sich wieder 
+wird. Das passiert, wenn sich zwei Mutexe gegenseitig hindern, sich wieder 
 freizugeben. Ein Beispiel:
 \begin{lstlisting}
 boost::mutex a_mutex;
@@ -713,27 +743,29 @@ entsperrt werden, was f"ur gew"ohnlich nicht der Fall, hat sich das Programm
 aufgeh"angt. Deadlocks k"onnen auch entstehen, wenn eine Exception geworfen wird und
 Mutexe nicht mehr entsperrt werden.
 
-\paragraph{RAII-Klassen} sind eine M"oglichkeit exceptionsicher zu programmieren und 
+\paragraph{RAII-Klassen} sind eine M"oglichkeit, exceptionsicher zu programmieren und 
 Deadlocks zu vermeiden. Daf"ur erstellt man eine Klasse, die eine im Konstruktor eine 
-Refferenz auf einen Mutex nimmt und ihn lockt. Wird nun eine Exception geworgen wird
-das Objekt freigeben und ein Kontruktor aufgerufen, der den Mutex dann wieder freigibt.
+Refferenz auf einen Mutex nimmt und ihn lockt. Wird nun eine Exception geworfen, wird
+das Objekt freigeben und der Desktruktor aufgerufen, der den Mutex dann wieder freigibt.
 Ein weiterer Vorteil von RAII-Klassen zur Synchronisation ist, dass der Programmierer 
 nicht vergessen kann den Mutex freizugeben.
 
-\paragraph{Condition-Variable} können gut dafür verwendet werden, um auf eine Funktion
+\paragraph{Condition-Variable} k"onnen gut daf"ur verwendet werden, um auf eine Funktion
 oder anderes zu warten. Der Vorteil der Condition-Variable gegen"uber einer Schleife,
 die wartet ist, dass keine Rechenzeit der CPU verwendet wird um st"andig Vergleiche und
-Spr"unge durchzuf"uhren. Eine Condition-Variable wird mithilfe eines Mutexes 
+Spr"unge durchzuf"uhren\footnote{Bei einer While-Schleife}. 
+Eine Condition-Variable wird mithilfe eines Mutexes 
 initialisiert und hat 2 wichtige Methode: wait() und notify(). Die Methode wait() 
 pausiert den momentanen Programmablauf, bis auf die selbe Condition-Variable die Methode
-notify() aufgerufen wird.
+notify() aufgerufen wird. Die Condition-Variable wird mit einem Mutex initialisiert, 
+der f"ur die Kontrolle des Programmflusses zust"andig ist.
 
 \section{Kommunikation zwischen Threads}
-Am PC liegt eine Parallelisierungsprinzip namens Shared Memory vor. Das heißt das alle
-Prozesse und Threads in den selben Speicher schreiben, sich ihn also teilen. Das macht
-die Kommunikation zwischen Threads au"serordentlich einfach, da man anders als bei
-Supercomputern keine Pakete durch Netzwerk oder andere schwierige Vorg"ange Umsetzten
-muss. 
+Am PC liegt eine Parallelisierungsprinzip namens Shared Memory vor. Das hei"st, dass 
+alle Prozesse und Threads in den selben Speicher schreiben, sich ihn also teilen. 
+Das macht die Kommunikation zwischen Threads au"serordentlich einfach, da man anders als
+bei Supercomputern keine Pakete durch Netzwerk schicken oder andere schwierige 
+Vorg"ange umsetzten muss. 
 
 Vom Grundsatz her verwerndet man einen im Zusammenhang gut geeigneten Container, wie
 einen Stapel, Liste oder eine einfache Variabel, und sch"utzt ihn mit Mutexen so, dass 
@@ -742,16 +774,16 @@ kein Doppelzugriff m"oglich ist.
 \chapter{Desing der Simulation}
 \section{Application}
 Die Application-Klasse ist die eigentliche Programmlogik und wird von Main-Methode
-aufgerufen. Die Aufgabe der Applicaiton Klasse ist es das Window und das Zyklotron
+aufgerufen. Die Aufgabe der Application-Klasse ist es, das Window und das Zyklotron
 zu konfigurieren und die Simulation zu starten. Konsolenparameter der Main-Methode
 werden, falls vorhanden, an die Application-Klasse gegeben.
 
 \section{Window} 
-Das Fenster ist ein Wrapper f"ur das SFML-RenderWindow. Seine Aufgaben sind es das 
+Das Fenster ist ein Wrapper f"ur das SFML-RenderWindow. Seine Aufgaben sind es, das 
 Fenster zu erstellen und die Graphen zu verwalten, dass hei"st sie zu zum Rendern 
 anzuhalten und ihnen die Grenzen, Offsets etc. zuzuweisen. Das Window hat eine 
 hardgecodedete Framerate von 25 fps, die die CPU-Zeit f"ur das Rendern gering h"alt.
-Window ist ein Singleton, da es Sinn macht, dass die Daten an mehreren Stellen 
+Window ist ein Singleton, da es keinen Sinn ergibt, die Daten an mehreren Stellen 
 auszugeben. Das Window ist nur daf"ur gedacht Widgets von dem Typen Graphen zu halten,
 auch wenn durch die Objektstruktur eine Erweiterung f"ur weitere Widgets m"oglich ist.
 
@@ -767,17 +799,20 @@ StdGraphController. Man kann eigene Implementationen eines GraphControllers in e
 Graphen hinterlegen. Der GraphController muss daf"ur sorgen, dass die Anzahl der Punkte
 nicht zu gro"s wird, da sonst der RAM zu klein wird, um alle Punkte zu speichern. 
 Au"serdem ist es Aufgabe des GraphControllers den maximalen Wert aus der Punktesammlung
-zu suchen. Je nach Sachzusammenhang k"onnen Optimierungen vorgenommen werden. Wenn von
+zu suchen, um die genaue Position der Punkte im Graphen zu bestimmen. 
+Je nach Sachzusammenhang k"onnen Optimierungen vorgenommen werden. Wenn von
 Anfang an klar ist, an welcher Stelle im Vector der Gr"o"ste Wert steht kann dieser,
 ohne zu suchen, zur"uckgegeben werden.
 
 \section{Zyklotron und ZyklotronController}
-\paragraph{Im Zyklotron} werden die Werte gerechnet. Er besteht aus 2 Threads. Erstens
+\paragraph{Im Zyklotron} werden die Werte errechnet. Er besteht aus 2 Threads. Erstens
 dem Berechnungsthread und zweitens dem Verwaltungsthread, die mit einem Channel zur
-Kommunikation verbunden sind. Der Berechnungsthread errechnet Werte und schickt sie an
+Kommunikation miteinander verbunden sind. 
+Der Berechnungsthread errechnet Werte und schickt sie an
 den Verwaltungsthread, der sie an den Graphen weitergibt. Diese Aufteilung ist sinnvoll,
-da der Graphcontroller die Aufnahme der neuen Werte nicht in einem neuen Thread startet
-und so der Graph die Berechnung im Zyklotron nicht behindert.
+da der GraphController die Aufnahme der neuen und die Ausd"unnung der alten Werte nicht 
+in einem neuen Thread startet und so der Graph die Berechnungen im Zyklotron nicht 
+behindert.
 
 \paragraph{Der ZyklotronController} hat die Aufgabe die verschiedenen Zyklotrons zu
 verwalten. Seine Aufgabe ist es Zyklotrons zu erstellen und sie zu speichern. Er startet
@@ -789,20 +824,21 @@ Simulation als HTML-Datei gespeichert werden.
 \chapter{Umsetzung}
 \section{L"osung des Genauigkeitsproblem bei Flie"skommazahlen}
 Um das Genauigkeitsproblem bei Flie"skommazahlen zu l"osen gibt es mehrere Ans"atze.
-Einer ist es die gr"o"se der Zahlen zu erhöhen, also die Anzahl der Nachkommastellen im
-Bin"arsystem zu erh"ohen, ein andere ist es die Zahlen in einer wissenschaftlichen
+Einer ist es die gr"o"se der Zahlen zu erh"ohen, also die Anzahl der Nachkommastellen im
+Bin"arsystem zu erh"ohen, ein anderer ist es die Zahlen in einer wissenschaftlichen
 Dastellung also als $a * 10^n ~ a \in \mathbb Q, ~ n \in \mathbb N$ zu speichern. In
 dieser Simulation wird die wissenschaftliche Dastellung benutzt, da sie 
 speicherfreundlicher ist und mit dem kleinsten Aufwand den gr"o"sten Zahlenbereich
-abdeckt. Es werden alle wichtigen Operatoren, die der primitive Datentyp double 
+abdeckt. Es werden alle wichtigen Operatoren, die auch der primitive Datentyp double 
 implementiert, werden auch in der Klasse Double implementiert.
 
 \section{Channel f"ur die Kommunikation zwischen Threads}
 Die Channel-Klasse erm"oglicht einfache Zwischenthreadkommunikation. Ein Channel soll
 eine Klasse sein, die eine FIFO-Datenstruktur verwaltet. Deshalb ist die Datenstruktur
 hinter dem Channel eine Standardqueue. Wenn aus dem Channel gelesen wird, aber kein 
-Objekt in der Queue ist, wartet der Channel so lange, wie es dauert, dass ein anderer
-Thread ein Objekt in den Channel geschreibt. Die Implementation des Channels sieht
+Objekt in der Queue ist, wartet der Channel mithilfe einer Condition-Variable so lange, 
+wie es dauert, dass ein anderer
+Thread ein Objekt in den Channel schreibt. Die Implementation des Channels sieht
 eine Kapazit"at vor, da der Berechnungsthread deutlich schneller als der 
 Verwaltungsthread l"auft und der RAM m"oglichst nicht vollst"andig gef"ullt werden soll.
 Wenn die Anzahl der Objekte in dem Channel gr"o"ser als die Kapzit"at wird, wartet der 
@@ -810,7 +846,8 @@ Channel so lange, bis ein Objekt aus dem Channel entfernt wurde.
 
 \section{Geometrie im Fenster}
 Zu Anfang muss berechnet werden, wie viele Zeilen mit Graphen gef"ullt werden. Es ist
-gegeben, dass 3 Graphen in dem Fenster nebeneinander gerendert werden. Nachdem die 
+gegeben, dass 3 Graphen in dem Fenster nebeneinander gerendert werden k"onnen. 
+Nachdem die 
 Anzahl der Zeilen und Spalten klar ist, kann das Fenster in gleichgro"se Rechtecke
 aufgeteilt werden, in die Graphen gerendert werden. Die Breite zwischen dem Rand des 
 Graphen und den Koordinatenachsen betr"agt $\frac{1}{10}$ der gesamten Breite eines
@@ -819,16 +856,17 @@ Rechteckes.
 \section{Wie wird ein Graph gerendert}
 Die Mainloop in der Application-Klasse ruft, wenn kein Tastendruck erkannt wurde, immer
 die Methode Window::render() auf, die aber nur rendert, wenn es von der Framerate her
-erforderlich ist. Sollt es erforderlich sein, werden von dort die Methoden Graph::render
+erforderlich ist. Sollte es erforderlich sein, werden von dort die Methoden Graph::render
 f"ur jeden Graphen aufgerufen.
 
 Als erstes wird "uberpr"uft, ob die Schriftart zu beschriften der Graphen geladen ist,
 sollte dieses nicht der Fall sein, wird es nachgeholt. daraufhin werden alle zu 
 rendernden Punkte aus dem GraphController geholt. S"amtliche Linien werden in 
 sf::VertexArray gespeichert, da dies eine bessere Performance und Verwendbarkeit des
-Renderingalgorythmus zur Verf"ugung stellt. Dannch werden zuerst die Koordinatenachsen 
-berechnet, die daraufhin mit Einheitenstrichen der L"ange $0.5 * Offset$ berechnet und
-in sf::VertexArray geschrieben. Die Daten im sf::VertexArray sind sf::Lines, da es Sinn
+Renderingalgorythmus zur Verf"ugung stellt. Dannach werden die Koordinatenachsen 
+berechnet, die daraufhin mit Einheitenstrichen der L"ange $0.5 * Offset$ versehen und
+in ein sf::VertexArray geschrieben werden. 
+Die Daten im sf::VertexArray sind sf::Lines, da es Sinn
 ergibt, dass die Enden der Einheitenstriche bzw. Koordinatenachsen nicht mit dem jeweils
 n"achsten verbunden sind. Daraufhin werden die Punkte berechnet und in ein VertexArray
 geschrieben. Dieses mal sind die Punkte im Array vom Typen LineStrip, da es Sinn ergibt,
@@ -856,7 +894,7 @@ Zyklotrons wird nun zuerst der Verwaltungsthread heruntergefahren, damit keine n
 Daten in das Fenster eingespielt werden. Daraufhin wird aus dem Channel zwischen dem 
 Verwaltungsthread und dem Berechnungsthread ein Datensatz entnommen und die Daten werden
 in den ZyklotronController als zu protokollierende Daten geschrieben. Darauf hin wird
-der Channel deactiviert. So wird verhindert, dass die Simulation weiterl"auft. Nun wird
+der Channel deaktiviert. So wird verhindert, dass die Simulation weiterl"auft. Nun wird
 auch den Berechnungsthread heruntergefahren und der Channel gel"oscht. Als vorletztes
 wird nun das HTML im Hintergrund des ZyklotronsController validiert und der Inhalt des
 Buffers in eine Datei namens log.html geschrieben. Daraufhin wird das Programm beendet.
@@ -873,6 +911,19 @@ Buffers in eine Datei namens log.html geschrieben. Daraufhin wird das Programm b
 \item Unkelbachsche Formelsammlung
 
 \end{itemize}
+
+\chapter{Danksagung}
+Ich m"ochte mich bei allen bedanken, die mich unterst"utzt und ermutigt haben, diese
+besondere Lernleistung zu erbringen: Bei Herrn Dr. Unkelbach und Herrn H"orsken, 
+die mich betreut haben. Bei Herrn Dr. Wiele, Herrn Broelemann und Herrn Wambach, 
+die mich auf die Möglichkeit, eine besondere Lenrleistung zu erbringen hingeweisen 
+haben und mir im
+Rahmen von mathematischen Akademien fachlich Exkurse erm"oglicht haben. Und nicht 
+zuletzt bei dem Mallinckrodt-Gymnasium, das mich ausgebildet hat und mir die Möglichkeit
+gibt diese Arbeit zu erbringen, im Speziellem bei Herrn Weishaupt und Herrn
+Freudenreich. Und zuletzt bei meinen Eltern, die mich stets unterst"utzt haben.
+ 
+
 
 \appendix
 \chapter{Handbuch}
