@@ -76,12 +76,12 @@ void BLL::Graph::render(){
 		units2[(i*4)] = sf::Vector2f(x + 1.75 * xOffset , y + yOffset + ( ((i/5) * (height-3*yOffset))));
 		units2[(i*4) + 1] = sf::Vector2f(x + 2.25 * xOffset , y + yOffset + ( (i/5) * (height-3*yOffset)));
 		if(points.size() > 0){
-			Double d = (points.at(points.size() - 1)).getY();
+			Double d{std::move((points.at(points.size() - 1)).getY())};
 			d.value *= ((i/5));
 			sf::Text t1(d.toString(),font, 9);
 			t1.setPosition(x + 0.75 * xOffset , y + yOffset + ( (((5-i)/5) * (height-3*yOffset))));
 			Window::instance().win->draw(t1);
-			d = (points.at(points.size() - 1)).getX();
+			d = std::move((points.at(points.size() - 1)).getX());
 			d.value *= ((i/5));
 			sf::Text t2(d.toString(),font, 9);
 			t2.setPosition( x+ width - (2*xOffset)- ( ((5-i)/5) * (width - 3*xOffset)), y + height - 1.75 * yOffset );
@@ -94,7 +94,7 @@ void BLL::Graph::render(){
 
 	//draw points
 	sf::VertexArray points(sf::LinesStrip, this->points.size());
-	auto max = gCont->max();
+	const BLL::Point& max = gCont->max();
 	for( int i = 0; i< points.getVertexCount(); i++){
 		points[i].position = sf::Vector2f(
 		 x + 2*xOffset + ((this->points.at(i).getX() / max.getX()).toStd() * (width-3*xOffset)),

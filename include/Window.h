@@ -14,7 +14,7 @@
 #include <StdGraphController.h>
 #include <vector>
 #include <string>
-
+#include <utility>
 
 namespace BLL {
 using namespace std;
@@ -76,7 +76,7 @@ public:
 		this->graphName.push_back(name);
 		Graph g;
 		g.initGraphController<t>();
-		this->graph.push_back(g);
+		this->graph.push_back(std::move(g));
 	}
 
 	/**

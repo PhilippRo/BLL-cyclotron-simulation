@@ -86,11 +86,11 @@ void ZyklotronController::writeToLog(std::vector <std::string> names,
 
 	boost::unique_lock<boost::mutex> lock(writeToLogMtx);
 
-	if (names.size() != 6){
+	if (names.size() != 7){
 		return;
 	}
 
-	to_log << "   <tr>\n";
+/*	to_log << "   <tr>\n";
 	to_log << "    <td>" << names[0] << "</td><td>" << 
 		data.v.toString() << "</td>\n" ;
 	to_log << "   </tr>\n";
@@ -123,6 +123,11 @@ void ZyklotronController::writeToLog(std::vector <std::string> names,
 	to_log << "    <td>" << names[5] << "</td><td>" <<
 		data.me.toString() << "</td>\n" ;
 	to_log << "   </tr>\n";
+
+	to_log << "   <tr>\n";
+	to_log << "    <td>" << names[6] << "</td><td>" <<
+		data.r.toString() << "</td>\n" ;
+	to_log << "   </tr>\n";*/
 }
 
 }

@@ -19,15 +19,18 @@ Point::Point(Double paraX, Double paraY){
 	y = paraY;
 }
 
-Point::~Point() {
-	// TODO Auto-generated destructor stub
+Point::Point(const Point& o) : x(o.x)
+                        , y(o.y) {
 }
 
-Double Point::getX(){
+Point::~Point(){
+}
+
+Double Point::getX() const{
 	return x; //Value von x KEINE referenz
 }
 
-Double Point::getY(){
+Double Point::getY() const{
 	return y; //Value von x KEINE referenz
 }
 

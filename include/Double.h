@@ -26,9 +26,9 @@ namespace BLL {
 class  Double {
 public:
         
-        //Standartdkonstruktor
+        //Standardkonstruktor
 	Double();
-
+        
         /**
             \brief Konstruktor mit Wert
 
@@ -39,7 +39,10 @@ public:
         */
 	Double(double val, int pow);
 
-        /**
+        //Copyconstructor
+        Double(const Double& other);
+
+       /**
             \brief Erstellt Double aus String
 
              Parsed ein Double aus einem String
@@ -72,7 +75,7 @@ public:
             \return Pi 
         */
 	static Double pi(){
-		return Double(3.14159265359,0);
+		return Double{3.14159265359, 0};
 	}
 
         /** 

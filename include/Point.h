@@ -26,6 +26,10 @@ public:
           \param paraY Y-Koordinate des Punktes
         */
 	Point(Double paraX, Double paraY);
+
+        ///Copykonstruktor
+        Point(const Point& o);
+  
 	virtual ~Point();
 
 
@@ -34,14 +38,14 @@ public:
 
           \return der X-Wert des Punktes
         */
-	Double getX();
+	Double getX() const;
 	
         /**
           Getter für die Y-Koordinate
 
           \return der Y-Wert des Punktes
         */
-        Double getY();
+        Double getY() const;
 
 protected:
 	///Der X-Wert

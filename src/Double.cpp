@@ -40,6 +40,11 @@ Double::Double(double val, int pow)
 	, power(pow) {
 }
 
+Double::Double(const Double& o)
+        : value (o.value)
+        , power (o.power) {
+}
+
 Double Double::operator*(Double d){
 	return Double(
 		value * d.value,

@@ -31,6 +31,11 @@ namespace ZyklotronParts{
 	class ZykSet{
 		//POD attributes meant to be public
 		public:
+                        ///Standardkonstruktor
+                        ZykSet();
+                        ///Copykonstruktor
+                        ZykSet(const ZykSet& o);
+
                         /// der Zeitpunkt, wenn die Datenmenge valide ist, in Sekunden
 			Double time;
                         /// Geschwindigkeit in Metern pro Sekunde
@@ -90,6 +95,9 @@ protected:
 
 	///Beschleunigung im Kondensator
 	Double a0;
+
+	///Radius des Zyklotrons
+	Double r_max{3,0};
 
 	///Zeitmaßstab: gibt die Möglichkeit die Simulation zu verlangsamen 
 	///oder zu beschleunigen

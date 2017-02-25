@@ -20,6 +20,21 @@
 
 namespace BLL {
 
+namespace ZyklotronParts{
+   ZykSet::ZykSet(){}
+   ZykSet::ZykSet(const ZykSet& o) : time(o.time)
+                                   , v(o.v)
+                                   , s(o.s)
+                                   , ke(o.ke)
+                                   , me(o.me)
+                                   , re(o.re)
+                                   , r(o.r)
+                                   , roundtime(o.roundtime)
+                                   , timeInCondensator(o.timeInCondensator){
+   }
+}
+
+
 Zyklotron::Zyklotron() {
 	chan=new BLL::Channel<ZyklotronParts::ZykSet>();
 }
@@ -32,7 +47,9 @@ Zyklotron::~Zyklotron() {
 			delete thisThread;
 	}
 
-	BLL::ZyklotronController::instance().writeToLog(names, chan->read());
+        using namespace ZyklotronParts;
+        ZykSet to_log{chan->read()};
+	BLL::ZyklotronController::instance().writeToLog(names, to_log);
 
 	chan->deactivate();
 
@@ -102,9 +119,8 @@ void Zyklotron::calc(){
 	ZyklotronParts::ZykSet it;
 	it.v = this->v0;
 	it.time = Double(0,0);
-	Double a = a0;
-        Double one(1,0);
-	long i = 1;
+	Double a{a0};
+        Double one{1,0};
 		while(true){
 			ZyklotronParts::ZykSet res;
 			

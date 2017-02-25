@@ -8,7 +8,7 @@
 #ifndef CHANNEL_H_
 #define CHANNEL_H_
 
-#include <list>
+#include <deque>
 #include <boost/thread.hpp>
 #include <boost/thread/mutex.hpp>
 #include <boost/thread/condition_variable.hpp>
@@ -19,7 +19,7 @@ namespace BLL {
 /**
 \brief Channel ist ein Kommunikationsmedium für Zwischenthreadkommunikation
 
-Der Channel basiert auf einer Standardliste, die mit Mutexen so geschützt wird, dass
+Der Channel basiert auf einer Standard-Doppeltverkette-Liste, die mit Mutexen so geschützt wird, dass
 sich werder der RAM füllt noch doppelter gleichzeitiger Zugriff auf die Liste 
 stattfinden kann.
 
@@ -34,7 +34,7 @@ private:
         bool active;
 
         /// Inhalt       
-	std::list<T> qu;
+	std::deque<T> qu;
 
         /// Mutex zur Kontrolle des Channels
 	boost::mutex writemutex;
@@ -43,18 +43,18 @@ private:
         boost::condition_variable read_cond;
         
         /// Maximale Anzahl an Einträgen
-	int capaticity = 10000;
+	static constexpr int capacity{10000};
 
         /// aktuelle Größe
-        int size = 0;
+        int size;
 
 public:
         ///Standardkonstruktor
-	Channel() {
-		active = true;
+	Channel() : active{true}
+                  , size{0} {
         }
 
-        ///Standarddestruktor
+        ///Destruktor
 	~Channel() {	
 		deactivate();
 	}
@@ -84,22 +84,22 @@ public:
 	        boost::mutex::scoped_lock lock(writemutex);
 
 		//return, wenn nötig
-		if(!active)
-			return T();
-       
+		if(!active){
+			return T{};
+                }
+
                 //warted, bis ein Element im Channel ist
-		if(size == 0 && active ){
+                //while because of spontaniously wake up of condition_variable
+	        while(size == 0 ){
                     read_cond.wait(lock);
                 }
 		
 		//hole Objekt
-		T ret;
-		if(qu.size() != 0){
-			ret = qu.front();
-			qu.pop_front();
-		}
+		T ret{qu.front()};
+		qu.pop_front();
+		
                 //reduziere size 
-                size--;
+                --size;
                 read_cond.notify_all();
 		return ret;
 	}
@@ -114,17 +114,19 @@ public:
 	void write(T content){
 		boost::mutex::scoped_lock lock(writemutex);
  		
-		if(!active)
+		if(!active){
 			return;
+                }
 
                //warte, bis Channel nicht mehr vollständig gefüllt ist
-		if(size > capaticity && active){
+               //while because of spontaniously wake up of condition variable
+		while(size > capacity){
 			read_cond.wait(lock);
 		}
                 //schreibe Objekt
 		qu.push_back(content);
                 //erhöhe size
-                size++;
+                ++size;
 		read_cond.notify_all();
 	}
 
