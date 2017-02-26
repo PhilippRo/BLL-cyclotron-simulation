@@ -46,29 +46,29 @@ Double::Double(const Double& o)
 }
 
 Double Double::operator*(Double d){
-	return Double(
+	return Double{
 		value * d.value,
-		power + d.power).adapt();
+		power + d.power}.adapt();
 }
 
 Double BLL::Double::operator/(Double d){
-	Double ret(
+	Double ret{
 		value / d.value,
-		power - d.power);
+		power - d.power};
 	return ret.adapt();
 }
 
 Double Double::operator+(Double d){
-	Double ret(
+	Double ret{
 		value + d.value*std::pow(10, d.power - power),
-		power);
+		power};
 	return ret.adapt();;
 }
 
 Double Double::operator-(Double d){
-	Double ret;
-	ret.value = value - (d.value * std::pow(10, d.power - power));
-	ret.power = power;
+	Double ret{
+	      value - (d.value * std::pow(10, d.power - power)),
+	      power};
 	return ret.adapt();
 }
 
@@ -89,7 +89,7 @@ bool BLL::Double::operator <(BLL::Double d){
 }
 
 bool BLL::Double::operator==(Double d){
-	Double t = *this;
+	Double t{*this};
 	t.adapt();
 	d.adapt();
 	return t.value == d.value && d.power == t.power; 

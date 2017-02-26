@@ -57,13 +57,13 @@ void BLL::Graph::render(){
 	
 	points = gCont->getPoints();
 	
-	sf::Text text(name, font, 16);
+	sf::Text text{name, font, 16};
 	text.setPosition(x+xOffset,y);
 	Window::instance().win->draw(text);
 
 	//draw the axis
-	sf::VertexArray units(sf::Lines,4);
-    units[0].position =  sf::Vector2f(x+(2*xOffset), y+yOffset);
+	sf::VertexArray units{sf::Lines,4};
+        units[0].position =  sf::Vector2f(x+(2*xOffset), y+yOffset);
 	units[1].position = sf::Vector2f(x+(2*xOffset), y+(height-yOffset));
 	units[2].position =  sf::Vector2f(x+xOffset, y+height-(2*yOffset));
 	units[3].position = sf::Vector2f(x+width-xOffset, y+height-(2*yOffset) );
@@ -93,12 +93,13 @@ void BLL::Graph::render(){
 	Window::instance().win->draw(units2);
 
 	//draw points
-	sf::VertexArray points(sf::LinesStrip, this->points.size());
+	sf::VertexArray points{sf::LinesStrip, static_cast<unsigned int>(
+                                                          this->points.size())};
 	const BLL::Point& max = gCont->max();
 	for( int i = 0; i< points.getVertexCount(); i++){
 		points[i].position = sf::Vector2f(
 		 x + 2*xOffset + ((this->points.at(i).getX() / max.getX()).toStd() * (width-3*xOffset)),
 		 y+ height - (2*yOffset) - ( ((this->points.at(i).getY() / max.getY()).toStd() * (height - 3*yOffset))));
 	}
-	Window::instance().win->draw(points);
+	Window::instance().win->draw(std::move(points));
 }

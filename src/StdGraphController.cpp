@@ -21,7 +21,7 @@ StdGraphController::~StdGraphController(){
 }
 
 void StdGraphController::operator<<(BLL::Point p){
-	mtx.lock();
+	boost::mutex::scoped_lock{mtx};
 	if(points->size() > 1000){
 		auto& points = *this->points;
 		std::vector<BLL::Point> *tp = new std::vector <BLL::Point>(500);
@@ -39,17 +39,17 @@ void StdGraphController::operator<<(BLL::Point p){
 		pointsFiltered = 1;
 	}else{
 		pointsFiltered ++;
-	}
-	mtx.unlock();
+	} 
 }
 
 void StdGraphController::setPoints(std::vector<BLL::Point>* p){
-	mtx.lock();
+	boost::mutex::scoped_lock(mtx);
 	this->points = p;
-	mtx.unlock();
 }
 
 BLL::Point StdGraphController::max(){
+        //Keine RAII-Wraper, weil 
+        //Mutex nicht bis zum Ende des Blocks benötigt wird
 	mtx.lock();
         auto points = *this->points;
         mtx.unlock();
@@ -64,9 +64,8 @@ BLL::Point StdGraphController::max(){
 }
 
 std::vector<Point> StdGraphController::getPoints(){
-	mtx.lock();
+	boost::mutex::scoped_lock(mtx);
 	auto tpoints = *points;
-	mtx.unlock();
 	return tpoints;
 }
 

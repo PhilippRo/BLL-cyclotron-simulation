@@ -10,8 +10,6 @@
 namespace BLL {
 
 Point::Point() {
-	// TODO Auto-generated constructor stub
-
 }
 
 Point::Point(Double paraX, Double paraY){

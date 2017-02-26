@@ -25,7 +25,7 @@ void ZyklotronController::shut_down(){
 	to_log << "</html>";
 
 	//write Data
-	std::ofstream file("log.html", ios::out);
+	std::ofstream file{"log.html", ios::out};
 	file << to_log.str();
 	file.flush();
 	file.close();
@@ -84,7 +84,7 @@ void ZyklotronController::writeToLog(std::vector <std::string> names,
 
 	static boost::mutex writeToLogMtx;
 
-	boost::unique_lock<boost::mutex> lock(writeToLogMtx);
+	boost::unique_lock<boost::mutex> lock{writeToLogMtx};
 
 	if (names.size() != 7){
 		return;
