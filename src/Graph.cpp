@@ -55,7 +55,7 @@ void BLL::Graph::render(){
 		isFontSetup = true;
 	}
 	
-	points = gCont->getPoints();
+	auto points = gCont->getPoints();
 	
 	sf::Text text{name, font, 16};
 	text.setPosition(x+xOffset,y);
@@ -93,13 +93,13 @@ void BLL::Graph::render(){
 	Window::instance().win->draw(units2);
 
 	//draw points
-	sf::VertexArray points{sf::LinesStrip, static_cast<unsigned int>(
-                                                          this->points.size())};
+	sf::VertexArray render_points{sf::LinesStrip, static_cast<unsigned int>(
+                                                          points.size())};
 	const BLL::Point& max = gCont->max();
-	for( int i = 0; i< points.getVertexCount(); i++){
-		points[i].position = sf::Vector2f(
-		 x + 2*xOffset + ((this->points.at(i).getX() / max.getX()).toStd() * (width-3*xOffset)),
-		 y+ height - (2*yOffset) - ( ((this->points.at(i).getY() / max.getY()).toStd() * (height - 3*yOffset))));
+	for( int i = 0; i < render_points.getVertexCount(); i++){
+		render_points[i].position = sf::Vector2f(
+		 x + 2*xOffset + ((points.at(i).getX() / max.getX()).toStd() * (width-3*xOffset)),
+		 y+ height - (2*yOffset) - ( ((points.at(i).getY() / max.getY()).toStd() * (height - 3*yOffset))));
 	}
-	Window::instance().win->draw(std::move(points));
+	Window::instance().win->draw(std::move(render_points));
 }
