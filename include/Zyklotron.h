@@ -118,14 +118,24 @@ protected:
 	///Legt fest, ob das relativistische Modell verwendet wird
 	bool relativistic=true;
 
+        ///Legt fest, ab das Zyklotron noch läuft
+        boost::atomic<bool> running{true};
+
+        ///Finales Ergebnis der Simulation
+        boost::atomic<ZyklotronParts::ZykSet> to_log;
+
 public:
 
 	///Standardkonstruktor	
 	Zyklotron();
 	
-	///Destruktor
-	/// fährt das Zyklotron runter
+	///\brief Destruktor
+	///Es muss noch shutdown() aufgerufen werden, da das Herunterfahren der
+        ///Threads Exceptions werden kann.
 	virtual ~Zyklotron();
+
+        ///beendet die Threads
+        void shutdown();
 
 	/**
 		\brief konfiguriert das Zyklotron

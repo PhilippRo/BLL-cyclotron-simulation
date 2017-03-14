@@ -39,29 +39,31 @@ Zyklotron::Zyklotron() {
 	chan=new BLL::Channel<ZyklotronParts::ZykSet>();
 }
 
+//TODO exceptions are thrown in destructor
 Zyklotron::~Zyklotron() {
-	if(thisThread != 0){
-		thisThread->interrupt();
-		thisThread->join();
-		if(thisThread !=0)
-			delete thisThread;
-	}
-
-        using namespace ZyklotronParts;
-        ZykSet to_log{chan->read()};
 	BLL::ZyklotronController::instance().writeToLog(names, to_log);
 
-	chan->deactivate();
+	if( calcThread != 0)
+		delete calcThread;
 
-	if(calcThread != 0){
-		calcThread->interrupt();
-		calcThread->join();
-		if( calcThread != 0)
-			delete calcThread;
-	}
+	if(thisThread !=0)
+		delete thisThread;
 
 	if(chan == 0)
 		delete chan;
+}
+
+void Zyklotron::shutdown(){
+    if(!running)
+        return;
+
+    running = false;
+
+    chan->deactivate();
+
+    calcThread->join();
+
+    thisThread->join();
 }
 
 void Zyklotron::configure(Double paraQ, Double paraU, Double paraD, Double paraV0, 
@@ -90,7 +92,7 @@ void Zyklotron::run(){
 	calcThread = new boost::thread(boost::bind(&BLL::Zyklotron::calc, this));
 	thisThread = new boost::thread([&](){
 		sf::Clock cl;
-		while(true){
+		while(running){
 			if(!chan)
 				return;
 
@@ -121,7 +123,7 @@ void Zyklotron::calc(){
 	it.time = Double(0,0);
 	Double a{a0};
         Double one{1,0};
-		while(true){
+		while(running){
 			ZyklotronParts::ZykSet res;
 			
 			Double c = Double::c();
@@ -179,7 +181,6 @@ void Zyklotron::calc(){
 
 			res.time = it.time + res.roundtime + timePosAccel+timeNegAccel;			
 			it = res;
-			i++;
 
 			if(!chan)
 				return;
@@ -187,6 +188,7 @@ void Zyklotron::calc(){
 			chan->write(res);
 			boost::this_thread::interruption_point();
 		}
+                to_log = it;
 	}
 
 void Zyklotron::setGraphNames(std::vector <std::string> paraNames){
