@@ -57,7 +57,7 @@ void BLL::Graph::render(){
 	
 	std::vector<Point> points{gCont->getPoints()};
 	
-	sf::Text text{name, font, 16};
+	sf::Text text(name, font, 16);
 	text.setPosition(x+xOffset,y);
 	Window::instance().win->draw(text);
 

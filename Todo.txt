@@ -1,9 +1,15 @@
-reimplement channels with interrupt
+[done] reimplement channels with interrupt
 
 add Blei 208 as particle
 add He2+ as part
 add Proton as part
+(particle brachen alle gleche Werte)
 
 probleme erwähnen
 test um werte zu prüfen
-entenergien schön ausgeben
+[done] entenergien schön ausgeben
+Radius unterstützung
+make renering being stable
+make start up being stable
+letztes bild ausgeben
+radius unterstützung

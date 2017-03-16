@@ -55,9 +55,14 @@ void Zyklotron::shutdown(){
     running = false;
 
     chan->deactivate();
-
+    
     calcThread->join();
 
+    try{
+        //may be probem if thisThread already exited
+        thisThread->interrupt();
+    }catch(...){
+    }
     thisThread->join();
 }
 
@@ -93,7 +98,6 @@ void Zyklotron::run(){
 			int i = 0;
 			while((float)cl.getElapsedTime().asSeconds()*timeScale<res.time.toStd())
 			{
-				//std::cout << "waiting" << std::endl;
 				i++;
 		
 			}
@@ -119,7 +123,7 @@ void Zyklotron::calc(){
 		while(running){
 			ZyklotronParts::ZykSet res;
 			
-			Double c = Double::c();
+			Double c{Double::c()};
 			auto& v0 = it.v;
 	
 			Double timePosAccel;

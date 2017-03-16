@@ -1,4 +1,4 @@
-CXX = g++
+CXX = clang++
 DOXYGEN = doxygen
 LATEX = pdflatex
 
