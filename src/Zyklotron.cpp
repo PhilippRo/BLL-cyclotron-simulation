@@ -67,7 +67,8 @@ void Zyklotron::shutdown(){
 }
 
 void Zyklotron::configure(Double paraQ, Double paraU, Double paraD, Double paraV0, 
-			Double paraM0, Double paraB, Double paraF, float PTimeScale){
+			Double paraM0, Double paraB, Double paraF, float PTimeScale, 
+                        bool paraRelativistic, Double paraR){
 	q = paraQ;
 	u = paraU;
 	d = paraD;
@@ -77,15 +78,12 @@ void Zyklotron::configure(Double paraQ, Double paraU, Double paraD, Double paraV
 	a0 = (q * (u/d)) / m0;
 	f = paraF;
 	timeScale = PTimeScale;
+        relativistic = paraRelativistic;
+        r_max = paraR;
 	configured = true;
 }
 
-void Zyklotron::configure(Double paraQ, Double paraU, Double paraD, Double paraV0, 
-	Double paraM0, Double paraB, Double paraF, float PTimeScale, bool paraReal){
-	this->relativistic=paraReal;
-	configure( paraQ, paraU, paraD, paraV0, paraM0, paraB, paraF, PTimeScale);
 
-}
 
 void Zyklotron::run(){
 	if(!configured) throw "Zyklotron was not configured [Zyklotron.cpp run]";

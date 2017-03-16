@@ -97,7 +97,7 @@ protected:
 	Double a0;
 
 	///Radius des Zyklotrons
-	Double r_max{3,0};
+	Double r_max;
 
 	///Zeitmaßstab: gibt die Möglichkeit die Simulation zu verlangsamen 
 	///oder zu beschleunigen
@@ -116,7 +116,7 @@ protected:
 	std::vector <std::string> names;
 
 	///Legt fest, ob das relativistische Modell verwendet wird
-	bool relativistic=true;
+	bool relativistic;
 
         ///Legt fest, ab das Zyklotron noch läuft
         boost::atomic<bool> running{true};
@@ -159,33 +159,12 @@ public:
 		\param PTimeScale der Zeitmaßstab
 
 		\param pRelativistic wählt das Modell (setzt relativistic)
+
+                \param paraR setzt den maximalen Umlaufradius im Zyklotron
 	*/
 	void configure(Double paraQ, Double paraU,
-			Double paraD, Double paraV0, Double paraM0, Double paraB, Double paraF, float PTimeScale, bool pRelativistic );
-
-	/**
-		\brief konfiguriert das Zyklotron
-
-		Die Methode konfiguriert das Zyklotron mit den Werten
-
-		\param paraQ die Ladung des Teilchens
-
-		\param paraU die Behschleunigungsspannung
-
-		\param paraD die Breite des Beschleunigungskondensators
-
-		\param paraV0 die Eintrittsgeschwindigkeit in das Zyklotron
-
-		\param paraM0 die Ruhemasse des Teilchens
-
-		\param paraB Stärke des Magnetfeldes
-
-		\param paraF Frequenz mit der die Spannung am Kondensator geändert wird
-
-		\param PTimeScale der Zeitmaßstab
-	*/
-	void configure(Double paraQ, Double paraU,
-			Double paraD, Double paraV0, Double paraM0, Double paraB, Double paraF, float PTimeScale);
+			Double paraD, Double paraV0, Double paraM0, Double paraB, Double paraF, float PTimeScale, 
+                        bool pRelativistic = true, Double paraR = Double{1.0, 0});
 
 	/**
 		\brief startet das Zyklotron
