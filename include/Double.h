@@ -85,35 +85,35 @@ public:
 
             \return Wert als double
         */    
-	double toStd();
+	double toStd() const;
 
         /**
            \brief multipliziert zwei Zahlen vom Typ Double
 
            \return Produkt zweier Zahlen vom Typ Double
         */	
-        Double operator*(Double d);
+        Double operator*(const Double& d);
 	
         /**
            \brief dividiert zwei Zahlen vom Typ Double
 
            \return Quotient zweier Zahlen vom Typ Double
         */
-        Double operator/(Double d);
+        Double operator/(const Double& d);
 
         /**
            \brief addiert zwei Zahlen vom Typ Double
 
            \return Summe zweier Zahlen vom Typ Double
         */
-	Double operator+(Double d);
+	Double operator+(const Double& d);
 
         /**
            \brief subtrahiert zwei Zahlen vom Typ Double
 
            \return Differenz zweier Zahlen vom Typ Double
         */
-	Double operator-(Double d);
+	Double operator-(const Double& d) ;
 
          /**
            \brief Modulo-operator für zwei Zahlen vom Typ Double
@@ -122,7 +122,7 @@ public:
 
            \return Rest eines Doubles geteilt d
         */
-	Double operator%(Double d);
+	Double operator%(const Double& d);
 
 	/**
              \brief zieht die Wurzel aus einer Zahl
@@ -136,14 +136,22 @@ public:
 
             \return ob a kleiner ist als d ( a < d )
         */
-	bool operator<(Double d);
+	bool operator<(const Double& d);
 	
         /**
             \brief prüft zwei Doubles auf Gleichheit
 
             \return ob 2 Doubles sich entsprechen
         */
+        bool operator==(Double& d);
+
+        /**
+            \brief prüft zwei Doubles auf Gleichheit
+
+            \return ob 2 Doubles sich entsprechen
+        */
         bool operator==(Double d);
+
 
         /**
             \brief stellt Double als string da
@@ -154,7 +162,7 @@ public:
 
             \return Double in Stringdastellung
         */
-	std::string toString();
+	std::string toString() const;
 
         /**
             \brief passt die Datstellung der Zahlen an

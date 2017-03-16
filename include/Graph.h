@@ -92,9 +92,6 @@ public:
 	using BLL::Widget::name;
 
 protected:
-
-        ///die Punktesammlung
-	std::vector <Point> points{0};
         
         /// die Schriftart für die Überschrift des Graphen
 	sf::Font font;

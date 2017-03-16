@@ -45,27 +45,27 @@ Double::Double(const Double& o)
         , power (o.power) {
 }
 
-Double Double::operator*(Double d){
+Double Double::operator*(const Double& d) {
 	return Double{
 		value * d.value,
 		power + d.power}.adapt();
 }
 
-Double BLL::Double::operator/(Double d){
+Double BLL::Double::operator/(const Double& d){
 	Double ret{
 		value / d.value,
 		power - d.power};
 	return ret.adapt();
 }
 
-Double Double::operator+(Double d){
+Double Double::operator+(const Double& d) {
 	Double ret{
 		value + d.value*std::pow(10, d.power - power),
 		power};
-	return ret.adapt();;
+	return ret.adapt();
 }
 
-Double Double::operator-(Double d){
+Double Double::operator-(const Double& d) {
 	Double ret{
 	      value - (d.value * std::pow(10, d.power - power)),
 	      power};
@@ -74,7 +74,7 @@ Double Double::operator-(Double d){
 
 
 //TODO Rewrite
-Double BLL::Double::operator%(BLL::Double d){
+Double BLL::Double::operator%(const BLL::Double& d) {
 	Double temp = *this - d; 
 	Double ret{0.0,0};
 	while(temp.toStd() > 0.0){
@@ -84,22 +84,29 @@ Double BLL::Double::operator%(BLL::Double d){
 	return ret;
 }
 
-bool BLL::Double::operator <(BLL::Double d){
+bool BLL::Double::operator <(const BLL::Double& d) {
 	return ((*this)/d).toStd() < 1.0;
 }
 
-bool BLL::Double::operator==(Double d){
+bool BLL::Double::operator==( Double& d){
 	Double t{*this};
 	t.adapt();
 	d.adapt();
 	return t.value == d.value && d.power == t.power; 
 }
 
-double Double::toStd(){
+bool BLL::Double::operator==( Double d){
+	Double t{*this};
+	t.adapt();
+	d.adapt();
+	return t.value == d.value && d.power == t.power; 
+}
+
+double Double::toStd() const{
 	return value * std::pow(10, power);
 }
 
-std::string Double::toString(){
+std::string Double::toString() const{
 	std::stringstream ret;
 	ret.precision(5);
 	ret << value;
@@ -109,7 +116,7 @@ std::string Double::toString(){
 	return retstr;
 }
 
-Double Double::sqrt(){
+Double Double::sqrt() {
 	Double d;
 	if((power & 1) == 0){
 		d.value = std::sqrt(value);

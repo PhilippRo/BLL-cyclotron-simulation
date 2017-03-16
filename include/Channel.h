@@ -55,8 +55,7 @@ public:
         }
 
         ///Destruktor
-	~Channel() {	
-		deactivate();
+	~Channel() {
 	}
 
 	/**
@@ -69,6 +68,8 @@ public:
 
 		active = false;
 
+		//simulate a proper wake up
+                qu.pop_back();
 		read_cond.notify_all();	
 	}
 
