@@ -107,6 +107,8 @@ void Zyklotron::run(){
 			(*BLL::Window::instance().getGraph(names[3]))<< Point(res.time, res.ke);
 			(*BLL::Window::instance().getGraph(names[4])) << Point(res.time, res.re);
 			(*BLL::Window::instance().getGraph(names[5])) << Point(res.time, res.me);
+			if(names.size() == 7)
+				(*BLL::Window::instance().getGraph(names[6])) << Point(res.time, res.r);
 			boost::this_thread::interruption_point();
 		}
 	});
@@ -118,9 +120,9 @@ void Zyklotron::calc(){
 	ZyklotronParts::ZykSet it;
 	it.v = this->v0;
 	it.time = Double(0,0);
-	Double a{a0};
-        Double one{1,0};
-		while(running){
+	const Double a{a0};
+        const Double one{1,0};
+		while(running && it.r < r_max){
 			ZyklotronParts::ZykSet res;
 			
 			Double c{Double::c()};
@@ -128,9 +130,9 @@ void Zyklotron::calc(){
 	
 			Double timePosAccel;
 			if(relativistic){
-				timePosAccel = std::move((c/a) * ( ( (d * a /(c*c) + (one+ (v0*v0/
-					(c*c))).sqrt()) * (d * a /(c*c) + (one + (v0*v0/
-					(c*c))).sqrt()) - one).sqrt() - (v0/c)));
+				timePosAccel = std::move((c/a) * ( ( (d * a /(c*c) + ((v0*v0/
+					(c*c))+one).sqrt()) * (d * a /(c*c) + ((v0*v0/
+					(c*c))+one).sqrt()) - one).sqrt() - (v0/c)));
 			}else{
 				timePosAccel = std::move((((v0 * v0)/(Double(4,0) * a*a))+ 
 					(d / a)).sqrt() - v0/(Double(2,0) * a));
@@ -142,9 +144,9 @@ void Zyklotron::calc(){
 				(Double(2,0)* f)) ? timeNegAccel : Double (0,0);
 			
 			if(relativistic){
-				res.v = std::move((a*(timePosAccel-timeNegAccel) + v0) / 
-					(Double(1,0)+ ((a*(timePosAccel - timeNegAccel)
-					+ v0)*(a*(timePosAccel-timeNegAccel) + v0)/
+				res.v = std::move(((timePosAccel-timeNegAccel)*a + v0) / 
+					(Double(1,0)+ (((timePosAccel - timeNegAccel)*a
+					+ v0)*((timePosAccel-timeNegAccel)*a + v0)/
 					(c*c))).sqrt());
 			
 				auto m = std::move(m0 / 
@@ -157,7 +159,7 @@ void Zyklotron::calc(){
 				res.re = std::move(m * c * c);
 			
 			}else{
-				res.v = a*(timePosAccel- timeNegAccel) + std::move(it.v);
+				res.v = (timePosAccel- timeNegAccel)*a + std::move(it.v);
 				auto& v = res.v;
 				//Keine Massendifferenz
 				res.me = m0;

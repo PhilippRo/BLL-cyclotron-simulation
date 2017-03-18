@@ -80,8 +80,10 @@ void Window::mainloop(){
 	win->setActive(true);
 	while(win->isOpen()){
 		while(win->pollEvent(ev)){
-			if(ev.type == sf::Event::KeyPressed)
-				win->close();
+			if(ev.type == sf::Event::KeyPressed){
+   	   				win->capture().saveToFile("log_window.jpg");
+					win->close();
+			}
 		}
 		render();
 	}

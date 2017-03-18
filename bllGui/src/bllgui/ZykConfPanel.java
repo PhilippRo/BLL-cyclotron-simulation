@@ -37,24 +37,24 @@ public class ZykConfPanel extends JPanel{
         this.setMinimumSize(new java.awt.Dimension(600, 400));
         
         zyks = new ArrayList<>();
-        zyks.add(new Confs("Elektron Relativistisch", "-rel ElektronRelativistisch 1,602e-19 1e-3 5e-2 1e2 9,109e-31 5e-5 1,137e-7 "));
+        zyks.add(new Confs("Elektron Relativistisch", "-rel ElektronRelativistisch 1,602e-19 1e-3 5e-2 1e2 9,109e-31 5e-5 1,137e-7 1,0e0"));
         
-        zyks.add(new Confs("Elektron Klassisch", "-cla ElektronKlassisch 1,602e-19 1e-3 5e-2 1e2 9,109e-31 5e-5 1,137e-7 "));
+        zyks.add(new Confs("Elektron Klassisch", "-cla ElektronKlassisch 1,602e-19 1e-3 5e-2 1e2 9,109e-31 5e-5 1,137e-7 1,0e0"));
         
-        zyks.add(new Confs("Wasserstoff Relativistisch", "-rel WasserstoffRelativistisch 1,602e-19 1e3 5e-2 1e2 3,817e-26 1e9 2,38292833e-2 "));
+        zyks.add(new Confs("Wasserstoff Relativistisch", "-rel WasserstoffRelativistisch 1,602e-19 1e3 5e-2 1e2 3,817e-26 1e9 2,38292833e-2 1,0e0"));
         
-        zyks.add(new Confs("Wasserstoff Klassisch", "-cla WasserstoffKlassisch 1,602e-19 1e3 5e-2 1e2 3,817e-26 1e9 2,38292833e-2 "));
+        zyks.add(new Confs("Wasserstoff Klassisch", "-cla WasserstoffKlassisch 1,602e-19 1e3 5e-2 1e2 3,817e-26 1e9 2,38292833e-2 1,0e0"));
         
-        zyks.add(new Confs("Natrium Relativistisch", "-rel NatriumRelativistisch 1,602e-19 1e3 5e-2 1e2 3,817e-26 1e9 2,38292833e-2 ")); 
+        zyks.add(new Confs("Natrium Relativistisch", "-rel NatriumRelativistisch 1,602e-19 1e3 5e-2 1e2 3,817e-26 1e9 2,38292833e-2 1,0e0")); 
         
-        zyks.add(new Confs("Natrium Klassisch", "-cla NatriumKlassisch 1,602e-19 1e3 5e-2 1e2 3,817e-26 1e9 2,38292833e-2 ")); 
+        zyks.add(new Confs("Natrium Klassisch", "-cla NatriumKlassisch 1,602e-19 1e3 5e-2 1e2 3,817e-26 1e9 2,38292833e-2 1,0e0")); 
         
-        zyks.add(new Confs("Gold Relativistisch", "-rel GoldRelativistisch 3,204e-19 1e3 5e-2 1e2 3,817e-26 1e9 8,808660669e-2 "));
+        zyks.add(new Confs("Gold Relativistisch", "-rel GoldRelativistisch 3,204e-19 1e3 5e-2 1e2 3,817e-26 1e9 8,808660669e-2 1,0e0"));
         
-        zyks.add(new Confs("Gold Klassisch", "-cla GoldKlassisch 3,204e-19 1e3 5e-2 1e2 3,817e-26 1e9 8,808660669e-2 "));
+        zyks.add(new Confs("Gold Klassisch", "-cla GoldKlassisch 3,204e-19 1e3 5e-2 1e2 3,817e-26 1e9 8,808660669e-2 1,0e0"));
         
         
-        header = new JLabel[8];
+        header = new JLabel[9];
         header[0] = new JLabel("Name");
         header[1] = new JLabel("Ladung [q]");
         header[2] = new JLabel("Spannung [V]");
@@ -63,13 +63,14 @@ public class ZykConfPanel extends JPanel{
         header[5] = new JLabel("Masse [kg]");
         header[6] = new JLabel("Magnetfeld [t]");
         header[7] = new JLabel("Frequenz [1/s]");
+        header[8] = new JLabel("Radius [m]");
         
-        e = new JLabel[8];
-        vals = new JTextField[8];
-        pows = new JTextField[8];
+        e = new JLabel[9];
+        vals = new JTextField[9];
+        pows = new JTextField[9];
         rel = new JRadioButton("relativistisch");
         conf = new JRadioButton("Vorkonfiguriert");
-        for(int i = 0; i < 8 ; i++){
+        for(int i = 0; i < 9 ; i++){
             e[i] = new JLabel("e");
             vals[i] = new JTextField();
             pows[i] = new JTextField();
@@ -101,7 +102,7 @@ public class ZykConfPanel extends JPanel{
     
     private void setUpConf(){
         removeAll();
-        setLayout(new GridLayout(11,4));
+        setLayout(new GridLayout(12,4));
         setBorder(BorderFactory.createEtchedBorder(Color.black, Color.lightGray));     
         
         this.add(conf);
@@ -116,7 +117,7 @@ public class ZykConfPanel extends JPanel{
         this.add(vals[0]);
         this.add(new JLabel(""));
         this.add(new JLabel(""));
-        for(int i = 1; i < 8 ; i++){
+        for(int i = 1; i < 9 ; i++){
             this.add(header[i]);
             this.add(vals[i]);
             this.add(e[i]);
@@ -145,7 +146,7 @@ public class ZykConfPanel extends JPanel{
             ret = (rel.isSelected() ? "-rel " : "-cla ")
                    + '"' + vals[0].getText() + '"';
 
-           for(int i = 1 ; i < 8 ; i++){
+           for(int i = 1 ; i < 9 ; i++){
                ret = ret + " " + vals[i].getText() + "e" + pows[i].getText();
            }
        }else{

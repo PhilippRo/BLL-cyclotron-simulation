@@ -84,8 +84,8 @@ void Application::operator()(int argc, char** argv){
 	}
 
 	//Configuring Zyks
-	for(int i = 0; 9*(i+1) <argc ; i++ ){
-		std::string name(argv[2 + (i*9)]);
+	for(int i = 0; 10*(i+1) <argc ; i++ ){
+		std::string name(argv[2 + (i*10)]);
 		std::vector <std::string> str;
                 //Titel der Graphen
 		str.push_back(name + " Geschwindigkeit [m/s]");
@@ -94,23 +94,25 @@ void Application::operator()(int argc, char** argv){
 		str.push_back(name + " kinetische Energie [N]");
 		str.push_back(name + " gesamte Energie [N]");
 		str.push_back(name + " Masse [kg]");
+		str.push_back(name + " Radius [m]");
 
-		std::string typeStr(argv[1 + (i*9)]);
+		std::string typeStr(argv[1 + (i*10)]);
                 //Zykltron wird erstellt
 		ZyklotronController::instance().addZyklotron(str);
                 //dem aktuellen Zyklotron werden die Graphnamen gegeben
 		ZyklotronController::instance().getZyklotron(i).setGraphNames(str);
                 //der Zyklotron wird mit den entsprechenden Werten konfiguriert
 		ZyklotronController::instance().getZyklotron(i).configure(
-			Double(std::string(argv[3 + (i*9)])),
-			Double(std::string(argv[4 + (i*9)])),
-			Double(std::string(argv[5 + (i*9)])),
-			Double(std::string(argv[6 + (i*9)])),
-			Double(std::string(argv[7 + (i*9)])),
-			Double(std::string(argv[8 + (i*9)])),
-			Double(std::string(argv[9 + (i*9)])),
+			Double(std::string(argv[3 + (i*10)])),
+			Double(std::string(argv[4 + (i*10)])),
+			Double(std::string(argv[5 + (i*10)])),
+			Double(std::string(argv[6 + (i*10)])),
+			Double(std::string(argv[7 + (i*10)])),
+			Double(std::string(argv[8 + (i*10)])),
+			Double(std::string(argv[9 + (i*10)])),
 			tc,
-			typeStr == "-rel"
+			typeStr == "-rel",
+                        Double(std::string(argv[10 + (i*10)]))
 		);
 	}
 	ZyklotronController::instance().insertGraphs(true);
