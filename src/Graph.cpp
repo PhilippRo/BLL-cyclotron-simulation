@@ -32,11 +32,26 @@ BLL::Graph::Graph()
 	this->initGraphController<BLL::StdGraphController>();
 }
 
+BLL::Graph::Graph(const Graph& other){
+
+	this->x = other.x;
+	this->y = other.y;
+	this->width = other.width;
+	this->height = other.height;
+	this->xOffset = other.xOffset;
+	this->yOffset = other.yOffset;
+ 
+        this->initGraphController<BLL::StdGraphController>();
+}
+
+
 BLL::Graph::~Graph() {
 	// TODO Auto-generated destructor stub
 }
 
 void BLL::Graph::operator<<(BLL::Point p){
+	boost::mutex::scoped_lock lock(graphMtx);
+
 	if(this == 0)
 		return;	
 
@@ -49,7 +64,8 @@ void BLL::Graph::operator<<(BLL::Point p){
 }
 
 void BLL::Graph::render(){
-
+	boost::mutex::scoped_lock lock(graphMtx);
+	
 	if (!isFontSetup){
 		font.loadFromFile("font.ttf");
 		isFontSetup = true;

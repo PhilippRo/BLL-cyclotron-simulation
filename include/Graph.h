@@ -13,6 +13,7 @@
 #include <Widget.h>
 #include <Point.h>
 #include <StdGraphController.h>
+#include <boost/thread.hpp>
 
 namespace BLL {
 
@@ -48,6 +49,9 @@ public:
         Ruft initGraphController mit StdGraphController auf
         */
         Graph();
+
+        ///Copykonstruktor
+        Graph(const Graph& other);
 
         /**
         \brief initialisiert den Graphkontroller
@@ -106,6 +110,9 @@ protected:
 	/// Status des GraphControllers
 	/// legt fest, ob ein neuer StdGraphController erstellt werden muss
         bool isStdGraphSetUp = false;
+
+        /// Mutex for internal locking
+        boost::mutex graphMtx;
 };
 }
 #endif /* GRAPH_H_ */
