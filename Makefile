@@ -15,7 +15,7 @@ INCLUDES = -Iinclude
 LIBS = -lsfml-system -lsfml-window -lsfml-graphics -lboost_system -lboost_thread -lboost_atomic
 DEBUG = -pg -g
 
-CXX_FLAGS = $(INCLUDES) $(DEBUG) -std=c++11 -fpermissive
+CXX_FLAGS = $(INCLUDES) $(DEBUG) -std=c++11
 
 all: dirs Bin Doc
 

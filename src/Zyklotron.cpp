@@ -96,10 +96,9 @@ void Zyklotron::run(){
 
 			ZyklotronParts::ZykSet res = chan->read();
 			int i = 0;
-			while((float)cl.getElapsedTime().asSeconds()*timeScale<res.time.toStd())
+			while((double)cl.getElapsedTime().asSeconds()*timeScale<res.time.toStd() && running)
 			{
 				i++;
-		
 			}
 			(*BLL::Window::instance().getGraph(names[0])) << Point(res.time, res.v);
 			(*BLL::Window::instance().getGraph(names[1])) << Point(res.time, res.roundtime);
@@ -188,6 +187,7 @@ void Zyklotron::calc(){
 			boost::this_thread::interruption_point();
 		}
                 to_log = it;
+                running = false;
 	}
 
 void Zyklotron::setGraphNames(std::vector <std::string> paraNames){

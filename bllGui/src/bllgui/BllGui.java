@@ -51,6 +51,7 @@ public class BllGui extends JFrame{
         nZyks.setValue(1);
         timeScaleLabel = new JLabel("Zeitmaßstab 1:");
         timeScale = new JTextField();
+        timeScale.setText("1,0");
         
         TopBox.add(new JSpinner(nZyks));
         TopBox.add(javax.swing.Box.createHorizontalStrut(200));
@@ -91,10 +92,10 @@ public class BllGui extends JFrame{
                 for(int i = 0; i < zyks.size(); i++){
                     strs = strs + " " + zyks.get(i).getCallable();
                 }
+                strs = strs + " -timeScale " + timeScale.getText();
                 System.out.println("starting main with " + strs);
                 try {
-                   Process myProcess = Runtime.getRuntime().exec("./main " + strs
-                        +" -timeScale " + timeScale.getText());
+                   Process myProcess = Runtime.getRuntime().exec("./main " + strs);
                    myProcess.waitFor();
                 } catch (IOException | InterruptedException ex) {
                     Logger.getLogger(BllGui.class.getName()).log(Level.SEVERE, null, ex);
