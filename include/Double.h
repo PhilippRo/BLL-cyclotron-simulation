@@ -39,7 +39,7 @@ public:
         */
 	Double(double val, int pow);
 
-        //Copyconstructor
+        ///Copyconstructor
         Double(const Double& other);
 
        /**
