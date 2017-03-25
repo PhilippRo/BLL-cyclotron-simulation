@@ -4,9 +4,6 @@
  *  Created on: 17.05.2016
  *      Author: philipp
  *
- *  Im Prinzip ist Double value * 10 hoch power
- *  als POD (Plain Old Data)
- *  mit einigen Helferfunktionen
  */
 
 #ifndef DOUBLE_H_
@@ -18,36 +15,35 @@ namespace BLL {
 
 
 /**
-    \brief Double ist eine wissenschaftlichen Dastellung von Zahlen.
+    \brief die Doubleklasse ist eine wissenschaftlichen Darstellung von Zahlen.
 
     Double versucht das Floatingpointprecisionproblem annähernd zu lösen.
-    Dabei werden Zahl als float * (10 ^ n) dagestellt. 
+    Dabei werden Zahl als float * (10 ^ n) dargestellt. 
 */
 class  Double {
 public:
         
-        //Standardkonstruktor
+        ///der Standardkonstruktor
 	Double();
         
         /**
-            \brief Konstruktor mit Wert
-
-            Erstellt eine Instanz von Double mit Werten
+            \brief ein Konstruktor, der einen Double mit Werten konstruiert
 
             \param val das f von f * (10^n)
             \param pow das n von f * (10^n)
         */
 	Double(double val, int pow);
 
-        ///Copyconstructor
         Double(const Double& other);
 
        /**
-            \brief Erstellt Double aus String
+            \brief erstellt Double aus String
 
-             Parsed ein Double aus einem String
+             Diese methode parsed einen Double aus einem String.
 
-             Umkehrfunktion zu toString()
+             Der String hat die Form "[float]e[int]"
+
+             Umkehrfunktion zu toString().
 
              \param n der zu parsende String
 
@@ -55,22 +51,22 @@ public:
 	Double(std::string n);
 
         /**
-            \brief Lichtgeschwindigkeit (ca 3 * 10^8)
+            \brief die Lichtgeschwindigkeit (ca. 3 * 10^8)
 
-            Gibt die ungefäre Lichtgeschwindigkeit im Vakuum zurück
+            Diese Methode gibt die ungefäre Lichtgeschwindigkeit im Vakuum zurück.
 
             \return Lichtgeschwindigkeit
 
        */
 	static Double c(){
 		Double d;
-		d.value = 3;//29.9792458;
-		d.power = 8;//7;
+		d.value = 29.9792458;
+		d.power = 7;
 		return d;
 	}
 
         /**
-            \brief Pi (ca 3.1415...)
+            \brief gibt Pi (ca 3.1415...) zurück
 
             \return Pi 
         */
@@ -81,7 +77,9 @@ public:
         /** 
             \brief formt BLL::Double nach double um
            
-            formt die wissenschaftliche Dastellung in die normale um
+            Diese Methode formt die wissenschaftliche Darstellung in die normale um.
+            Dabei kann es zu Genauigkeitsproblemen aufgrund der Schwächen eines double
+            kommen.
 
             \return Wert als double
         */    
@@ -118,14 +116,15 @@ public:
          /**
            \brief Modulo-operator für zwei Zahlen vom Typ Double
 
-	   Funktioniert auch bei reellen Zahlen. 
+	   Diese Methode zieht d so lange von this ab, bis this kleiner
+           als d ist und gibt den Rest zurück.
 
            \return Rest eines Doubles geteilt d
         */
 	Double operator%(const Double& d);
 
 	/**
-             \brief zieht die Wurzel aus einer Zahl
+             \brief zieht die Wurzel aus einem Double
 
              \return Wurzel aus einem Double
         */
@@ -158,7 +157,7 @@ public:
  
             stellt ein Double als String da in der Form "f e n"
 
-            ist die Umkehrfunltion zum Double(std::string n) 
+            ist die Umkehrfunktion zum Double(std::string n) 
 
             \return Double in Stringdastellung
         */
@@ -168,15 +167,16 @@ public:
             \brief passt die Datstellung der Zahlen an
 
             Wenn in der Form f * 10^n f in einen Bereich kommt, in dem das
-            Floatingpointprecisionproblem relevant wird kann mit diese Methode f 
-            , durch Anpassen des Exponenten, in eine günstigere Form gebracht werden.
+            Floatingpointprecisionproblem relevant wird, kann mit dieser Methode f 
+            durch Anpassen des Exponenten in eine günstigere Form gebracht werden.
         */
 	Double adapt();
 
-	///Wert der Zahl
+protected:
+	///der Wert der Zahl
 	double value;
 
-	///Exponent über der Zehn
+	///der Exponent über der Zehn
 	int    power = 1;
 };
 

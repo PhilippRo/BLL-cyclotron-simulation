@@ -15,9 +15,9 @@
 namespace BLL {
 
 /**
-  \brief Standardimplementation eines GraphControllers
+  \brief eine Standardimplementation eines GraphControllers
 
-  Der StdGraphController übernimmt die Aufgaben die Punkte im Graphen zu verwalten.
+  Der StdGraphController übernimmt die Verwaltung von Punkten im Graphen.
   Seine Aufgaben sind das Aufnehmen, Ordnen und Bereitstellen von Punkten bzw.
   Punktsammelungen.
   Er muss dabei Threadsicher, schnell sein und auf den Speicherverbrauch achten.
@@ -29,25 +29,24 @@ protected:
         
         /**
            Wie viele Punkte nach einem Löschvorgang nicht aufgenommen werden. Dieser
-           Wert vedoppelt sich nach jedem Löschvorgang. Wenn der Wert gleich 
-           pointsFiltered ist, wird der neue Wert aufgenommen,
-           Da ist notwending um die Werte repräsentativ zu halten.
+           Wert vedoppelt sich nach jedem Löschvorgang. Ein Löschvorgang wird aufgerufen,
+           wenn die Anzahl der Punkte größer als 1000 ist.
            Der Startwert ist 1.
         */
 	int pointsToFilter;
 	
         /**
-           vergleiche pointsToFilter.
-           Dieser Wert wird bei jedem ignorierten Wert um 1 erhöht. Nachdem 
-           pointsToFilter gleich pointsFiltered ist und der Wert aufgenommen ist,                  wird der Wert auf 1 zurückgesetz.
+            Dieser Wert zählt Punkte, die von dem StdGraphController ignoriert wurden.
+            Bei jedem ignorierten Wert wird pointsFiltered um eins erhöht. Wenn pointsFiltered
+            gleich pointsToFilter sind wird ein Wert aufgenommen und pointsFiltered auf 1 gesetzt.
         */
         int pointsFiltered;
 	
 
-        ///Punkte des Controllers
+        ///die Punkte des Controllers
         std::vector<BLL::Point> *points;
 	
-        ///locked den Contrainer
+        ///lockt den Contrainer
         boost::mutex mtx;
 public:
 
@@ -64,14 +63,19 @@ public:
             \brief Setzt den internen Punktecontainer. 
             Diese Methode ist für die Konfiguration im Graphen gedacht.
             Soll das Feld points auf p setzen.
+            Die Methode übernimmt die Ownerschip von p. Das heißt der die Klasse
+            kann wird p bei erneuten Aufrufen von setPoints oder im Destruktor p löschen.
             \param p der zusetzende Pointer
         */
 	void setPoints(std::vector<BLL::Point>* p);
 
         /**
-            \brief Fügt einen Punkte zum Container hinzu
+            \brief fügt einen Punkte zum Container hinzu
 
+            Diese Methode fügt wenn alle Bedingungen erfüllt sind einen Punkt der Punktesammlung
+            hinzu. Sind die Bedingungen nicht erfüllt wird der Punkte einfach ignoriert.
             Diese Methode ist auch für das Löschen der überschüssigen Werte verantwortlich.
+            (Siehe pointsFiltered und pointsToFilter)
 
             \param p Der hinzuzufügende Punkt
         */

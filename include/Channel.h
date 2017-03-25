@@ -17,9 +17,9 @@
 namespace BLL {
 
 /**
-\brief Channel ist ein Kommunikationsmedium für Zwischenthreadkommunikation
+\brief der Channel ist ein Kommunikationsmedium für Zwischenthreadkommunikation
 
-Der Channel basiert auf einer Standard-Doppeltverkette-Liste, die mit Mutexen so geschützt wird, dass
+Der Channel basiert auf einer Standard-Doppeltverketten-Liste, die mit Mutexen so geschützt wird, dass
 sich werder der RAM füllt noch doppelter gleichzeitiger Zugriff auf die Liste 
 stattfinden kann.
 
@@ -42,19 +42,19 @@ private:
         /// Bedingungen wenn der Channel warten muss
         boost::condition_variable read_cond;
         
-        /// Maximale Anzahl an Einträgen
+        /// maximale Anzahl an Einträgen
 	static constexpr int capacity{10000};
 
         /// aktuelle Größe
         int size;
 
 public:
-        ///Standardkonstruktor
+        ///der Standardkonstruktor
 	Channel() : active{true}
                   , size{0} {
         }
 
-        ///Destruktor
+        ///der Destruktor
 	~Channel() {
 	}
 
@@ -69,15 +69,18 @@ public:
 		active = false;
 
 		//simulate a proper wake up
-                qu.pop_back();
+                size = capacity / 2;
+                if (qu.size() == 0){
+                     qu.push_back(T{});
+                }
 		read_cond.notify_all();	
 	}
 
 	/**
-           \brief Gibt ein Element des Channels zurück
+           \brief gibt ein Element des Channels zurück
  
            Sollte der Channel leer sein, wird so lange gewartet, bis 
-           wieder ein Element im Channel ist
+           wieder ein Element im Channel ist.
 
            \return aktuelles Element
         */
@@ -90,7 +93,7 @@ public:
                 }
 
                 //warted, bis ein Element im Channel ist
-                //while because of spontaniously wake up of condition_variable
+                //while um read_cond, da condition_variable spontan aufwachen kann
 	        while(size == 0 ){
                     read_cond.wait(lock);
                 }
@@ -109,7 +112,7 @@ public:
            \brief schreibt ein Objekt in den Channel
 
            Sollte der Channel voll sein warted die Methode, bis ein
-	   Element aus dem Channel entfernt wird
+	   Element aus dem Channel entfernt wird.
            \param content das zu schreibende Objekt
         */
 	void write(T content){

@@ -29,9 +29,12 @@ class Graph : protected Widget{
 public:
 
         /**
-        \brief Konstruktor für manuelle Konfiguration
+        \brief ein Konstruktor für manuelle Konfiguration
 
-        Ruft initGraphController mit StdGraphController auf
+        Ist als interner Konstruktor gedacht, um die Geometrie von dem
+        Fenster zugewiesen zu bekommen. Er kann aber auch zur manuellen 
+        Konfiguration eines Graphen verwendet werden.
+        Er ruft initGraphController mit StdGraphController auf.
 
         \param x X-Position des Graphen
         \param y Y-Position des Graphen
@@ -44,13 +47,12 @@ public:
 			, int xOffset, int yOffset);
 	
         /**
-        \brief  Standardkonstruktor
+        \brief  der Standardkonstruktor
 
-        Ruft initGraphController mit StdGraphController auf
+        Er ruft initGraphController mit StdGraphController auf.
         */
         Graph();
 
-        ///Copykonstruktor
         Graph(const Graph& other);
 
         /**
@@ -73,7 +75,7 @@ public:
 	virtual ~Graph();
 
         /**
-        \brief Malt den Inhalt des Graphen in das Window::instance() -> Window& Objekt
+        \brief malt den Inhalt des Graphen in das Window::instance() -> Window& Objekt
 
         */
 	void render();
@@ -103,15 +105,15 @@ protected:
         /// der GraphController des Graphen
 	StdGraphController* gCont;
         
-        /// Status der Schriftart font
+        /// Status der Schriftart font (ob font geladen ist)
 	/// legt fest ob "Font.ttf" geladen werden muss
 	bool isFontSetup = false;
         
-	/// Status des GraphControllers
+	/// Status des GraphControllers (ist gCont ein Nullpointer)
 	/// legt fest, ob ein neuer StdGraphController erstellt werden muss
         bool isStdGraphSetUp = false;
 
-        /// Mutex for internal locking
+        /// ein Mutex für interne Sperrung
         boost::mutex graphMtx;
 };
 }

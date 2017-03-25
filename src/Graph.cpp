@@ -65,7 +65,8 @@ void BLL::Graph::operator<<(BLL::Point p){
 
 void BLL::Graph::render(){
 	boost::mutex::scoped_lock lock(graphMtx);
-	
+
+	//läd, falls nötig, die Schriftart	
 	if (!isFontSetup){
 		font.loadFromFile("font.ttf");
 		isFontSetup = true;
@@ -77,7 +78,7 @@ void BLL::Graph::render(){
 	text.setPosition(x+xOffset,y);
 	Window::instance().win->draw(text);
 
-	//draw the axis
+	//malt die Achsen
 	sf::VertexArray units{sf::Lines,4};
         units[0].position =  sf::Vector2f(x+(2*xOffset), y+yOffset);
 	units[1].position = sf::Vector2f(x+(2*xOffset), y+(height-yOffset));
@@ -85,7 +86,7 @@ void BLL::Graph::render(){
 	units[3].position = sf::Vector2f(x+width-xOffset, y+height-(2*yOffset) );
 	Window::instance().win->draw(units);
 
-	//draw the units
+	//malt die Einheitenstriche und Zahlen an den Strichen
 	std::vector<sf::Text> texte;
 	sf::VertexArray units2 (sf::Lines, 20);
 	for (double i = 1.0; i < 5.0; i += 1.0){
@@ -108,7 +109,7 @@ void BLL::Graph::render(){
 	}
 	Window::instance().win->draw(units2);
 
-	//draw points
+	//malt die Punkte
 	sf::VertexArray render_points{sf::LinesStrip};
 	const BLL::Point& max = gCont->max();
 	for( int i = 0; i< points.size(); i++){

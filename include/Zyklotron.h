@@ -20,7 +20,7 @@ namespace BLL {
 
 namespace ZyklotronParts{
         /*!
-            \brief Das ZykSet
+            \brief das ZykSet
  
             Das ZykSet ist eine Menge von Messdaten, die zwischen dem Berechnungsthread 
 	    und dem dem Managementthread ausgetauscht werden. (vgl. Zyklotron)
@@ -31,14 +31,14 @@ namespace ZyklotronParts{
 	class ZykSet{
 		//POD attributes meant to be public
 		public:
-                        ///Standardkonstruktor
+                        ///der Standardkonstruktor
                         ZykSet();
-                        ///Copykonstruktor
+                        ///der Copykonstruktor
                         ZykSet(const ZykSet& o);
 
                         /// der Zeitpunkt, wenn die Datenmenge valide ist, in Sekunden
 			Double time;
-                        /// Geschwindigkeit in Metern pro Sekunde
+                        /// die Geschwindigkeit in Metern pro Sekunde
 			Double v;
                         /// zurückgelegte Strecke in Metern
 			Double s;
@@ -48,9 +48,9 @@ namespace ZyklotronParts{
                         Double me;
                         /// gesamt Energie in Joule
 			Double re;
-                        /// Radius in Metern
+                        /// der Radius in Metern
 			Double r;
-                        /// Umlaufzeit in Sekunden
+                        /// die Umlaufzeit in Sekunden
 			Double roundtime;
                         /// beschleunigte Zeit im Kondesator
 			Double timeInCondensator;
@@ -61,8 +61,7 @@ namespace ZyklotronParts{
 	\brief das eigentliche Zyklotron
 
 	Diese Klasse stellt das eigentliche Zyklotron da und implementiert ein
-	relativisches und ein klassisches Modell für ein Zyklotron
-
+	relativisches und ein klassisches Modell eines Zyklotrons.
 
 */
 class Zyklotron {
@@ -72,79 +71,80 @@ protected:
 	/// hält fest, ob das Zyklotron schon konfiguriert wurde
 	bool configured = false;
 	
-	///Ladung des Beschleunigten Teilchens
+	///die Ladung des Beschleunigten Teilchens
 	Double q;
 
-	///Beschleunigungsspannung des Kondensators
+	///die Beschleunigungsspannung des Kondensators
 	Double u;
 
-	///Breite des Beschleunigungskondensators
+	///die Breite des Beschleunigungskondensators
 	Double d; 
 
-	///Eintritsgeschwindigkeit des Teilchens (Startgeschwindigkeit)
+	///die Eintrittsgeschwindigkeit des Teilchens (Startgeschwindigkeit)
 	Double v0;
 
-	///Ruhemasse des Teilchens
+	///die Ruhemasse des Teilchens
 	Double m0;
 
-	///Stärke des Magnetfeldes
+	///die Stärke des Magnetfeldes
 	Double b;
 
-	///Frequenz, mit der das Vorzeichen der Spannung am Kondensator geändert wird
+	///die Frequenz, mit der das Vorzeichen der Spannung am Kondensator geändert wird
 	Double f;
 
-	///Beschleunigung im Kondensator
+	///die Beschleunigung im Kondensator
 	Double a0;
 
-	///Radius des Zyklotrons
+	///der Radius des Zyklotrons
 	Double r_max;
 
-	///Zeitmaßstab: gibt die Möglichkeit die Simulation zu verlangsamen 
-	///oder zu beschleunigen
+	///der Zeitmaßstab legt die Abbildung der simulierten auf der realen Zeit fest
 	float timeScale = 1.0;
 
-	///Channel für die Kommunikation zwischen clalcThread und thisThread
+	///der Channel für die Kommunikation zwischen clalcThread und thisThread
 	BLL::Channel<ZyklotronParts::ZykSet>* chan;
 
-	///Auf dem clacThread läuft die eigentliche Berechnung
+	///auf dem clacThread läuft die eigentliche Berechnung
 	boost::thread *calcThread;
 
-	///Auf dem thisThread kommuniziert das Zyklotron mit dem Fenster
+	///auf dem thisThread kommuniziert das Zyklotron mit dem Fenster
 	boost::thread *thisThread;
 
-	///Die Namen der Graphen, die von dem Zyklotron gefüllt werden
+	///die Namen der Graphen, die von dem Zyklotron gefüllt werden
 	std::vector <std::string> names;
 
-	///Legt fest, ob das relativistische Modell verwendet wird
+	///legt fest, ob das relativistische Modell verwendet wird
 	bool relativistic;
 
-        ///Legt fest, ab das Zyklotron noch läuft
+        ///legt fest, ab das Zyklotron noch läuft
         boost::atomic<bool> running{true};
 
-        ///Finales Ergebnis der Simulation
+        ///finales Ergebnis der Simulation
         boost::atomic<ZyklotronParts::ZykSet> to_log;
 
 public:
 
-	///Standardkonstruktor	
+	///der Standardkonstruktor	
 	Zyklotron();
 	
-	///\brief Destruktor
+	///\brief der Destruktor
 	///Es muss noch shutdown() aufgerufen werden, da das Herunterfahren der
-        ///Threads Exceptions werden kann.
+        ///Threads Exceptions werfen kann und es nötig Threads zu beenden, bevor sie
+        ///gelöscht werden.
 	virtual ~Zyklotron();
 
-        ///beendet die Threads
+        ///\brief fährt die Threads herunter
+        ///Shutdown setzt das Feld running auf false und beendet die internen Threads.
         void shutdown();
 
 	/**
 		\brief konfiguriert das Zyklotron
 
-		Die Methode konfiguriert das Zyklotron mit den Parametern:
+		Die Methode konfiguriert das Zyklotron mit den angegebenen Parametern.
 
 		\param paraQ die Ladung des Teilchens
 
-		\param paraU die Behschleunigungsspannung
+		\param paraU die Beschleunigungsspannung
 
 		\param paraD die Breite des Beschleunigungskondensators
 
@@ -158,7 +158,7 @@ public:
 
 		\param PTimeScale der Zeitmaßstab
 
-		\param pRelativistic wählt das Modell (setzt relativistic)
+		\param pRelativistic wählt das Modell (setzt das Feld relativistic)
 
                 \param paraR setzt den maximalen Umlaufradius im Zyklotron
 	*/
@@ -169,8 +169,8 @@ public:
 	/**
 		\brief startet das Zyklotron
 
-		diese Methode startet das Zykotron und damit die Threads thisThread und
-		calcThread
+		Diese Methode startet das Zykotron und damit die Threads thisThread und
+		calcThread.
 
 		Sie gibt calcThrad die Methode clac als Code und thisThread ein Lamda,
 		das aus chan ließt und die Werte an die Graphen übergibt.
@@ -183,14 +183,14 @@ public:
 		\brief berechnet Werte
 
 		Diese Methode berechnet die Werte für die Simulation und ist der Code 
-		für den calcThread
+		für den calcThread.
 
-		Sie schreibt in den Channel chan
+		Sie schreibt die Teilergebnisse in den Channel chan.
 	*/
 	void calc();
 
 	/**
-		\brief Setter für die Graphnames
+		\brief ein Setter für die Graphnames
 
 		\param names Namen der Graphen
 	*/

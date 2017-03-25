@@ -20,7 +20,7 @@ namespace BLL {
 using namespace std;
 
 /**
-\brief Window ist ein Fenster mit Geometriemanager für Widgets
+\brief das Window ist ein Fenster mit Geometriemanager für Widgets
 
 Das Hauptwidget für Window ist Graph und Window ist ein Singletonobjekt.
 */
@@ -29,7 +29,7 @@ class Window{
 
 protected:
 
-         /// Standardkonstructor (protected weil es sich um ein Singleton handelt)
+         /// der Standardkonstruktor (protected, weil es sich um ein Singleton handelt)
 	Window();       
 	
 	/// eine Uhr, um die Framerate festzulegen, damit nicht zu viel Zeit auf
@@ -52,17 +52,14 @@ protected:
 
 public:
 
-	/// Fenster, um die Werte zu rendern
+	/// das Fenster, in das die Werte gerendert werden
 	sf::RenderWindow* win;
-
-
   
-	/// Destruktor
+	/// der Destruktor
 	virtual ~Window();
 
-	// templates kompilieren nicht in einem cpp file bzw. g++ hat Probleme
 	/**
-		\brief Fügt einen Graphen hinzu
+		\brief fügt einen Graphen hinzu
 
 		Fügt einen Graphen mit dem GraphController vom Typ t zu dem Window hinzu
 
@@ -80,9 +77,9 @@ public:
 	}
 
 	/**
-		\brief Getter für Graphen
+		\brief Ein Getter für Graphen
 
-		Gibt einen Graphen zurück.
+		Der Getter gibt den Graphen mit dem entsprechenden Namen zurück.
 
 		\param name Name des Graphen
 
@@ -93,23 +90,23 @@ public:
 	/**
 		\brief rendert die Punkte
 
-		ruft für jeden Graphen die Methode render auf
+		Die Methode ruft für jeden Graphen die Methode render auf.
 	*/
 	void render();
 
 	/**
 		\brief erstellt das Fenster
 
-		ruft den Algorithmus für die Geometrie auf und überträgt die 
-		errechneten Dimensionen auf die Graphen
+		Die Methode ruft den Algorithmus für die Geometrie auf und überträgt die 
+		errechneten Dimensionen in die Graphen.
 	*/
 	void create();
 
 	/**
-		\brief Mainloop des Fensters
+		\brief die Mainloop des Fensters
 
-		ruft die Methode Window::render auf, die nur 25 mal in der Sekunde 
-		rendert und wartet auf einen Tastendruck, um dannach das Fenster zu 
+		Die Mainloop ruft die Methode Window::render auf, die nur 25 mal in der Sekunde 
+		ausgeführt wird und wartet auf einen Tastendruck, um dannach das Fenster zu 
 		schließen.
 	*/
 	void mainloop();

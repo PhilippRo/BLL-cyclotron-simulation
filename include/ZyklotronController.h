@@ -15,36 +15,36 @@ namespace BLL{
 
 
 /**
-	\brief Verwaltet die simulierten Zyklotrons
+	\brief verwaltet die simulierten Zyklotrone
 
-	Der ZyklotronController verwaltet, started und beendet die Zyklotrons. Er ist
+	Der ZyklotronController verwaltet, started und beendet die Zyklotrone. Er ist
 	ein Singletonobjekt.
 
 */
 class ZyklotronController{
 protected:
 
-	///Die verwalteten Zyklotrons
+	///die verwalteten Zyklotrone
 	std::vector<Zyklotron*> zyks;
 	
-	///Standardkonstruktor
-	///Protected, da es ein Singleton ist.
+	///der Standardkonstruktor
+	///Ist Protected, da es ein Singleton ist.
 	ZyklotronController();
 
 	~ZyklotronController();
 	
 
-	///Speichert die Namen der Graphen für ein Zyklotron
+	///speichert die Namen der Graphen für ein Zyklotron
 	///der n-te vector enthält die Graphnamen für das n-te Zyklotron
 	std::vector<std::vector<std::string>> names;
 
-	///In eine HTML-Datei zu schreibende Daten
+	///in eine HTML-Datei zu schreibende Daten
 	///siehe writeToLog
 	std::stringstream to_log;
 
 public:
 
-	///Singletontypische Methode
+	///eine Singletontypische Methode
 	static ZyklotronController& instance(){
 		static ZyklotronController staticThis;
 		return staticThis;
@@ -54,15 +54,18 @@ public:
 	/**
 		\brief fügt ein Zyklotron zu dem ZyklotronController hinzu
 
-		Das neue Zyklotron wird als zyks hinzugefügt und die Graphnamen werden
-		an names angehängt
+		Das neue Zyklotron wird an zyks hinzugefügt und die Graphnamen werden
+		an names angehängt.
 
 		\param strs Namen der Graphen des Zyklotrons
 	*/
 	void addZyklotron(std::vector<std::string> strs);
 
 	/**
-		\brief Getter für ein Zyklotron
+		\brief ein Getter für ein Zyklotron
+
+                Der Getter gibt das Zyklotron an der index-ten Stelle
+                im vector zyks zurück.
 
 		\param index die nummer der Zyklotrons
 
@@ -73,10 +76,9 @@ public:
 	/**
 		\brief fährt alle Zyklotrons hoch
 
-		Die Simulation mit in dieser Methode gestartet. Das Window muss 
+		Die Simulation wird mit in dieser Methode gestartet. Das Window muss 
 		eingerichtet sein, dass heißt Window::instance().create() muss
-		aufgerufen worden sein, sowie Zyklotron::instance().insertGraphs()
-		(vor Window::instance().create() & vgl. Application code).
+		aufgerufen worden sein, sowie Zyklotron::instance().insertGraphs().
 	*/
 	void run();
 
@@ -97,16 +99,16 @@ public:
 	/**
 		\brief fährt die Simlation herunter
 
-		löscht jedes Zykltron und ruft damit den Destructor desselbigen auf.
+		Diese Methode löscht jedes Zykltron und ruft damit den Destructor desselbigen auf.
 	*/
 	void shut_down();
 
 	/**
-		\brief Merkt Daten vor, um sie in einer HTML-Datei zu speichern.
+		\brief merkt Daten vor, um sie in einer HTML-Datei zu speichern
 
 		Diese Methode Methode schreibt zu protokollierende Daten in den
 		Stingstream to_log und in der Methode shut_down werden die Daten in
-		die Datei log.html geschrieben
+		die Datei log.html geschrieben.
 
 		\param names Namen der Datensätze häufig Namen der Graphen; es sind
 				immer 6 Namen

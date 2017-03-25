@@ -17,10 +17,10 @@ namespace BLL {
 */
 class Point {
 public:
-        ///Standardkonstruktor
+        ///der Standardkonstruktor
 	Point();
         /**
-          \brief Konstruktor
+          \brief ein Konstruktor, der Point aus 2 Doubles erstellt
 
           \param paraX X-Koordinate des Punktes
           \param paraY Y-Koordinate des Punktes
@@ -34,23 +34,25 @@ public:
 
 
         /**
-          Getter für die X-Koordinate
+          \brief ein Getter für die X-Koordinate
 
           \return der X-Wert des Punktes
         */
 	Double getX() const;
 	
         /**
-          Getter für die Y-Koordinate
+          \brief ein Getter für die Y-Koordinate
 
           \return der Y-Wert des Punktes
         */
         Double getY() const;
 
 protected:
-	///Der X-Wert
+
+	/// der X-Wert
 	Double x;
-	///Der Y-Wert
+
+	/// der Y-Wert
 	Double y;
 };
 

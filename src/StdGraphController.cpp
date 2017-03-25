@@ -18,6 +18,7 @@ StdGraphController::StdGraphController() {
 }
 
 StdGraphController::~StdGraphController(){ 
+        delete points;
 }
 
 void StdGraphController::operator<<(BLL::Point p){

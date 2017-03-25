@@ -11,27 +11,35 @@
 namespace BLL {
 
 /**
-   \brief Die Application
+   \brief die Application oder Implementierung der Programmlogik 
    
    Die Application-Klasse ist eine Klasse, die die Programmlogik in 
    objektorientierter Form darstellt.
-   Außerdem started und konfiguriert sie die anderen Programmteile.
+   Sie started und konfiguriert sie die anderen Programmteile.
 */
 class Application {
 public:
-	///Standardkonstruktor
+	///der Standardkonstruktor
 	Application();
 	virtual ~Application();
 
 	///\brief führt die Programmlogik ohne Parameter aus
-        ///Deshalb wird eine einfache Beispielsimulation gestartet und es werden 
-	///Hinweise zur Benutzung ausgegeben
-	void operator()();
+        ///Die Methode startet eine einfache Beispielsimulation und
+        ///gibt Hinweise zur Bedienung aus.  
+        void operator()();
 
         /** \brief führt die Programmlogik mit Parametern aus
-             
-            \param argc sollte argc der Mainfunktion sein
-            \param argv sollte argv der Mainfunktion sein
+            
+            Die Methode started die Programmlogik mit Parametern, die die
+            Simulation konfigurieren. Es können beliebig Zyklotrone über diese
+            Methode gestartet werden. Ein Zyklotron wird folgendermaßen konfiguriert:
+            -[rel/cla] [Name] [Ladung] [Beschleunigungsspannung] [Breite des Kondensators] 
+            [Startgeschwindigkeit] [Ruhemasse] [Magnetfeld] [Frequenz] [Radius] 
+
+            Am Ende kann Wahlweise noch ein Zeitmaßstab mit -timeScale angegeben werden
+
+            \param argc Anzahl der Parameter; sollte argc der Mainfunktion sein
+            \param argv Paramter als Cstringarray; sollte argv der Mainfunktion sein
 
         */
 	void operator()(int argc, char** argv);
