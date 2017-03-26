@@ -49,8 +49,6 @@ Zyklotron::~Zyklotron() {
 }
 
 void Zyklotron::shutdown(){
-    if(!running)
-        return;
 
     running = false;
 
