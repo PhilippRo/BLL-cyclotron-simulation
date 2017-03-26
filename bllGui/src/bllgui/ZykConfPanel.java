@@ -42,21 +42,21 @@ public class ZykConfPanel extends JPanel{
         
         zyks.add(new Confs("Elektron Klassisch", "-cla ElektronKlassisch 1,602e-19 1,0e3 1,0e-1 1e2 9,109e-31 7,14526e-4 2,0e7 1,0e0"));
         
-        zyks.add(new Confs("Proton Relativistisch", "-rel ProtonRelativistisch 1,602e-19 1e6 1,0e-1 1e2 1,673e-27 1,3123e0 2,0e7 1,0e0"));
+        zyks.add(new Confs("Proton Relativistisch", "-rel ProtonRelativistisch 1,602e-19 1e3 1,0e-1 1e2 1,673e-27 1,3123e0 2,0e7 1,0e0"));
         
-        zyks.add(new Confs("Pronton Klassisch", "-cla ProtonKlassisch 1,602e-19 1,602e-19 1e6 1,0e-1 1e2 1,673e-27 1,3123e0 2,0e7 1,0e0"));
+        zyks.add(new Confs("Proton Klassisch", "-cla ProtonKlassisch 1,602e-19 1e3 1,0e-1 1e2 1,673e-27 1,3123e0 2,0e7 1,0e0"));
         
         zyks.add(new Confs("Alpha-Strahlung Relativistisch", "-rel Alpha-StrahlungRelativistisch 2,3205e-19 1,0e6 1,0e-1 1,0e2 6,645e-27 2,61e0 2,0e7 1,0e0"));
         
         zyks.add(new Confs("Alpha-Strahlung Klassisch", "-cla Alpha-StrahlungKlassisch 2,3205e-19 1,0e6 1,0e-1 1,0e2 6,645e-27 2,61e-5 2,0e0 1,0e0")); 
         
-        zyks.add(new Confs("Natrium Relativistisch", "-rel NatriumRelativistisch 1,602e-19 1e6 1,0e-1 1e2 3,8203e-26 2,9967e1 2,0e7 1,0e0"));
+        zyks.add(new Confs("Natrium Relativistisch", "-rel NatriumRelativistisch 1,602e-19 1e3 1,0e-1 1e2 3,8203e-26 2,9967e1 2,0e7 1,0e0"));
 
-        zyks.add(new Confs("Natrium Klassisch", "-cla NatriumKlassisch 1,602e-19 1e6 1,0e-1 1e2 3,8203e-26 2,9967e1 2,0e7 1,0e0")); 
+        zyks.add(new Confs("Natrium Klassisch", "-cla NatriumKlassisch 1,602e-19 1e3 1,0e-1 1e2 3,8203e-26 2,9967e1 2,0e7 1,0e0")); 
         
-        zyks.add(new Confs("Blei-208 Relativistisch", "-rel Blei-208Relativistisch 6,408e-19 1e6 1,0e-1 1e2 3,454e-25 6,7733e1 2,0e7 1,0e0"));
+        zyks.add(new Confs("Blei-208 Relativistisch", "-rel Blei-208Relativistisch 6,408e-19 1e3 1,0e-1 1e2 3,454e-25 6,7733e1 2,0e7 1,0e0"));
         
-        zyks.add(new Confs("Blei-208 Klassisch", "-cla Blei-208Klassisch 6,408e-19 1e6 1,0e-1 1e2 3,454e-25 6,7733e1 2,0e7 1,0e0"));
+        zyks.add(new Confs("Blei-208 Klassisch", "-cla Blei-208Klassisch 6,408e-19 1e3 1,0e-1 1e2 3,454e-25 6,7733e1 2,0e7 1,0e0"));
         
         
         header = new JLabel[9];
