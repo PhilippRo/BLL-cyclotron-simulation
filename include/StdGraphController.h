@@ -15,12 +15,12 @@
 namespace BLL {
 
 /**
-  \brief eine Standardimplementation eines GraphControllers
+  \brief eine Standardimplementierung eines GraphControllers
 
   Der StdGraphController übernimmt die Verwaltung von Punkten im Graphen.
   Seine Aufgaben sind das Aufnehmen, Ordnen und Bereitstellen von Punkten bzw.
   Punktsammelungen.
-  Er muss dabei Threadsicher, schnell sein und auf den Speicherverbrauch achten.
+  Er muss dabei threadsicher und schnell sein. Außerdem muss er auf den Speicherverbrauch achten.
   Diese Implementation erlaubt maximal 1000 Werte.
   Sollte dieser Wert überschritten werden, werden die überschüssigen Werte gelöscht.
 */
@@ -60,11 +60,12 @@ public:
 	StdGraphController();
 
         /**
-            \brief Setzt den internen Punktecontainer. 
+            \brief setzt den internen Punktecontainer
+
             Diese Methode ist für die Konfiguration im Graphen gedacht.
             Soll das Feld points auf p setzen.
-            Die Methode übernimmt die Ownerschip von p. Das heißt der die Klasse
-            kann wird p bei erneuten Aufrufen von setPoints oder im Destruktor p löschen.
+            Die Methode übernimmt die Ownerschip von p, das heißt die Klasse
+            wird p bei erneuten Aufrufen von setPoints oder im Destruktor löschen.
             \param p der zusetzende Pointer
         */
 	void setPoints(std::vector<BLL::Point>* p);
@@ -83,12 +84,12 @@ public:
 	virtual ~StdGraphController();
 
         /**
-            \brief gibt den maximalen Wert im Conatiner zurück.
+            \brief gibt den maximalen Wert im Conatiner zurück
 
-	    Diese Implementation nutzt einen Sortieralgorithmus aus der 
+	    Diese Implementierung nutzt einen Sortieralgorithmus aus der 
 	    Standardbibliothek.
 
-            \return der maximale Wert
+	    \return der maximale Wert
         */
 	BLL::Point max();
 };

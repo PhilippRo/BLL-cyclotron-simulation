@@ -13,7 +13,7 @@
 namespace BLL {
 
 /** 
-    \brief Repräsentiert einen Punkt im Graphen
+    \brief repräsentiert einen Punkt im Graphen
 */
 class Point {
 public:
@@ -22,8 +22,8 @@ public:
         /**
           \brief ein Konstruktor, der Point aus 2 Doubles erstellt
 
-          \param paraX X-Koordinate des Punktes
-          \param paraY Y-Koordinate des Punktes
+          \param paraX X-Wert des Punktes
+          \param paraY Y-Wert des Punktes
         */
 	Point(Double paraX, Double paraY);
 
@@ -34,14 +34,14 @@ public:
 
 
         /**
-          \brief ein Getter für die X-Koordinate
+          \brief ein Getter für die X-Wert
 
           \return der X-Wert des Punktes
         */
 	Double getX() const;
 	
         /**
-          \brief ein Getter für die Y-Koordinate
+          \brief ein Getter für die Y-Wert
 
           \return der Y-Wert des Punktes
         */

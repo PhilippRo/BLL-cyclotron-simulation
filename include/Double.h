@@ -17,8 +17,8 @@ namespace BLL {
 /**
     \brief die Doubleklasse ist eine wissenschaftlichen Darstellung von Zahlen.
 
-    Double versucht das Floatingpointprecisionproblem annähernd zu lösen.
-    Dabei werden Zahl als float * (10 ^ n) dargestellt. 
+    Double versucht das Genauigkeitsproblem bei Flie"skommazahlen annähernd zu lösen.
+    Dabei werden Zahlen als float * (10 ^ n) dargestellt. 
 */
 class  Double {
 public:
@@ -34,12 +34,13 @@ public:
         */
 	Double(double val, int pow);
 
+	///der Copykonstruktor
         Double(const Double& other);
 
        /**
             \brief erstellt Double aus String
 
-             Diese methode parsed einen Double aus einem String.
+             Dieser Konstruktor parsed einen Double aus einem String.
 
              Der String hat die Form "[float]e[int]"
 
@@ -53,9 +54,9 @@ public:
         /**
             \brief die Lichtgeschwindigkeit (ca. 3 * 10^8)
 
-            Diese Methode gibt die ungefäre Lichtgeschwindigkeit im Vakuum zurück.
+            Diese Methode gibt die ungefähre Lichtgeschwindigkeit im Vakuum zurück.
 
-            \return Lichtgeschwindigkeit
+            \return Double{29.9792458, 7}
 
        */
 	static Double c(){
@@ -68,7 +69,7 @@ public:
         /**
             \brief gibt Pi (ca 3.1415...) zurück
 
-            \return Pi 
+            \return 3.14159265359 
         */
 	static Double pi(){
 		return Double{3.14159265359, 0};
@@ -77,7 +78,7 @@ public:
         /** 
             \brief formt BLL::Double nach double um
            
-            Diese Methode formt die wissenschaftliche Darstellung in die normale um.
+            Diese Methode formt die wissenschaftliche Darstellung in die Standard-Darstellung um.
             Dabei kann es zu Genauigkeitsproblemen aufgrund der Schwächen eines double
             kommen.
 
@@ -153,18 +154,18 @@ public:
 
 
         /**
-            \brief stellt Double als string da
+            \brief stellt Double als string dar
  
-            stellt ein Double als String da in der Form "f e n"
+            Diese Methode stellt ein Double als String in der Form "[float]e[int]" dar.
 
-            ist die Umkehrfunktion zum Double(std::string n) 
+            Diese Methode ist die Umkehrfunktion zum Double(std::string n).
 
-            \return Double in Stringdastellung
+            \return Double in Stringdarstellung
         */
 	std::string toString() const;
 
         /**
-            \brief passt die Datstellung der Zahlen an
+            \brief passt die Darstellung der Zahlen an
 
             Wenn in der Form f * 10^n f in einen Bereich kommt, in dem das
             Floatingpointprecisionproblem relevant wird, kann mit dieser Methode f 
@@ -172,7 +173,6 @@ public:
         */
 	Double adapt();
 
-protected:
 	///der Wert der Zahl
 	double value;
 

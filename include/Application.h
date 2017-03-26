@@ -15,7 +15,7 @@ namespace BLL {
    
    Die Application-Klasse ist eine Klasse, die die Programmlogik in 
    objektorientierter Form darstellt.
-   Sie started und konfiguriert sie die anderen Programmteile.
+   Sie started und konfiguriert die anderen Programmteile.
 */
 class Application {
 public:
@@ -36,10 +36,10 @@ public:
             -[rel/cla] [Name] [Ladung] [Beschleunigungsspannung] [Breite des Kondensators] 
             [Startgeschwindigkeit] [Ruhemasse] [Magnetfeld] [Frequenz] [Radius] 
 
-            Am Ende kann Wahlweise noch ein Zeitmaßstab mit -timeScale angegeben werden
+            Am Ende kann wahlweise noch ein Zeitmaßstab mit -timeScale angegeben werden
 
             \param argc Anzahl der Parameter; sollte argc der Mainfunktion sein
-            \param argv Paramter als Cstringarray; sollte argv der Mainfunktion sein
+            \param argv Paramter als Cstring-Array; sollte argv der Mainfunktion sein
 
         */
 	void operator()(int argc, char** argv);

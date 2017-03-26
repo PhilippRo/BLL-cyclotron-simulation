@@ -19,8 +19,8 @@ namespace BLL {
 /**
 \brief der Channel ist ein Kommunikationsmedium für Zwischenthreadkommunikation
 
-Der Channel basiert auf einer Standard-Doppeltverketten-Liste, die mit Mutexen so geschützt wird, dass
-sich werder der RAM füllt noch doppelter gleichzeitiger Zugriff auf die Liste 
+Der Channel basiert auf einer Standard-Doppeltverketten-Liste, die mit Mutexen so geschützt ist, dass
+sich weder der RAM füllt noch doppelter gleichzeitiger Zugriff auf die Liste 
 stattfinden kann.
 
 \tparam T stellt dabei den Inhalt des Channels da.
@@ -61,7 +61,7 @@ public:
 	/**
 		\brief deaktiviert den Channel
 
-		macht den Channel unnutzbar.
+		Die Methode macht den Channel unnutzbar.
 	*/
 	void deactivate(){
 		boost::mutex::scoped_lock lock(writemutex);
@@ -111,7 +111,7 @@ public:
         /**
            \brief schreibt ein Objekt in den Channel
 
-           Sollte der Channel voll sein warted die Methode, bis ein
+           Sollte der Channel voll sein, warted die Methode solange, bis ein
 	   Element aus dem Channel entfernt wird.
            \param content das zu schreibende Objekt
         */

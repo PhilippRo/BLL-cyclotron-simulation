@@ -23,7 +23,7 @@ namespace ZyklotronParts{
             \brief das ZykSet
  
             Das ZykSet ist eine Menge von Messdaten, die zwischen dem Berechnungsthread 
-	    und dem dem Managementthread ausgetauscht werden. (vgl. Zyklotron)
+	    und dem dem Verwaltungsthread ausgetauscht werden. (vgl. Zyklotron)
 
 	    Das ZykSet ist eine Plain-Old-Data-Klasse (kurz POD).
             
@@ -52,7 +52,7 @@ namespace ZyklotronParts{
 			Double r;
                         /// die Umlaufzeit in Sekunden
 			Double roundtime;
-                        /// beschleunigte Zeit im Kondesator
+                        /// beschleunigte Zeit im Kondesator in Sekunden
 			Double timeInCondensator;
 	};
 }
@@ -60,8 +60,8 @@ namespace ZyklotronParts{
 /**
 	\brief das eigentliche Zyklotron
 
-	Diese Klasse stellt das eigentliche Zyklotron da und implementiert ein
-	relativisches und ein klassisches Modell eines Zyklotrons.
+	Diese Klasse stellt das eigentliche Zyklotron dar und implementiert ein
+	relativistisches und ein klassisches Modell eines Zyklotrons.
 
 */
 class Zyklotron {
@@ -71,7 +71,7 @@ protected:
 	/// hält fest, ob das Zyklotron schon konfiguriert wurde
 	bool configured = false;
 	
-	///die Ladung des Beschleunigten Teilchens
+	///die Ladung des beschleunigten Teilchens
 	Double q;
 
 	///die Beschleunigungsspannung des Kondensators
@@ -101,10 +101,10 @@ protected:
 	///der Zeitmaßstab legt die Abbildung der simulierten auf der realen Zeit fest
 	float timeScale = 1.0;
 
-	///der Channel für die Kommunikation zwischen clalcThread und thisThread
+	///der Channel für die Kommunikation zwischen calcThread und thisThread
 	BLL::Channel<ZyklotronParts::ZykSet>* chan;
 
-	///auf dem clacThread läuft die eigentliche Berechnung
+	///auf dem calcThread läuft die eigentliche Berechnung
 	boost::thread *calcThread;
 
 	///auf dem thisThread kommuniziert das Zyklotron mit dem Fenster
@@ -127,14 +127,19 @@ public:
 	///der Standardkonstruktor	
 	Zyklotron();
 	
-	///\brief der Destruktor
-	///Es muss noch shutdown() aufgerufen werden, da das Herunterfahren der
-        ///Threads Exceptions werfen kann und es nötig Threads zu beenden, bevor sie
-        ///gelöscht werden.
+	/**	\brief der Destruktor
+
+		Es muss noch shutdown() aufgerufen werden, da das Herunterfahren der
+        	Threads Exceptions werfen kann und es nötig Threads zu beenden, bevor sie
+        	gelöscht werden.
+	*/
 	virtual ~Zyklotron();
 
-        ///\brief fährt die Threads herunter
-        ///Shutdown setzt das Feld running auf false und beendet die internen Threads.
+        /** 
+		\brief fährt die Threads herunter
+
+		Shutdown setzt das Feld running auf false und beendet die internen Threads.
+        */
         void shutdown();
 
 	/**
@@ -160,7 +165,7 @@ public:
 
 		\param pRelativistic wählt das Modell (setzt das Feld relativistic)
 
-                \param paraR setzt den maximalen Umlaufradius im Zyklotron
+		\param paraR setzt den maximalen Umlaufradius im Zyklotron
 	*/
 	void configure(Double paraQ, Double paraU,
 			Double paraD, Double paraV0, Double paraM0, Double paraB, Double paraF, float PTimeScale, 
@@ -173,7 +178,7 @@ public:
 		calcThread.
 
 		Sie gibt calcThrad die Methode clac als Code und thisThread ein Lamda,
-		das aus chan ließt und die Werte an die Graphen übergibt.
+		das aus chan liest und die Werte an die Graphen übergibt.
 
 	*/
 	void run();
@@ -190,7 +195,7 @@ public:
 	void calc();
 
 	/**
-		\brief ein Setter für die Graphnames
+		\brief ein Setter für die Graphnamen
 
 		\param names Namen der Graphen
 	*/

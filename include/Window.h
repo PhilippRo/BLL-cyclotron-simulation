@@ -44,10 +44,10 @@ protected:
 	vector<Graph> graph;
 
 	/// eine Liste von Graphnamen, damit die Graphen verwaltet werden können
-        /// der n-te Entrag der Liste ist der Name des n-ten Graphen
+        /// der n-te Eintrag der Liste ist der Name des n-ten Graphen
 	vector<string> graphName;
 
-	/// Variabel für die Geometrie
+	/// eine Variabel für die Geometrie
 	unsigned int graphsInARow = 4;
 
 public:
@@ -61,11 +61,12 @@ public:
 	/**
 		\brief fügt einen Graphen hinzu
 
-		Fügt einen Graphen mit dem GraphController vom Typ t zu dem Window hinzu
+		Fügt einen Graphen mit dem GraphController vom Typ t zu dem Window hinzu.
 
 		\param name Name des Graphen
 
-		\tparam t Typ des GraphController des Graphen
+		\tparam t Typ des GraphController, der die Punkte im Graphen kontrolliert 
+                          (t muss von StdGraphController erben)
 
 	*/
 	template<class t>
@@ -77,7 +78,7 @@ public:
 	}
 
 	/**
-		\brief Ein Getter für Graphen
+		\brief ein Getter für Graphen
 
 		Der Getter gibt den Graphen mit dem entsprechenden Namen zurück.
 
@@ -111,7 +112,7 @@ public:
 	*/
 	void mainloop();
 
-	///Singleton typische Methode
+	///singletontypische Methode
 	static Window& instance(){
 		static Window win;
 		return win;

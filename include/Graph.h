@@ -31,7 +31,7 @@ public:
         /**
         \brief ein Konstruktor für manuelle Konfiguration
 
-        Ist als interner Konstruktor gedacht, um die Geometrie von dem
+        Dieser Konstruktor ist als interner Konstruktor gedacht, um die Geometrie von dem
         Fenster zugewiesen zu bekommen. Er kann aber auch zur manuellen 
         Konfiguration eines Graphen verwendet werden.
         Er ruft initGraphController mit StdGraphController auf.
@@ -53,13 +53,14 @@ public:
         */
         Graph();
 
+	///der Copykonstruktor
         Graph(const Graph& other);
 
         /**
         \brief initialisiert den Graphkontroller
 
         Der Graphkontroller wird mit der Klasse im Templateargument initialisiert.
-        Das Tenplateargument muss von StdGraphController erben.
+        Das Templateargument muss von StdGraphController erben.
 
 	\tparam T der GraphController, der eingerichtet werden soll.
         */
@@ -109,7 +110,7 @@ protected:
 	/// legt fest ob "Font.ttf" geladen werden muss
 	bool isFontSetup = false;
         
-	/// Status des GraphControllers (ist gCont ein Nullpointer)
+	/// Status des GraphControllers (ist gCont initialisiert)
 	/// legt fest, ob ein neuer StdGraphController erstellt werden muss
         bool isStdGraphSetUp = false;
 

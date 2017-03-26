@@ -27,19 +27,24 @@ protected:
 	///die verwalteten Zyklotrone
 	std::vector<Zyklotron*> zyks;
 	
-	///der Standardkonstruktor
-	///Ist Protected, da es ein Singleton ist.
+	/**
+		\brief der Standardkonstruktor
+
+		Er ist protected, da es ein Singleton ist.
+	*/
 	ZyklotronController();
 
 	~ZyklotronController();
 	
 
-	///speichert die Namen der Graphen für ein Zyklotron
-	///der n-te vector enthält die Graphnamen für das n-te Zyklotron
+	/**
+		speichert die Namen der Graphen für ein Zyklotron
+		der n-te vector enthält die Graphnamen für das n-te Zyklotron
+        */
 	std::vector<std::vector<std::string>> names;
 
 	///in eine HTML-Datei zu schreibende Daten
-	///siehe writeToLog
+	///(siehe writeToLog)
 	std::stringstream to_log;
 
 public:
@@ -69,21 +74,21 @@ public:
 
 		\param index die nummer der Zyklotrons
 
-		\return eine Refferenz auf das Zyklotron an der index-ten Stelle in zyks
+		\return eine Referenz auf das Zyklotron an der index-ten Stelle in zyks
 	*/
 	Zyklotron& getZyklotron(int index);
 
 	/**
-		\brief fährt alle Zyklotrons hoch
+		\brief fährt alle Zyklotrone hoch
 
 		Die Simulation wird mit in dieser Methode gestartet. Das Window muss 
-		eingerichtet sein, dass heißt Window::instance().create() muss
+		eingerichtet sein, das heißt Window::instance().create() muss
 		aufgerufen worden sein, sowie Zyklotron::instance().insertGraphs().
 	*/
 	void run();
 
 	/**
-		\brief erstellt die Graphen für die Zyklotrons
+		\brief erstellt die Graphen für die Zyklotrone
 
 		Diese Methode fügt in Window für jedes Zyklotron die entsprechen Graphen
 		ein.
@@ -99,7 +104,7 @@ public:
 	/**
 		\brief fährt die Simlation herunter
 
-		Diese Methode löscht jedes Zykltron und ruft damit den Destructor desselbigen auf.
+		Diese Methode löscht jedes Zykltron und ruft damit den Destruktor desselbigen auf.
 	*/
 	void shut_down();
 
@@ -110,8 +115,8 @@ public:
 		Stingstream to_log und in der Methode shut_down werden die Daten in
 		die Datei log.html geschrieben.
 
-		\param names Namen der Datensätze häufig Namen der Graphen; es sind
-				immer 6 Namen
+		\param names Namen der Datensätze; häufig Namen der Graphen; es sind
+				immer 7 Namen
 		\param data Datensatz
 	*/
 	void writeToLog(std::vector <std::string> names, ZyklotronParts::ZykSet data);

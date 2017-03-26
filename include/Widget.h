@@ -14,11 +14,11 @@ namespace BLL {
 
 
 /**
-  \brief Basisklasse als Inhalt für das Window
+  \brief diese Klasse ist die Basisklasse für Widgets in dem Window
 
   Die Klasse Graph erbt von dieser Klasse. Der Sinn dieser Klasse
   besteht in potentiellen (d.h. noch nicht implementierten) 
-  Erweiterungen des Funktionsumpfangs des Windows.
+  Erweiterungen des Funktionsumfangs des Windows.
 
 */
 class Widget {
