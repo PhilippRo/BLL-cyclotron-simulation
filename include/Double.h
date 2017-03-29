@@ -13,171 +13,169 @@
 
 namespace BLL {
 
-
 /**
     \brief die Doubleklasse ist eine wissenschaftlichen Darstellung von Zahlen.
 
-    Double versucht das Genauigkeitsproblem bei Flie"skommazahlen annähernd zu lösen.
-    Dabei werden Zahlen als float * (10 ^ n) dargestellt. 
+    Double versucht das Genauigkeitsproblem bei Flie"skommazahlen annähernd zu
+   lösen.
+    Dabei werden Zahlen als float * (10 ^ n) dargestellt.
 */
-class  Double {
+class Double {
 public:
-        
-        ///der Standardkonstruktor
-	Double();
-        
-        /**
-            \brief ein Konstruktor, der einen Double mit Werten konstruiert
+  /// der Standardkonstruktor
+  Double();
 
-            \param val das f von f * (10^n)
-            \param pow das n von f * (10^n)
-        */
-	Double(double val, int pow);
+  /**
+      \brief ein Konstruktor, der einen Double mit Werten konstruiert
 
-	///der Copykonstruktor
-        Double(const Double& other);
+      \param val das f von f * (10^n)
+      \param pow das n von f * (10^n)
+  */
+  Double(double val, int pow);
 
-       /**
-            \brief erstellt Double aus String
+  /// der Copykonstruktor
+  Double(const Double &other);
 
-             Dieser Konstruktor parsed einen Double aus einem String.
+  /**
+       \brief erstellt Double aus String
 
-             Der String hat die Form "[float]e[int]"
+        Dieser Konstruktor parsed einen Double aus einem String.
 
-             Umkehrfunktion zu toString().
+        Der String hat die Form "[float]e[int]"
 
-             \param n der zu parsende String
+        Umkehrfunktion zu toString().
 
-        */
-	Double(std::string n);
+        \param n der zu parsende String
 
-        /**
-            \brief die Lichtgeschwindigkeit (ca. 3 * 10^8)
+   */
+  Double(std::string n);
 
-            Diese Methode gibt die ungefähre Lichtgeschwindigkeit im Vakuum zurück.
+  /**
+      \brief die Lichtgeschwindigkeit (ca. 3 * 10^8)
 
-            \return Double{29.9792458, 7}
+      Diese Methode gibt die ungefähre Lichtgeschwindigkeit im Vakuum zurück.
 
-       */
-	static Double c(){
-		Double d;
-		d.value = 29.9792458;
-		d.power = 7;
-		return d;
-	}
+      \return Double{29.9792458, 7}
 
-        /**
-            \brief gibt Pi (ca 3.1415...) zurück
+ */
+  static Double c() {
+    Double d;
+    d.value = 29.9792458;
+    d.power = 7;
+    return d;
+  }
 
-            \return 3.14159265359 
-        */
-	static Double pi(){
-		return Double{3.14159265359, 0};
-	}
+  /**
+      \brief gibt Pi (ca 3.1415...) zurück
 
-        /** 
-            \brief formt BLL::Double nach double um
-           
-            Diese Methode formt die wissenschaftliche Darstellung in die Standard-Darstellung um.
-            Dabei kann es zu Genauigkeitsproblemen aufgrund der Schwächen eines double
-            kommen.
+      \return 3.14159265359
+  */
+  static Double pi() { return Double{3.14159265359, 0}; }
 
-            \return Wert als double
-        */    
-	double toStd() const;
+  /**
+      \brief formt BLL::Double nach double um
 
-        /**
-           \brief multipliziert zwei Zahlen vom Typ Double
+      Diese Methode formt die wissenschaftliche Darstellung in die
+     Standard-Darstellung um.
+      Dabei kann es zu Genauigkeitsproblemen aufgrund der Schwächen eines double
+      kommen.
 
-           \return Produkt zweier Zahlen vom Typ Double
-        */	
-        Double operator*(const Double& d);
-	
-        /**
-           \brief dividiert zwei Zahlen vom Typ Double
+      \return Wert als double
+  */
+  double toStd() const;
 
-           \return Quotient zweier Zahlen vom Typ Double
-        */
-        Double operator/(const Double& d);
+  /**
+     \brief multipliziert zwei Zahlen vom Typ Double
 
-        /**
-           \brief addiert zwei Zahlen vom Typ Double
+     \return Produkt zweier Zahlen vom Typ Double
+  */
+  Double operator*(const Double &d);
 
-           \return Summe zweier Zahlen vom Typ Double
-        */
-	Double operator+(const Double& d);
+  /**
+     \brief dividiert zwei Zahlen vom Typ Double
 
-        /**
-           \brief subtrahiert zwei Zahlen vom Typ Double
+     \return Quotient zweier Zahlen vom Typ Double
+  */
+  Double operator/(const Double &d);
 
-           \return Differenz zweier Zahlen vom Typ Double
-        */
-	Double operator-(const Double& d) ;
+  /**
+     \brief addiert zwei Zahlen vom Typ Double
 
-         /**
-           \brief Modulo-operator für zwei Zahlen vom Typ Double
+     \return Summe zweier Zahlen vom Typ Double
+  */
+  Double operator+(const Double &d);
 
-	   Diese Methode zieht d so lange von this ab, bis this kleiner
-           als d ist und gibt den Rest zurück.
+  /**
+     \brief subtrahiert zwei Zahlen vom Typ Double
 
-           \return Rest eines Doubles geteilt d
-        */
-	Double operator%(const Double& d);
+     \return Differenz zweier Zahlen vom Typ Double
+  */
+  Double operator-(const Double &d);
 
-	/**
-             \brief zieht die Wurzel aus einem Double
+  /**
+    \brief Modulo-operator für zwei Zahlen vom Typ Double
 
-             \return Wurzel aus einem Double
-        */
-	Double sqrt();
+    Diese Methode zieht d so lange von this ab, bis this kleiner
+    als d ist und gibt den Rest zurück.
 
-        /**
-            \brief vergleicht zwei Zahlen von Typ Double
+    \return Rest eines Doubles geteilt d
+ */
+  Double operator%(const Double &d);
 
-            \return ob a kleiner ist als d ( a < d )
-        */
-	bool operator<(const Double& d);
-	
-        /**
-            \brief prüft zwei Doubles auf Gleichheit
+  /**
+       \brief zieht die Wurzel aus einem Double
 
-            \return ob 2 Doubles sich entsprechen
-        */
-        bool operator==(Double& d);
+       \return Wurzel aus einem Double
+  */
+  Double sqrt();
 
-        /**
-            \brief prüft zwei Doubles auf Gleichheit
+  /**
+      \brief vergleicht zwei Zahlen von Typ Double
 
-            \return ob 2 Doubles sich entsprechen
-        */
-        bool operator==(Double d);
+      \return ob a kleiner ist als d ( a < d )
+  */
+  bool operator<(const Double &d);
 
+  /**
+      \brief prüft zwei Doubles auf Gleichheit
 
-        /**
-            \brief stellt Double als string dar
- 
-            Diese Methode stellt ein Double als String in der Form "[float]e[int]" dar.
+      \return ob 2 Doubles sich entsprechen
+  */
+  bool operator==(Double &d);
 
-            Diese Methode ist die Umkehrfunktion zum Double(std::string n).
+  /**
+      \brief prüft zwei Doubles auf Gleichheit
 
-            \return Double in Stringdarstellung
-        */
-	std::string toString() const;
+      \return ob 2 Doubles sich entsprechen
+  */
+  bool operator==(Double d);
 
-        /**
-            \brief passt die Darstellung der Zahlen an
+  /**
+      \brief stellt Double als string dar
 
-            Wenn in der Form f * 10^n f in einen Bereich kommt, in dem das
-            Floatingpointprecisionproblem relevant wird, kann mit dieser Methode f 
-            durch Anpassen des Exponenten in eine günstigere Form gebracht werden.
-        */
-	Double adapt();
+      Diese Methode stellt ein Double als String in der Form "[float]e[int]"
+     dar.
 
-	///der Wert der Zahl
-	double value;
+      Diese Methode ist die Umkehrfunktion zum Double(std::string n).
 
-	///der Exponent über der Zehn
-	int    power = 1;
+      \return Double in Stringdarstellung
+  */
+  std::string toString() const;
+
+  /**
+      \brief passt die Darstellung der Zahlen an
+
+      Wenn in der Form f * 10^n f in einen Bereich kommt, in dem das
+      Floatingpointprecisionproblem relevant wird, kann mit dieser Methode f
+      durch Anpassen des Exponenten in eine günstigere Form gebracht werden.
+  */
+  Double adapt();
+
+  /// der Wert der Zahl
+  double value;
+
+  /// der Exponent über der Zehn
+  int power = 1;
 };
 
 } /* namespace BLL */

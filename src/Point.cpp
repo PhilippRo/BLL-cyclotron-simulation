@@ -9,27 +9,23 @@
 
 namespace BLL {
 
-Point::Point() {
+Point::Point() {}
+
+Point::Point(Double paraX, Double paraY) {
+  x = paraX;
+  y = paraY;
 }
 
-Point::Point(Double paraX, Double paraY){
-	x = paraX;
-	y = paraY;
+Point::Point(const Point &o) : x(o.x), y(o.y) {}
+
+Point::~Point() {}
+
+Double Point::getX() const {
+  return x; // Value von x KEINE referenz
 }
 
-Point::Point(const Point& o) : x(o.x)
-                        , y(o.y) {
-}
-
-Point::~Point(){
-}
-
-Double Point::getX() const{
-	return x; //Value von x KEINE referenz
-}
-
-Double Point::getY() const{
-	return y; //Value von x KEINE referenz
+Double Point::getY() const {
+  return y; // Value von x KEINE referenz
 }
 
 } /* namespace BLL */

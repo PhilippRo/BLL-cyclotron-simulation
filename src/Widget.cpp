@@ -9,15 +9,8 @@
 
 namespace BLL {
 
-Widget::Widget(): x()
-                ,y()
-                ,width()
-                ,height()
-                , xOffset()
-                , yOffset() {
-}
+Widget::Widget() : x(), y(), width(), height(), xOffset(), yOffset() {}
 
-Widget::~Widget() {
-}
+Widget::~Widget() {}
 
 } /* namespace BLL */

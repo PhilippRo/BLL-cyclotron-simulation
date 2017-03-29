@@ -1,127 +1,124 @@
-#ifndef ZYKLOTRON_CONTROLLER_H 
+#ifndef ZYKLOTRON_CONTROLLER_H
 #define ZYKLOTRON_CONTROLLER_H
 
-#include <Zyklotron.h>
-#include <Window.h>
 #include <Graph.h>
 #include <StdGraphController.h>
+#include <Window.h>
+#include <Zyklotron.h>
 
-#include <vector>
-#include <string>
 #include <sstream>
+#include <string>
+#include <vector>
 
-
-namespace BLL{
-
+namespace BLL {
 
 /**
-	\brief verwaltet die simulierten Zyklotrone
+        \brief verwaltet die simulierten Zyklotrone
 
-	Der ZyklotronController verwaltet, started und beendet die Zyklotrone. Er ist
-	ein Singletonobjekt.
+        Der ZyklotronController verwaltet, started und beendet die Zyklotrone.
+   Er ist
+        ein Singletonobjekt.
 
 */
-class ZyklotronController{
+class ZyklotronController {
 protected:
+  /// die verwalteten Zyklotrone
+  std::vector<Zyklotron *> zyks;
 
-	///die verwalteten Zyklotrone
-	std::vector<Zyklotron*> zyks;
-	
-	/**
-		\brief der Standardkonstruktor
+  /**
+          \brief der Standardkonstruktor
 
-		Er ist protected, da es ein Singleton ist.
-	*/
-	ZyklotronController();
+          Er ist protected, da es ein Singleton ist.
+  */
+  ZyklotronController();
 
-	~ZyklotronController();
-	
+  ~ZyklotronController();
 
-	/**
-		speichert die Namen der Graphen für ein Zyklotron
-		der n-te vector enthält die Graphnamen für das n-te Zyklotron
-        */
-	std::vector<std::vector<std::string>> names;
+  /**
+          speichert die Namen der Graphen für ein Zyklotron
+          der n-te vector enthält die Graphnamen für das n-te Zyklotron
+  */
+  std::vector<std::vector<std::string>> names;
 
-	///in eine HTML-Datei zu schreibende Daten
-	///(siehe writeToLog)
-	std::stringstream to_log;
+  /// in eine HTML-Datei zu schreibende Daten
+  ///(siehe writeToLog)
+  std::stringstream to_log;
 
 public:
+  /// eine Singletontypische Methode
+  static ZyklotronController &instance() {
+    static ZyklotronController staticThis;
+    return staticThis;
+  }
 
-	///eine Singletontypische Methode
-	static ZyklotronController& instance(){
-		static ZyklotronController staticThis;
-		return staticThis;
-	}
+  /**
+          \brief fügt ein Zyklotron zu dem ZyklotronController hinzu
 
+          Das neue Zyklotron wird an zyks hinzugefügt und die Graphnamen werden
+          an names angehängt.
 
-	/**
-		\brief fügt ein Zyklotron zu dem ZyklotronController hinzu
+          \param strs Namen der Graphen des Zyklotrons
+  */
+  void addZyklotron(std::vector<std::string> strs);
 
-		Das neue Zyklotron wird an zyks hinzugefügt und die Graphnamen werden
-		an names angehängt.
+  /**
+          \brief ein Getter für ein Zyklotron
 
-		\param strs Namen der Graphen des Zyklotrons
-	*/
-	void addZyklotron(std::vector<std::string> strs);
+          Der Getter gibt das Zyklotron an der index-ten Stelle
+          im vector zyks zurück.
 
-	/**
-		\brief ein Getter für ein Zyklotron
+          \param index die nummer der Zyklotrons
 
-                Der Getter gibt das Zyklotron an der index-ten Stelle
-                im vector zyks zurück.
+          \return eine Referenz auf das Zyklotron an der index-ten Stelle in
+     zyks
+  */
+  Zyklotron &getZyklotron(int index);
 
-		\param index die nummer der Zyklotrons
+  /**
+          \brief fährt alle Zyklotrone hoch
 
-		\return eine Referenz auf das Zyklotron an der index-ten Stelle in zyks
-	*/
-	Zyklotron& getZyklotron(int index);
+          Die Simulation wird mit in dieser Methode gestartet. Das Window muss
+          eingerichtet sein, das heißt Window::instance().create() muss
+          aufgerufen worden sein, sowie Zyklotron::instance().insertGraphs().
+  */
+  void run();
 
-	/**
-		\brief fährt alle Zyklotrone hoch
+  /**
+          \brief erstellt die Graphen für die Zyklotrone
 
-		Die Simulation wird mit in dieser Methode gestartet. Das Window muss 
-		eingerichtet sein, das heißt Window::instance().create() muss
-		aufgerufen worden sein, sowie Zyklotron::instance().insertGraphs().
-	*/
-	void run();
+          Diese Methode fügt in Window für jedes Zyklotron die entsprechen
+     Graphen
+          ein.
 
-	/**
-		\brief erstellt die Graphen für die Zyklotrone
+          \param order 	legt die Reihenfolge der Graphen fest. Wenn es true ist,
+                          werden zuerst alle ersten Graphen eines jeden
+     Zyklotrons
+                          eingesetzt, sonst werden alle Graphen des ersten
+                          Zyklotrons im Window eingerichtet.
 
-		Diese Methode fügt in Window für jedes Zyklotron die entsprechen Graphen
-		ein.
+  */
+  void insertGraphs(bool order);
 
-		\param order 	legt die Reihenfolge der Graphen fest. Wenn es true ist,
-				werden zuerst alle ersten Graphen eines jeden Zyklotrons
-				eingesetzt, sonst werden alle Graphen des ersten 
-				Zyklotrons im Window eingerichtet.
+  /**
+          \brief fährt die Simlation herunter
 
-	*/
-	void insertGraphs(bool order);
+          Diese Methode löscht jedes Zykltron und ruft damit den Destruktor
+     desselbigen auf.
+  */
+  void shut_down();
 
-	/**
-		\brief fährt die Simlation herunter
+  /**
+          \brief merkt Daten vor, um sie in einer HTML-Datei zu speichern
 
-		Diese Methode löscht jedes Zykltron und ruft damit den Destruktor desselbigen auf.
-	*/
-	void shut_down();
+          Diese Methode Methode schreibt zu protokollierende Daten in den
+          Stingstream to_log und in der Methode shut_down werden die Daten in
+          die Datei log.html geschrieben.
 
-	/**
-		\brief merkt Daten vor, um sie in einer HTML-Datei zu speichern
-
-		Diese Methode Methode schreibt zu protokollierende Daten in den
-		Stingstream to_log und in der Methode shut_down werden die Daten in
-		die Datei log.html geschrieben.
-
-		\param names Namen der Datensätze; häufig Namen der Graphen; es sind
-				immer 7 Namen
-		\param data Datensatz
-	*/
-	void writeToLog(std::vector <std::string> names, ZyklotronParts::ZykSet data);
-
+          \param names Namen der Datensätze; häufig Namen der Graphen; es sind
+                          immer 7 Namen
+          \param data Datensatz
+  */
+  void writeToLog(std::vector<std::string> names, ZyklotronParts::ZykSet data);
 };
-
 }
 #endif

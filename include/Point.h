@@ -12,48 +12,46 @@
 
 namespace BLL {
 
-/** 
+/**
     \brief repräsentiert einen Punkt im Graphen
 */
 class Point {
 public:
-        ///der Standardkonstruktor
-	Point();
-        /**
-          \brief ein Konstruktor, der Point aus 2 Doubles erstellt
+  /// der Standardkonstruktor
+  Point();
+  /**
+    \brief ein Konstruktor, der Point aus 2 Doubles erstellt
 
-          \param paraX X-Wert des Punktes
-          \param paraY Y-Wert des Punktes
-        */
-	Point(Double paraX, Double paraY);
+    \param paraX X-Wert des Punktes
+    \param paraY Y-Wert des Punktes
+  */
+  Point(Double paraX, Double paraY);
 
-        ///Copykonstruktor
-        Point(const Point& o);
-  
-	virtual ~Point();
+  /// Copykonstruktor
+  Point(const Point &o);
 
+  virtual ~Point();
 
-        /**
-          \brief ein Getter für die X-Wert
+  /**
+    \brief ein Getter für die X-Wert
 
-          \return der X-Wert des Punktes
-        */
-	Double getX() const;
-	
-        /**
-          \brief ein Getter für die Y-Wert
+    \return der X-Wert des Punktes
+  */
+  Double getX() const;
 
-          \return der Y-Wert des Punktes
-        */
-        Double getY() const;
+  /**
+    \brief ein Getter für die Y-Wert
+
+    \return der Y-Wert des Punktes
+  */
+  Double getY() const;
 
 protected:
+  /// der X-Wert
+  Double x;
 
-	/// der X-Wert
-	Double x;
-
-	/// der Y-Wert
-	Double y;
+  /// der Y-Wert
+  Double y;
 };
 
 } /* namespace BLL */
