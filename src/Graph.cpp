@@ -28,6 +28,7 @@ BLL::Graph::Graph()
 	this->width = 0;
 	this->height = 0;
 	this->xOffset = 0;
+	this->yOffset = 0;
         this->gCont = 0;
 	this->initGraphController<BLL::StdGraphController>();
 }
@@ -39,14 +40,12 @@ BLL::Graph::Graph(const Graph& other){
 	this->width = other.width;
 	this->height = other.height;
 	this->xOffset = other.xOffset;
-	this->yOffset = other.yOffset;
- 
-        this->initGraphController<BLL::StdGraphController>();
+	this->yOffset = other.yOffset; 
+	this->initGraphController<BLL::StdGraphController>();
 }
 
 
 BLL::Graph::~Graph() {
-	// TODO Auto-generated destructor stub
 }
 
 void BLL::Graph::operator<<(BLL::Point p){
@@ -66,7 +65,7 @@ void BLL::Graph::operator<<(BLL::Point p){
 void BLL::Graph::render(){
 	boost::mutex::scoped_lock lock(graphMtx);
 
-	//läd, falls nötig, die Schriftart	
+	//lädt, falls nötig, die Schriftart	
 	if (!isFontSetup){
 		font.loadFromFile("font.ttf");
 		isFontSetup = true;

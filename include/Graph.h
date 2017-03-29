@@ -66,7 +66,7 @@ public:
         */
 	template <class T>
 	void initGraphController(){
-                if(gCont != NULL){
+                if(isStdGraphSetUp){
                     delete gCont;
                 }
 		gCont = dynamic_cast<StdGraphController*>(new T());

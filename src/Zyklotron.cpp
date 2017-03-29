@@ -16,7 +16,17 @@
 namespace BLL {
 
 namespace ZyklotronParts{
-   ZykSet::ZykSet(){}
+   ZykSet::ZykSet(): time()
+                                   , v()
+                                   , s()
+                                   , ke()
+                                   , me()
+                                   , re()
+                                   , r()
+                                   , roundtime()
+                                   , timeInCondensator(){
+   }
+
    ZykSet::ZykSet(const ZykSet& o) : time(o.time)
                                    , v(o.v)
                                    , s(o.s)
@@ -53,15 +63,20 @@ void Zyklotron::shutdown(){
     running = false;
 
     chan->deactivate();
-    
-    calcThread->join();
+
+    if(calcThread->joinable()){    
+        calcThread->join();
+    }
 
     try{
         //may be probem if thisThread already exited
         thisThread->interrupt();
     }catch(...){
     }
-    thisThread->join();
+
+    if(thisThread->joinable()){
+        thisThread->join();
+    }
 }
 
 void Zyklotron::configure(Double paraQ, Double paraU, Double paraD, Double paraV0, 
@@ -85,6 +100,7 @@ void Zyklotron::configure(Double paraQ, Double paraU, Double paraD, Double paraV
 
 void Zyklotron::run(){
 	if(!configured) throw "Zyklotron was not configured [Zyklotron.cpp run]";
+	running = true;
 	calcThread = new boost::thread(boost::bind(&BLL::Zyklotron::calc, this));
 	thisThread = new boost::thread([&](){
 		sf::Clock cl;
@@ -94,7 +110,7 @@ void Zyklotron::run(){
 
 			ZyklotronParts::ZykSet res = chan->read();
 			int i = 0;
-			while((double)cl.getElapsedTime().asSeconds()*timeScale<res.time.toStd() && running)
+			while((double)cl.getElapsedTime().asSeconds()*timeScale < res.time.toStd() && running)
 			{
 				i++;
 			}
@@ -158,7 +174,6 @@ void Zyklotron::calc(){
 			}else{
 				res.v = (timePosAccel- timeNegAccel)*a + std::move(it.v);
 				auto& v = res.v;
-				//Keine Massendifferenz
 				res.me = m0;
 				res.ke = std::move(m0 * v * v * Double (0.5,0));
 				res.re = std::move(res.ke);
@@ -166,9 +181,6 @@ void Zyklotron::calc(){
 			res.r = std::move((res.me  * res.v)/(q * b));
 			auto r0 = std::move((m0 * res.v)/(q * b));
 			
-			// Falsch
-			// gesucht ist eine Halbe Umrundungszeit
-			// U/2*v = pi * r / v
 			res.roundtime = std::move((res.r)/res.v);
 
 			res.timeInCondensator = std::move(timePosAccel- timeNegAccel);
@@ -189,7 +201,6 @@ void Zyklotron::calc(){
 	}
 
 void Zyklotron::setGraphNames(std::vector <std::string> paraNames){
-	//check the correct name list length
 	if(paraNames.size() > 5){
 		names = paraNames;	
 	}

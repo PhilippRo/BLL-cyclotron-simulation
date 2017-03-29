@@ -40,7 +40,7 @@ void Window::render(){
 }
 
 void Window::create(){
-	win = new sf::RenderWindow(sf::VideoMode::getFullscreenModes().at(0), "BLL");//, sf::Style::Fullscreen);
+	win = new sf::RenderWindow(sf::VideoMode::getFullscreenModes().at(0), "BLL", sf::Style::Fullscreen);
 
 	int y = sf::VideoMode::getDesktopMode().height;
 	int x = sf::VideoMode::getDesktopMode().width;

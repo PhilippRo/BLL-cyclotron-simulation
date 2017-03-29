@@ -17,6 +17,12 @@ StdGraphController::StdGraphController() {
 	pointsFiltered = 1;
 }
 
+StdGraphController::StdGraphController(const StdGraphController& other){
+	points = new std::vector <Point>(*other.points);
+	pointsToFilter = other.pointsToFilter;
+	pointsFiltered = other.pointsFiltered;
+}
+
 StdGraphController::~StdGraphController(){ 
         delete points;
 }

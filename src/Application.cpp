@@ -119,7 +119,7 @@ void Application::operator()(int argc, char** argv){
 	Window::instance().create();
 	ZyklotronController::instance().run();
 	Window::instance().mainloop();
-
+	
 	ZyklotronController::instance().shut_down();
 }
 

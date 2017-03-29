@@ -59,6 +59,9 @@ public:
         ///Standardkonstruktor
 	StdGraphController();
 
+	///Copykonstruktor
+	StdGraphController(const StdGraphController& other);
+
         /**
             \brief setzt den internen Punktecontainer
 

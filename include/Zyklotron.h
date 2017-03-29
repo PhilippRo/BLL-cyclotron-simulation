@@ -11,7 +11,9 @@
 
 #include <Point.h>
 #include <Channel.h>
+
 #include <boost/thread.hpp>
+#include <boost/atomic.hpp>
 
 #include <vector>
 #include <string>

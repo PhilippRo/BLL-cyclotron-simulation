@@ -31,6 +31,7 @@ Double::Double(std::string n){
 	for(i=i; i < n.size(); i++){
 		p.push_back(n[i]);
 	}
+
 	value = std::stod(v);
 	power = std::stod(p);
 }
